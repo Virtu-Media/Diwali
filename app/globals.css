@@ -613,7 +613,7 @@ body::-webkit-scrollbar,
   background: rgba(255, 247, 234, 0.9);
 }
 
-.foot__times {
+.foot__and {
   background: var(--gold);
   color: #3a1a06;
   width: 18px;

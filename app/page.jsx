@@ -41,20 +41,20 @@ export default function Home() {
           >
             <img
               className="foot__favicon"
-              src="https://snowcempaints.com/favicon.ico"
+              src="https://www.google.com/s2/favicons?domain=snowcempaints.com&sz=64"
               alt=""
               width="20"
               height="20"
             />
             <span>Snowcem</span>
           </a>
-          <span className="foot__times" aria-hidden="true">
-            ×
+          <span className="foot__and" aria-hidden="true">
+            &
           </span>
           <a className="foot__partner" href="https://virtumedia.in" target="_blank" rel="noreferrer">
             <img
               className="foot__favicon"
-              src="https://virtumedia.in/favicon.ico"
+              src="https://www.google.com/s2/favicons?domain=virtumedia.in&sz=64"
               alt=""
               width="20"
               height="20"
