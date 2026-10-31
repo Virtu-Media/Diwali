@@ -1,35 +1,41 @@
 import { useEffect, useRef, useState } from 'react'
+import { FIELDS } from './fields.js'
 
 const MAX_BYTES = 8 * 1024 * 1024
 
-const EMPTY = {
-  name: '',
-  email: '',
-  phone: '',
-  city: '',
-  state: '',
-  zip: '',
-  wish: '',
+const EMPTY = { name: '', email: '', phone: '', city: '', state: '', zip: '', wish: '' }
+
+const byKey = Object.fromEntries(FIELDS.map((f) => [f.key, f]))
+
+function toDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(String(reader.result))
+    reader.onerror = () => reject(new Error('read-failed'))
+    reader.readAsDataURL(file)
+  })
 }
 
-function validate(v) {
-  if (!v.name.trim()) return 'Add your name so we know who lit this.'
-  if (!v.email.trim()) return 'Add an email so we can send the wish back to you.'
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) return 'That email looks off.'
-  if (v.phone.trim() && !/^[+\d][\d\s-]{6,18}$/.test(v.phone.trim()))
-    return 'Use digits, spaces or dashes for the phone number.'
-  if (v.zip.trim() && !/^[A-Za-z0-9][A-Za-z0-9\s-]{2,9}$/.test(v.zip.trim()))
-    return 'That zip code looks off.'
-  return ''
+function failureFor(status, body) {
+  if (body?.error === 'not-configured') {
+    return `Storage is not set up on the server yet — missing ${(body.missing || []).join(', ')}.`
+  }
+  if (body?.error === 'too-many') {
+    return body.message || 'Too many wishes from here. Try again in a few minutes.'
+  }
+  if (status === 500) return 'The server could not save this. Please try again.'
+  return body?.message || 'Something went wrong. Please try again.'
 }
 
 export default function WishForm() {
   const [values, setValues] = useState(EMPTY)
+  const [errors, setErrors] = useState({})
+  const [failure, setFailure] = useState('')
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState('')
-  const [error, setError] = useState('')
-  const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [dragging, setDragging] = useState(false)
+  const [sent, setSent] = useState(null)
   const inputRef = useRef(null)
 
   useEffect(() => {
@@ -44,34 +50,72 @@ export default function WishForm() {
 
   const set = (key) => (e) => {
     setValues((v) => ({ ...v, [key]: e.target.value }))
-    if (error) setError('')
+    setErrors((prev) => (prev[key] || failure ? { ...prev, [key]: undefined } : prev))
+    if (failure) setFailure('')
   }
 
   const pick = (next) => {
     if (!next) return
     if (!next.type.startsWith('image/')) {
-      setError('That file is not an image.')
+      setErrors({ photo: 'That file is not an image.' })
       return
     }
     if (next.size > MAX_BYTES) {
-      setError('Please keep the photo under 8 MB.')
+      setErrors({ photo: 'Please keep the photo under 8 MB.' })
       return
     }
-    setError('')
+    setErrors((prev) => ({ ...prev, photo: undefined }))
     setFile(next)
   }
 
   const clear = () => {
     setFile(null)
-    setError('')
+    setErrors((prev) => ({ ...prev, photo: undefined }))
     if (inputRef.current) inputRef.current.value = ''
   }
 
-  const place = [values.city.trim(), values.state.trim(), values.zip.trim()]
-    .filter(Boolean)
-    .join(', ')
+  const submit = async (e) => {
+    e.preventDefault()
+    if (submitting) return
+
+    const missing = {}
+    for (const f of FIELDS) if (!values[f.key].trim()) missing[f.key] = `${f.label} is required.`
+    if (!file) missing.photo = 'Please add a photo — every wish needs one.'
+    if (Object.keys(missing).length) {
+      setErrors(missing)
+      return
+    }
+
+    setSubmitting(true)
+    setErrors({})
+    setFailure('')
+
+    try {
+      const photo = await toDataUrl(file)
+      const res = await fetch('/api/wishes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, photo }),
+      })
+      const body = await res.json().catch(() => null)
+
+      if (!res.ok) {
+        if (res.status === 422 && body?.fields) setErrors(body.fields)
+        else setFailure(failureFor(res.status, body))
+        return
+      }
+      setSent({ id: body.id, name: values.name.trim(), values })
+    } catch {
+      setFailure('Could not reach the server. Check that the API is running and try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   if (sent) {
+    const place = [sent.values.city, sent.values.state, sent.values.zip]
+      .map((s) => s.trim())
+      .join(', ')
     return (
       <section className="card card--done">
         <div className="done__mark" aria-hidden="true">
@@ -81,16 +125,16 @@ export default function WishForm() {
         <p className="done__body">
           {preview ? <img className="done__photo" src={preview} alt="" /> : null}
           <span>
-            Thanks {values.name.trim()}
-            {place ? `, from ${place}` : ''} — {values.wish.trim() || 'a quiet wish for the year'} —
+            Thanks {sent.name}, from {place} — {sent.values.wish.trim()} —
             kept here for anyone who passes by tonight.
           </span>
         </p>
+        <p className="done__ref">Wish #{sent.id} · photo saved</p>
         <button
           type="button"
           className="link"
           onClick={() => {
-            setSent(false)
+            setSent(null)
             setValues(EMPTY)
             clear()
           }}
@@ -101,109 +145,60 @@ export default function WishForm() {
     )
   }
 
+  const input = (key) => {
+    const f = byKey[key]
+    return (
+      <Field key={key} field={f} error={errors[key]}>
+        <input
+          className="field__input"
+          type={f.type}
+          value={values[key]}
+          maxLength={f.max}
+          placeholder={f.placeholder}
+          autoComplete={f.autoComplete}
+          onChange={set(key)}
+        />
+      </Field>
+    )
+  }
+
   return (
     <section className="card" aria-labelledby="wish-heading">
       <h2 className="card__title" id="wish-heading">
         Leave a wish
       </h2>
       <p className="card__sub">
-        Two things are needed — your name and an email. The rest is so we know where this light came
-        from.
+        Every field is needed — your name and email, where this light came from, your wish, and a
+        photo to go with it.
       </p>
 
-      <form
-        className="form"
-        onSubmit={(e) => {
-          e.preventDefault()
-          const message = validate(values)
-          if (message) {
-            setError(message)
-            return
-          }
-          setSent(true)
-        }}
-      >
-        <Field label="Name">
-          <input
-            className="field__input"
-            type="text"
-            value={values.name}
-            maxLength={40}
-            placeholder="Your name"
-            onChange={set('name')}
-          />
-        </Field>
+      <form className="form" onSubmit={submit}>
+        <div className="grid grid--1">{input('name')}</div>
 
         <div className="grid grid--2">
-          <Field label="Email">
-            <input
-              className="field__input"
-              type="email"
-              value={values.email}
-              placeholder="you@example.com"
-              onChange={set('email')}
-            />
-          </Field>
-          <Field label="Phone" optional>
-            <input
-              className="field__input"
-              type="tel"
-              value={values.phone}
-              maxLength={18}
-              placeholder="+91 90000 00000"
-              onChange={set('phone')}
-            />
-          </Field>
+          {input('email')}
+          {input('phone')}
         </div>
 
         <div className="grid grid--3">
-          <Field label="City" optional>
-            <input
-              className="field__input"
-              type="text"
-              value={values.city}
-              maxLength={40}
-              placeholder="City"
-              onChange={set('city')}
-            />
-          </Field>
-          <Field label="State" optional>
-            <input
-              className="field__input"
-              type="text"
-              value={values.state}
-              maxLength={40}
-              placeholder="State"
-              onChange={set('state')}
-            />
-          </Field>
-          <Field label="Zip" optional>
-            <input
-              className="field__input"
-              type="text"
-              value={values.zip}
-              maxLength={10}
-              placeholder="560001"
-              onChange={set('zip')}
-            />
-          </Field>
+          {input('city')}
+          {input('state')}
+          {input('zip')}
         </div>
 
-        <Field label="Wish" optional>
+        <Field field={byKey.wish} error={errors.wish}>
           <textarea
             className="field__input field__input--area"
             value={values.wish}
             rows={3}
-            maxLength={240}
-            placeholder="Health, light, and a good year ahead."
+            maxLength={byKey.wish.max}
+            placeholder={byKey.wish.placeholder}
             onChange={set('wish')}
           />
         </Field>
 
         <div className="field">
-          <span className="field__label">
-            Photo<em className="field__optional">optional</em>
-          </span>
+          <span className="field__label">Photo</span>
           <div
             className={`drop${dragging ? ' drop--over' : ''}${file ? ' drop--filled' : ''}`}
             onDragOver={(e) => {
@@ -246,16 +241,12 @@ export default function WishForm() {
                   />
                 </svg>
                 <p className="drop__text">
-                  <button
-                    type="button"
-                    className="link"
-                    onClick={() => inputRef.current?.click()}
-                  >
+                  <button type="button" className="link" onClick={() => inputRef.current?.click()}>
                     Choose a photo
                   </button>
                   <span> or drop one here</span>
                 </p>
-                <p className="drop__hint">JPG, PNG or HEIC — up to 8 MB</p>
+                <p className="drop__hint">JPG, PNG, WebP or HEIC — up to 8 MB</p>
               </>
             )}
             <input
@@ -266,31 +257,30 @@ export default function WishForm() {
               onChange={(e) => pick(e.target.files?.[0])}
             />
           </div>
+          {errors.photo ? <p className="field__error">{errors.photo}</p> : null}
         </div>
 
-        {error ? (
+        {failure ? (
           <p className="form__error" role="alert">
-            {error}
+            {failure}
           </p>
         ) : null}
 
-        <button type="submit" className="submit">
-          Light it
-          <span className="submit__spark" aria-hidden="true" />
+        <button type="submit" className="submit" disabled={submitting}>
+          {submitting ? 'Lighting…' : 'Light it'}
+          {submitting ? null : <span className="submit__spark" aria-hidden="true" />}
         </button>
       </form>
     </section>
   )
 }
 
-function Field({ label, optional, children }) {
+function Field({ field, error, children }) {
   return (
     <label className="field">
-      <span className="field__label">
-        {label}
-        {optional ? <em className="field__optional">optional</em> : null}
-      </span>
+      <span className="field__label">{field.label}</span>
       {children}
+      {error ? <span className="field__error">{error}</span> : null}
     </label>
   )
 }
