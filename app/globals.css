@@ -614,15 +614,7 @@ body::-webkit-scrollbar,
 }
 
 .foot__and {
-  background: var(--gold);
-  color: #3a1a06;
-  width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  font-size: 0.9rem;
-  line-height: 1;
+  color: rgba(255, 247, 234, 0.42);
 }
 
 /* ---------- diyas (one in each bottom corner) ---------- */
