@@ -1,6 +1,7 @@
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
+import { NextResponse } from 'next/server'
 import { adminReady, missingAdmin } from '@/lib/config.js'
 import { credentialsOk, withSession } from '@/lib/session.js'
 import { validateAdmin } from '@/lib/validate.js'
@@ -24,5 +25,5 @@ export async function POST(req) {
     return Response.json({ error: 'unauthorized' }, { status: 401 })
   }
 
-  return withSession(Response.json({ ok: true }), email)
+  return withSession(NextResponse.json({ ok: true }), email)
 }
