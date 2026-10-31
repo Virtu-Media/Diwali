@@ -2,11 +2,12 @@
 
 ## What this website is
 
-This is a Diwali/Deepavali wish landing website. Visitors open `/`, enter
-their name, email, phone, city, state, zip code, written wish, and one photo,
-then submit the wish. The page presents a themed festival-of-lights experience
-with a night-sky background, string lights, embers, firework loading animation,
-diya illustrations, and a thank-you state after a successful submission.
+This is a special Diwali/Deepavali “The Dream Wish Contest” entry website for
+Snowcem Paints. Visitors open `/`, enter their name, email, phone, city, state,
+zip code, dream wish, and one photo, then submit their contest entry. The page
+uses the supplied contest logo with a themed festival-of-lights experience:
+night-sky background, string lights, embers, firework loading animation, diya
+illustrations, and a thank-you state after a successful submission.
 
 The private `/admin` page is a small wish-management panel. An administrator
 can sign in, search and filter wishes, paginate through them, view uploaded
@@ -153,9 +154,10 @@ variables before publishing.
 
 ## Final conclusion
 
-Yes: this is a single Next.js full-stack web app using the App Router. It is not
-a separate frontend/backend multirepo. Its frontend is React/JSX, its backend
-is implemented by Next.js Node.js route handlers, and its persistence is
-provided by external TiDB and Cloudflare R2 services. The source follows the
-declared syntax and architecture; build and live-service validation remain the
-final checks for runtime correctness.
+Yes: This is a single Next.js full-stack web app using the App Router for the
+Snowcem Paints “The Dream Wish Contest.” It is not a separate
+frontend/backend multirepo. Its frontend is React/JSX, its backend is
+implemented by Next.js Node.js route handlers, and its persistence is provided
+by external TiDB and Cloudflare R2 services. The source follows the declared
+syntax and architecture; build and live-service validation remain the final
+checks for runtime correctness.

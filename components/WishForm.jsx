@@ -168,10 +168,10 @@ export default function WishForm() {
   return (
     <section className="card" aria-labelledby="wish-heading">
       <h2 className="card__title" id="wish-heading">
-        Leave a wish
+        Enter the contest
       </h2>
       <p className="card__sub">
-        Tell us about your celebration and add a photo to keep your diya glowing.
+        Complete every field and upload a photo of your Diwali celebration.
       </p>
 
       <form className="form" onSubmit={submit}>
@@ -273,7 +273,7 @@ export default function WishForm() {
         ) : null}
 
         <button type="submit" className="submit" disabled={submitting}>
-          {submitting ? 'Lighting…' : 'Light it'}
+          {submitting ? 'Submitting…' : 'Submit my dream wish'}
           {submitting ? null : <span className="submit__spark" aria-hidden="true" />}
         </button>
       </form>

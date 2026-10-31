@@ -17,15 +17,18 @@ export default function Home() {
 
       <main className="shell">
         <header className="hero">
-          <p className="eyebrow">Festival of lights</p>
-          <h1 className="title">
-            Let there
-            <br />
-            be light.
-          </h1>
+          <img
+            className="contest-logo"
+            src="/image.png"
+            alt="The Dream Wish Contest by Snowcem Paints"
+            width="720"
+            height="477"
+          />
+          <p className="eyebrow">A special Diwali contest</p>
+          <h1 className="title">Share your dream wish.</h1>
           <p className="lede">
-            A quiet little corner for this Deepavali. Leave a wish and a photo of your evening, and
-            a diya stays burning here for someone else to find.
+            This Diwali, tell us the wish you dream about and share a photo of your celebration.
+            Enter your dream wish below.
           </p>
         </header>
 

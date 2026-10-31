@@ -47,6 +47,8 @@ Diwali
 ├─ next.config.js               keeps mysql2 and the S3 client out of the bundle
 ├─ package-lock.json            locked dependency versions
 ├─ package.json                 three scripts: dev, build, start
+├─ public                      static browser assets
+│  └─ image.png                 Snowcem The Dream Wish Contest logo
 └─ README.md                    this tree
 
 ```

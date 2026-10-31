@@ -237,6 +237,14 @@ body::-webkit-scrollbar,
   margin-bottom: 54px;
 }
 
+.contest-logo {
+  display: block;
+  width: min(100%, 430px);
+  height: auto;
+  margin: 0 auto 26px;
+  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.28));
+}
+
 .eyebrow {
   margin: 0 0 20px;
   font-size: 0.7rem;
@@ -250,7 +258,7 @@ body::-webkit-scrollbar,
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(3.2rem, 12vw, 7rem);
+  font-size: clamp(2.8rem, 8vw, 5.2rem);
   line-height: 0.92;
   letter-spacing: -0.025em;
   color: var(--cream);
