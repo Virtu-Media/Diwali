@@ -24,8 +24,9 @@ async function json(url, options) {
   return body
 }
 
+const localSession = (signedIn) => ({ signedIn, configured: true, missing: [] })
+
 export default function AdminPanel() {
-  const [health, setHealth] = useState(null)
   const [session, setSession] = useState(null)
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState('')
@@ -49,8 +50,9 @@ export default function AdminPanel() {
   const confirmTimer = useRef(null)
 
   useEffect(() => {
-    json('/api/health').then(setHealth).catch(() => setHealth({ error: true }))
-    json('/api/admin/session').then(setSession).catch(() => setSession({ signedIn: false, configured: false }))
+    json('/api/admin/session')
+      .then(setSession)
+      .catch(() => setSession({ error: true, signedIn: false, configured: false, missing: [] }))
     return () => clearTimeout(confirmTimer.current)
   }, [])
 
@@ -74,7 +76,7 @@ export default function AdminPanel() {
       setTotal(data.total)
       setPer(data.per)
     } catch (err) {
-      if (err.status === 401) setSession({ signedIn: false, configured: true })
+      if (err.status === 401) setSession(localSession(false))
       else setListError(err.message)
     } finally {
       setListBusy(false)
@@ -95,7 +97,7 @@ export default function AdminPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       })
-      setSession({ signedIn: true, configured: true })
+      setSession(localSession(true))
       setPassword('')
     } catch (err) {
       setLoginError(
@@ -114,7 +116,7 @@ export default function AdminPanel() {
     await json('/api/admin/logout', { method: 'POST' }).catch(() => {})
     setRows([])
     setStats(null)
-    setSession({ signedIn: false, configured: true })
+    setSession(localSession(false))
   }
 
   const patch = async (id, body) => {
@@ -154,30 +156,30 @@ export default function AdminPanel() {
     confirmTimer.current = setTimeout(() => setConfirmId(null), 4000)
   }
 
-  if (!health || !session) return <div className="admin__boot">Checking the server…</div>
+  if (!session) return <div className="admin__boot">Checking the server…</div>
 
-  if (health.error) {
+  if (session.error) {
     return (
       <div className="admin">
         <div className="notice">
           <h1 className="notice__title">The server did not answer</h1>
           <p>
-            Nothing came back on <code>/api/health</code>. Run the site with <code>npm run dev</code>{' '}
-            and reload this page.
+            Nothing came back on <code>/api/admin/session</code>. Run the site with{' '}
+            <code>npm run dev</code> and reload this page.
           </p>
         </div>
       </div>
     )
   }
 
-  if (health.missing.length) {
+  if (session.missing.length) {
     return (
       <div className="admin">
         <div className="notice">
           <h1 className="notice__title">Storage is not configured yet</h1>
           <p>These settings are still empty in <code>.env</code>:</p>
           <ul className="notice__list">
-            {health.missing.map((key) => (
+            {session.missing.map((key) => (
               <li key={key}>
                 <code>{key}</code>
               </li>
@@ -261,7 +263,6 @@ export default function AdminPanel() {
           <Stat label="Pending" value={stats.pending} tone="pending" />
           <Stat label="Approved" value={stats.approved} tone="approved" />
           <Stat label="Hidden" value={stats.hidden} tone="hidden" />
-          <Stat label="With photo" value={stats.with_photo} />
         </div>
       ) : null}
 
@@ -341,7 +342,7 @@ export default function AdminPanel() {
             </span>
 
             <span className="acell acell--photo">
-              {row.photo ? (
+              {row.photoUrl ? (
                 <button
                   type="button"
                   className="thumb"

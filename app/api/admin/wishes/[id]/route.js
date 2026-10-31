@@ -8,20 +8,6 @@ import { deleteImage } from '@/lib/storage.js'
 
 const notFound = () => Response.json({ error: 'not-found' }, { status: 404 })
 
-export async function GET(req, context) {
-  const denied = requireSession(req)
-  if (denied) return denied
-
-  try {
-    const { id } = await context.params
-    const row = await db.getWish(id)
-    if (!row) return notFound()
-    return Response.json(db.serialize(row))
-  } catch (err) {
-    return fail(err)
-  }
-}
-
 export async function PATCH(req, context) {
   const denied = requireSession(req)
   if (denied) return denied

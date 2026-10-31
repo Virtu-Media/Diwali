@@ -8,18 +8,14 @@ Diwali
 │  │  ├─ admin
 │  │  │  ├─ login
 │  │  │  │  └─ route.js
-│  │  │  ├─ logout
-│  │  │  │  └─ route.js
 │  │  │  ├─ session
 │  │  │  │  └─ route.js
 │  │  │  └─ wishes
 │  │  │     ├─ export
 │  │  │     │  └─ route.js
-│  │  │     ├─ [id]
-│  │  │     │  └─ route.js
-│  │  │     └─ route.js
-│  │  ├─ health
-│  │  │  └─ route.js
+│  │  │     ├─ route.js
+│  │  │     └─ [id]
+│  │  │        └─ route.js
 │  │  └─ wishes
 │  │     └─ route.js
 │  ├─ globals.css
@@ -36,6 +32,7 @@ Diwali
 │  └─ WishForm.jsx
 ├─ hooks
 │  └─ useViewportWidth.js
+├─ jsconfig.json
 ├─ lib
 │  ├─ config.js
 │  ├─ db.js
@@ -43,9 +40,9 @@ Diwali
 │  ├─ session.js
 │  ├─ storage.js
 │  └─ validate.js
-├─ jsconfig.json
 ├─ next.config.js
 ├─ package-lock.json
-└─ package.json
+├─ package.json
+└─ README.md
 
 ```
