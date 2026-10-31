@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const STATUSES = ['pending', 'approved', 'hidden']
@@ -158,10 +160,10 @@ export default function AdminPanel() {
     return (
       <div className="admin">
         <div className="notice">
-          <h1 className="notice__title">The API is not reachable</h1>
+          <h1 className="notice__title">The server did not answer</h1>
           <p>
-            Nothing answered on <code>/api/health</code>. Start it with <code>npm run api</code>, or
-            run both together with <code>npm start</code>.
+            Nothing came back on <code>/api/health</code>. Run the site with <code>npm run dev</code>{' '}
+            and reload this page.
           </p>
         </div>
       </div>
@@ -182,7 +184,7 @@ export default function AdminPanel() {
             ))}
           </ul>
           <p>
-            Add these to <code>.env</code> and restart the API. The <code>wishes</code> table lives
+            Add these to <code>.env</code> and restart the app. The <code>wishes</code> table lives
             in your TiDB Cloud database.
           </p>
         </div>

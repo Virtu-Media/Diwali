@@ -1,3 +1,5 @@
+'use client'
+
 import useViewportWidth from '../hooks/useViewportWidth.js'
 
 const PITCH = 48

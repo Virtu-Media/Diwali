@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo } from 'react'
 import useViewportWidth from '../hooks/useViewportWidth.js'
 

@@ -1,32 +1,51 @@
 
 ```
 Diwali
-├─ api
-│  ├─ auth.js
+├─ app
+│  ├─ admin
+│  │  └─ page.jsx
+│  ├─ api
+│  │  ├─ admin
+│  │  │  ├─ login
+│  │  │  │  └─ route.js
+│  │  │  ├─ logout
+│  │  │  │  └─ route.js
+│  │  │  ├─ session
+│  │  │  │  └─ route.js
+│  │  │  └─ wishes
+│  │  │     ├─ export
+│  │  │     │  └─ route.js
+│  │  │     ├─ [id]
+│  │  │     │  └─ route.js
+│  │  │     └─ route.js
+│  │  ├─ health
+│  │  │  └─ route.js
+│  │  └─ wishes
+│  │     └─ route.js
+│  ├─ globals.css
+│  ├─ layout.jsx
+│  └─ page.jsx
+├─ components
+│  ├─ AdminPanel.jsx
+│  ├─ DiyaRow.jsx
+│  ├─ Embers.jsx
+│  ├─ fields.js
+│  ├─ FireworkLoader.jsx
+│  ├─ StringLights.jsx
+│  ├─ SvgDefs.jsx
+│  └─ WishForm.jsx
+├─ hooks
+│  └─ useViewportWidth.js
+├─ lib
 │  ├─ config.js
 │  ├─ db.js
-│  ├─ server.js
+│  ├─ http.js
+│  ├─ session.js
 │  ├─ storage.js
 │  └─ validate.js
-├─ index.html
+├─ jsconfig.json
+├─ next.config.js
 ├─ package-lock.json
-├─ package.json
-├─ src
-│  ├─ App.jsx
-│  ├─ components
-│  │  ├─ DiyaRow.jsx
-│  │  ├─ Embers.jsx
-│  │  ├─ fields.js
-│  │  ├─ FireworkLoader.jsx
-│  │  ├─ StringLights.jsx
-│  │  ├─ SvgDefs.jsx
-│  │  └─ WishForm.jsx
-│  ├─ hooks
-│  │  └─ useViewportWidth.js
-│  ├─ index.css
-│  ├─ main.jsx
-│  └─ pages
-│     └─ AdminPanel.jsx
-└─ vite.config.js
+└─ package.json
 
 ```

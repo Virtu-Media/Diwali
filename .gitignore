@@ -2,9 +2,8 @@
 node_modules/
 
 # build output
-dist/
-dist-ssr/
-.vite/
+.next/
+out/
 
 # logs
 *.log

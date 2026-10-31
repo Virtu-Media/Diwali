@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 
 const COLORS = ['#ffd27f', '#ff9a5e', '#ff7597', '#c78bff', '#fff0c4']
@@ -19,8 +21,9 @@ function shards(count, reach, seed) {
 const BURST_A = shards(24, 150, 1)
 const BURST_B = shards(16, 78, 4)
 
-export default function FireworkLoader({ onDone }) {
+export default function FireworkLoader() {
   const [leaving, setLeaving] = useState(false)
+  const [gone, setGone] = useState(false)
 
   useEffect(() => {
     document.documentElement.classList.add('is-booting')
@@ -29,14 +32,16 @@ export default function FireworkLoader({ onDone }) {
     const fade = window.setTimeout(() => setLeaving(true), hold)
     const done = window.setTimeout(() => {
       document.documentElement.classList.remove('is-booting')
-      onDone()
+      setGone(true)
     }, hold + 620)
     return () => {
       clearTimeout(fade)
       clearTimeout(done)
       document.documentElement.classList.remove('is-booting')
     }
-  }, [onDone])
+  }, [])
+
+  if (gone) return null
 
   return (
     <div className={`loader${leaving ? ' loader--out' : ''}`} aria-hidden="true">

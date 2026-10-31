@@ -1,5 +1,5 @@
 // Single source of truth for the wish form fields. Every field is required.
-// Limits match api/validate.js.
+// Limits match lib/validate.js.
 export const FIELDS = [
   {
     key: 'name',
