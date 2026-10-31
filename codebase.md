@@ -11,8 +11,7 @@ illustrations, and a thank-you state after a successful submission.
 
 The private `/admin` page is a small wish-management panel. An administrator
 can sign in, search and filter wishes, paginate through them, view uploaded
-photos, export CSV, change wish status, save an internal note, and delete a
-wish.
+photos, export CSV, change wish status, and delete a wish.
 
 ## Project classification
 
@@ -47,8 +46,7 @@ wish.
   checks, photo selection/drop handling, preview, submission, and success
   state.
 - `components/AdminPanel.jsx` manages login state, search debounce, status
-  filters, pagination, CSV export, status updates, notes, photo viewing, and
-  deletion.
+  filters, pagination, CSV export, status updates, photo viewing, and deletion.
 - `components/fields.js` is the client-side field definition and mirrors the
   server limits in `lib/validate.js`.
 - `components/DiyaRow.jsx`, `Embers.jsx`, `FireworkLoader.jsx`,
@@ -80,7 +78,7 @@ All route handlers declare `runtime = 'nodejs'` and
 | `/api/admin/logout` | POST | Clear the admin cookie. |
 | `/api/admin/wishes` | GET | Return authenticated, filtered, paginated wishes and status counts. |
 | `/api/admin/wishes/export` | GET | Return all authenticated wishes as a CSV download. |
-| `/api/admin/wishes/[id]` | PATCH | Update one wish's status and/or internal note. |
+| `/api/admin/wishes/[id]` | PATCH | Update one wish's status. |
 | `/api/admin/wishes/[id]` | DELETE | Delete one wish from TiDB and remove its R2 object. |
 
 ## Server libraries
@@ -105,7 +103,7 @@ All route handlers declare `runtime = 'nodejs'` and
 The repository does not contain a schema, migration, seed file, or `db/`
 folder. The TiDB Cloud console owns the `wishes` table. The code expects fields
 for the submitted contact/location data, wish text, image key and URL, image
-type and byte count, status, internal note, and creation time.
+type and byte count, status, and creation time.
 
 Required configuration is read from `.env` at runtime:
 

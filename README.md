@@ -18,7 +18,7 @@ Diwali
 │  │  │     │  └─ route.js      the filtered list as a CSV download
 │  │  │     ├─ route.js         paged wish list with search, filters and counts
 │  │  │     └─ [id]
-│  │  │        └─ route.js      approve, hide, note or delete one wish
+│  │  │        └─ route.js      approve, hide or delete one wish
 │  │  └─ wishes
 │  │     └─ route.js            public submit: rate limit, validate, upload, insert
 │  ├─ globals.css               one stylesheet: theme tokens, night sky, form, panel

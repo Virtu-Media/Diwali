@@ -19,12 +19,12 @@ export async function GET(req) {
     const rows = await db.exportWishes()
     const header = [
       'id', 'created_at', 'status', 'name', 'email', 'phone',
-      'city', 'state', 'zip', 'wish', 'photo_url', 'photo_bytes', 'note',
+      'city', 'state', 'zip', 'wish', 'photo_url', 'photo_bytes',
     ]
     const lines = rows.map((r) =>
       [
         r.id, r.created_at, r.status, r.name, r.email, r.phone,
-        r.city, r.state, r.zip, r.wish, r.image_url, r.image_bytes, r.note,
+        r.city, r.state, r.zip, r.wish, r.image_url, r.image_bytes,
       ].map(csvCell).join(','),
     )
 

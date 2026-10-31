@@ -434,18 +434,6 @@ export default function AdminPanel() {
                     </a>
                   </p>
                 </div>
-                <label className="adetail__note">
-                  <span className="field__label">Internal note</span>
-                  <input
-                    className="field__input"
-                    defaultValue={row.note}
-                    placeholder="Only visible here"
-                    maxLength={240}
-                    onBlur={(e) => {
-                      if (e.target.value !== row.note) patch(row.id, { note: e.target.value })
-                    }}
-                  />
-                </label>
               </div>
             ) : null}
           </div>

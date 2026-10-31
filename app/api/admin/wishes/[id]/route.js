@@ -22,10 +22,7 @@ export async function PATCH(req, context) {
     if (status !== undefined && !['pending', 'approved', 'hidden'].includes(status)) {
       return Response.json({ error: 'validation', fields: { status } }, { status: 422 })
     }
-    const note = body?.note === undefined ? undefined : String(body.note).slice(0, 240)
-
-    if (status) await db.setStatus(row.id, status, note ?? row.note)
-    else if (note !== undefined) await db.patchNote(row.id, note)
+    if (status) await db.setStatus(row.id, status)
 
     return Response.json(db.serialize(await db.getWish(row.id)))
   } catch (err) {
