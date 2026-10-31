@@ -1,6 +1,7 @@
 
 ```
 Diwali
+├─ AGENTS.md
 ├─ app
 │  ├─ admin
 │  │  └─ page.jsx

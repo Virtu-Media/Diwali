@@ -28,8 +28,10 @@ const localSession = (signedIn) => ({ signedIn, configured: true, missing: [] })
 
 export default function AdminPanel() {
   const [session, setSession] = useState(null)
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState('')
+  const [loginFields, setLoginFields] = useState({})
   const [busy, setBusy] = useState(false)
 
   const [rows, setRows] = useState([])
@@ -89,24 +91,32 @@ export default function AdminPanel() {
 
   const signIn = async (e) => {
     e.preventDefault()
+
+    const fields = {}
+    if (!email.trim()) fields.email = 'Email is required.'
+    if (!password) fields.password = 'Password is required.'
+    if (Object.keys(fields).length) {
+      setLoginFields(fields)
+      return
+    }
+
     setBusy(true)
     setLoginError('')
+    setLoginFields({})
     try {
       await json('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ email, password }),
       })
       setSession(localSession(true))
       setPassword('')
     } catch (err) {
-      setLoginError(
-        err.status === 401
-          ? 'That password is not right.'
-          : err.status === 503
-            ? 'Set ADMIN_PASSWORD in .env to switch the panel on.'
-            : err.message,
-      )
+      if (err.status === 422 && err.body?.fields) setLoginFields(err.body.fields)
+      else if (err.status === 401) setLoginError('That email and password do not match.')
+      else if (err.status === 503)
+        setLoginError('Set ADMIN_EMAIL, ADMIN_PASSWORD and ADMIN_SECRET in .env to switch the panel on.')
+      else setLoginError(err.message)
     } finally {
       setBusy(false)
     }
@@ -200,8 +210,8 @@ export default function AdminPanel() {
         <div className="notice">
           <h1 className="notice__title">Admin sign-in is switched off</h1>
           <p>
-            Set <code>ADMIN_PASSWORD</code> (and a generated <code>ADMIN_SECRET</code>) in{' '}
-            <code>.env</code>, then restart the API.
+            Set <code>ADMIN_EMAIL</code>, <code>ADMIN_PASSWORD</code> and a generated{' '}
+            <code>ADMIN_SECRET</code> in <code>.env</code>, then restart the app.
           </p>
         </div>
       </div>
@@ -213,18 +223,42 @@ export default function AdminPanel() {
       <div className="admin">
         <form className="login" onSubmit={signIn}>
           <h1 className="login__title">Wish admin</h1>
-          <p className="login__sub">Enter the admin password to open the panel.</p>
-          <input
-            className="field__input"
-            type="password"
-            value={password}
-            autoFocus
-            autoComplete="current-password"
-            placeholder="Admin password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <p className="login__sub">Sign in with the admin email and password.</p>
+          <label className="field">
+            <span className="field__label">Email</span>
+            <input
+              className="field__input"
+              type="email"
+              value={email}
+              autoFocus
+              autoComplete="username"
+              placeholder="you@example.com"
+              onChange={(e) => {
+                setEmail(e.target.value)
+                setLoginFields((f) => ({ ...f, email: '' }))
+              }}
+            />
+            {loginFields.email ? <span className="field__error">{loginFields.email}</span> : null}
+          </label>
+          <label className="field">
+            <span className="field__label">Password</span>
+            <input
+              className="field__input"
+              type="password"
+              value={password}
+              autoComplete="current-password"
+              placeholder="Admin password"
+              onChange={(e) => {
+                setPassword(e.target.value)
+                setLoginFields((f) => ({ ...f, password: '' }))
+              }}
+            />
+            {loginFields.password ? (
+              <span className="field__error">{loginFields.password}</span>
+            ) : null}
+          </label>
           {loginError ? <p className="form__error">{loginError}</p> : null}
-          <button className="submit" type="submit" disabled={busy || !password}>
+          <button className="submit" type="submit" disabled={busy}>
             {busy ? 'Checking…' : 'Sign in'}
           </button>
         </form>

@@ -1,8 +1,6 @@
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-import { createHash } from 'node:crypto'
-import { config } from '@/lib/config.js'
 import * as db from '@/lib/db.js'
 import { clientIp, configGated, fail } from '@/lib/http.js'
 import { deleteImage, newKey, putImage } from '@/lib/storage.js'
@@ -28,9 +26,6 @@ function rateLimited(ip) {
   }
   return false
 }
-
-const hashIp = (ip) =>
-  createHash('sha256').update(`${ip}|${config.admin.secret || 'pepper'}`).digest('hex').slice(0, 32)
 
 const MAX_BODY_BYTES = 13 * 1024 * 1024
 
@@ -77,7 +72,6 @@ export async function POST(req) {
       imageUrl,
       imageType: photo.mime,
       imageBytes: photo.bytes,
-      ipHash: hashIp(ip),
     })
 
     return Response.json({ id: insertId, photoUrl: imageUrl }, { status: 201 })
