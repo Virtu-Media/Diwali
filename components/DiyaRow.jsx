@@ -1,23 +1,13 @@
-'use client'
-
-import useViewportWidth from '../hooks/useViewportWidth.js'
-
-const PITCH = 48
-
 export default function DiyaRow() {
-  const width = useViewportWidth()
-  // A lamp of identical size every PITCH px, so the row spans the full width evenly.
-  const count = Math.max(5, Math.min(32, Math.round(width / PITCH)))
-
   return (
     <div className="diyas" aria-hidden="true">
-      <div className="diyas__floor" />
       <div className="diyas__row">
-        {Array.from({ length: count }, (_, i) => (
-          <div key={i} className="diya">
-            <FlameLamp delay={i * 0.29} duration={1.9 + (i % 5) * 0.37} />
-          </div>
-        ))}
+        <div className="diya">
+          <FlameLamp delay={0} duration={2.1} />
+        </div>
+        <div className="diya">
+          <FlameLamp delay={0.7} duration={2.6} />
+        </div>
       </div>
     </div>
   )

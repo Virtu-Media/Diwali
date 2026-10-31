@@ -592,7 +592,7 @@ body::-webkit-scrollbar,
   opacity: 0.7;
 }
 
-/* ---------- diya row (small, edge to edge) ---------- */
+/* ---------- diyas (one in each bottom corner) ---------- */
 
 .diyas {
   position: fixed;
@@ -601,12 +601,6 @@ body::-webkit-scrollbar,
   bottom: 0;
   z-index: 4;
   pointer-events: none;
-}
-
-.diyas__floor {
-  position: absolute;
-  inset: -120px 0 0 0;
-  background: radial-gradient(58% 84% at 50% 100%, rgba(255, 152, 62, 0.2), transparent 68%);
 }
 
 .diyas__row {
