@@ -32,9 +32,35 @@ export default function Home() {
         <WishForm />
 
         <footer className="foot">
-          <span>Shubh Deepavali</span>
-          <span className="dot" aria-hidden="true" />
-          <span>Made with light</span>
+          <span className="foot__copy">In collaboration with</span>
+          <a
+            className="foot__partner"
+            href="https://snowcempaints.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className="foot__favicon"
+              src="https://snowcempaints.com/favicon.ico"
+              alt=""
+              width="20"
+              height="20"
+            />
+            <span>Snowcem</span>
+          </a>
+          <span className="foot__times" aria-hidden="true">
+            ×
+          </span>
+          <a className="foot__partner" href="https://virtumedia.in" target="_blank" rel="noreferrer">
+            <img
+              className="foot__favicon"
+              src="https://virtumedia.in/favicon.ico"
+              alt=""
+              width="20"
+              height="20"
+            />
+            <span>VirtuMedia</span>
+          </a>
         </footer>
       </main>
 

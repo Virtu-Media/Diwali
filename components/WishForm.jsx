@@ -158,6 +158,7 @@ export default function WishForm() {
           maxLength={f.max}
           placeholder={f.placeholder}
           autoComplete={f.autoComplete}
+          required
           onChange={set(key)}
         />
       </Field>
@@ -170,8 +171,7 @@ export default function WishForm() {
         Leave a wish
       </h2>
       <p className="card__sub">
-        Every field is needed — your name and email, where this light came from, your wish, and a
-        photo to go with it.
+        Tell us about your celebration and add a photo to keep your diya glowing.
       </p>
 
       <form className="form" onSubmit={submit}>
@@ -195,12 +195,15 @@ export default function WishForm() {
             rows={3}
             maxLength={byKey.wish.max}
             placeholder={byKey.wish.placeholder}
+            required
             onChange={set('wish')}
           />
         </Field>
 
         <div className="field">
-          <span className="field__label">Photo</span>
+          <span className="field__label">
+            Photo <span className="field__required">*</span>
+          </span>
           <div
             className={`drop${dragging ? ' drop--over' : ''}${file ? ' drop--filled' : ''}`}
             onDragOver={(e) => {
@@ -256,6 +259,7 @@ export default function WishForm() {
               className="drop__input"
               type="file"
               accept="image/*"
+              required={!file}
               onChange={(e) => pick(e.target.files?.[0])}
             />
           </div>
@@ -280,7 +284,9 @@ export default function WishForm() {
 function Field({ field, error, children }) {
   return (
     <label className="field">
-      <span className="field__label">{field.label}</span>
+      <span className="field__label">
+        {field.label} <span className="field__required">*</span>
+      </span>
       {children}
       {error ? <span className="field__error">{error}</span> : null}
     </label>
