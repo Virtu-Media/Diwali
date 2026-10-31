@@ -9,6 +9,8 @@ Diwali
 │  │  ├─ admin                  the endpoints the panel calls
 │  │  │  ├─ login
 │  │  │  │  └─ route.js         email + password check, sets the session cookie
+│  │  │  ├─ logout
+│  │  │  │  └─ route.js         clears the admin session cookie
 │  │  │  ├─ session
 │  │  │  │  └─ route.js         tells the panel if it is signed in and configured
 │  │  │  └─ wishes
@@ -31,6 +33,7 @@ Diwali
 │  ├─ StringLights.jsx          two draped bulb strands, rebuilt on resize
 │  ├─ SvgDefs.jsx               gradients shared by the SVG art
 │  └─ WishForm.jsx              form, photo drop zone, submit, thank-you state
+├─ codebase.md                  architecture, website behavior and correctness review
 ├─ hooks                        browser-only hooks
 │  └─ useViewportWidth.js       window width for the art that rescales
 ├─ jsconfig.json                defines the import alias for app, lib and components
