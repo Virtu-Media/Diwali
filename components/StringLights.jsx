@@ -27,7 +27,7 @@ function strand({ width, baseY, dip, period, perScallop, r, dim, seed }) {
       const y = mt * mt * baseY + 2 * mt * t * cy + t * t * baseY
       const n = i * 7 + b * 3 + seed
       bulbs.push({
-        key: `${seed}-${i}-${b}`,
+        id: `${seed}-${i}-${b}`,
         x,
         y,
         r,
@@ -79,13 +79,13 @@ export default function StringLights() {
         <g className="strand strand--back">
           <path d={back.path} fill="none" />
           {back.bulbs.map((b) => (
-            <Bulb key={b.key} {...b} />
+            <Bulb key={b.id} {...b} />
           ))}
         </g>
         <g className="strand strand--front">
           <path d={front.path} fill="none" />
           {front.bulbs.map((b) => (
-            <Bulb key={b.key} {...b} />
+            <Bulb key={b.id} {...b} />
           ))}
         </g>
       </svg>
