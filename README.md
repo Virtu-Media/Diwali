@@ -49,6 +49,7 @@ Diwali
 ├─ package.json                 three scripts: dev, build, start
 ├─ public                      static browser assets
 │  └─ image.png                 Snowcem The Dream Wish Contest logo
+├─ vercel.json                  Next.js deployment and .next output settings
 └─ README.md                    this tree
 
 ```
