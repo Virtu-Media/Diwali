@@ -5,12 +5,19 @@ one command to run it. Read this before changing anything.
 
 ## Always update README.md
 
-`README.md` is a directory tree of this project and nothing else. After adding,
-deleting or renaming any file or folder, update that tree in the same change —
-no exceptions, no "I'll do it later". Keep the existing format exactly: the
-fenced block, `Diwali` as the root, `├─` / `└─` connectors, two-space indents,
-dotfiles omitted, entries sorted alphabetically and case-insensitively at each
-level.
+`README.md` is a directory tree of this project and nothing else — no prose
+outside the fenced block. After adding, deleting or renaming any file or
+folder, update that tree in the same change; no exceptions, no "I'll do it
+later". Keep the format exactly: `Diwali` as the root, `├─` / `└─` connectors,
+two-space indents, dotfiles omitted, entries sorted alphabetically and
+case-insensitively at each level.
+
+Every entry has a short inline description on the same line, all descriptions
+starting in one column padded to the display width of the label (the box-drawing
+characters count as one column each). Describe files by what they do, not by
+what they are: `db.js  every SQL statement, on one mysql2 pool`. Route folders
+(`login/`, `session/`, `wishes/`, `export/`, `[id]/`) stay bare — the
+description goes on their `route.js`.
 
 ## Commands
 
