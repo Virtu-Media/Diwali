@@ -8,13 +8,9 @@ Diwali
 │  ├─ server.js
 │  ├─ storage.js
 │  └─ validate.js
-├─ db
-│  └─ schema.sql
 ├─ index.html
 ├─ package-lock.json
 ├─ package.json
-├─ scripts
-│  └─ init-db.mjs
 ├─ src
 │  ├─ App.jsx
 │  ├─ components
