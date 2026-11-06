@@ -31,7 +31,7 @@ export async function GET(req) {
     return new Response([header.join(','), ...lines].join('\r\n'), {
       headers: {
         'Content-Type': 'text/csv; charset=utf-8',
-        'Content-Disposition': `attachment; filename="diwali-wishes-${new Date().toISOString().slice(0, 10)}.csv"`,
+        'Content-Disposition': `attachment; filename="festive-wishes-${new Date().toISOString().slice(0, 10)}.csv"`,
       },
     })
   } catch (err) {

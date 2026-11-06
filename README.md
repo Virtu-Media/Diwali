@@ -29,6 +29,7 @@ Diwali
 │  ├─ DiyaRow.jsx               the two oil lamps, one in each bottom corner
 │  ├─ Embers.jsx                drifting embers behind the content
 │  ├─ fields.js                 the wish form's field definitions and limits
+│  ├─ FestivePetals.jsx         falling festive petals behind the content
 │  ├─ FireworkLoader.jsx        opening firework burst, unmounts itself
 │  ├─ StringLights.jsx          two draped bulb strands, rebuilt on resize
 │  ├─ SvgDefs.jsx               gradients shared by the SVG art

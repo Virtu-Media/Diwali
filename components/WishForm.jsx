@@ -171,7 +171,7 @@ export default function WishForm() {
         Enter the contest
       </h2>
       <p className="card__sub">
-        Complete every field and upload a photo of your Diwali celebration.
+        Complete every field and upload a photo of your celebration.
       </p>
 
       <form className="form" onSubmit={submit}>

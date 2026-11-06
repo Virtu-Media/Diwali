@@ -2,10 +2,10 @@
 
 ## What this website is
 
-This is a special Diwali/Deepavali “The Dream Wish Contest” entry website for
-Snowcem Paints. Visitors open `/`, enter their name, email, phone, city, state,
-zip code, dream wish, and one photo, then submit their contest entry. The page
-uses the supplied contest logo with a themed festival-of-lights experience:
+This is a festive “The Dream Wish Contest” entry website for Snowcem Paints.
+Visitors open `/`, enter their name, email, phone, city, state, zip code, dream
+wish, and one photo, then submit their contest entry. The page uses the supplied
+contest logo with a bright celebration experience:
 night-sky background, string lights, embers, firework loading animation, diya
 illustrations, and a thank-you state after a successful submission.
 

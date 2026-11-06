@@ -87,7 +87,7 @@ export default function FireworkLoader() {
           ))}
         </div>
 
-        <p className="loader__word">Shubh Deepavali</p>
+        <p className="loader__word">Celebrate Every Moment</p>
       </div>
     </div>
   )
