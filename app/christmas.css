@@ -1,0 +1,2318 @@
+
+/* ============================================================
+   SNOWCEM DREAM WISH CONTEST
+   LUXURY CHRISTMAS EXPERIENCE
+   Version 2.0
+============================================================ */
+
+/* ============================================================
+   01. DESIGN TOKENS & MAIN BACKGROUND
+============================================================ */
+
+.page--christmas {
+  --cream: #f7f5ec;
+  --cream-soft: #e7ecdf;
+
+  --gold: #d9bd83;
+  --gold-light: #f6e7bd;
+  --gold-dark: #a8864e;
+
+  --forest: #09231e;
+  --forest-light: #123d30;
+  --forest-deep: #041410;
+
+  --wine: #762e39;
+  --wine-light: #9b4b50;
+
+  --muted: rgba(233, 241, 234, .70);
+  --stroke: rgba(218, 226, 211, .15);
+
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  overflow: clip;
+
+  color: var(--cream);
+  font-family: var(--font-body, "Inter", sans-serif);
+
+  background:
+    radial-gradient(
+      ellipse at 50% -12%,
+      rgba(67, 132, 94, .27),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 0% 40%,
+      rgba(122, 42, 54, .19),
+      transparent 37%
+    ),
+    radial-gradient(
+      ellipse at 100% 65%,
+      rgba(198, 157, 91, .10),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #05140f 0%,
+      #09251e 38%,
+      #0b2b23 66%,
+      #04140f 100%
+    );
+}
+
+.page--christmas *,
+.page--christmas *::before,
+.page--christmas *::after {
+  box-sizing: border-box;
+}
+
+.page--christmas::before,
+.page--christmas::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  content: "";
+  pointer-events: none;
+}
+
+.page--christmas::before {
+  opacity: .16;
+
+  background-image:
+    radial-gradient(
+      rgba(246, 231, 189, .48) .65px,
+      transparent .9px
+    ),
+    radial-gradient(
+      rgba(255, 255, 255, .25) .65px,
+      transparent .9px
+    );
+
+  background-position: 0 0, 23px 27px;
+  background-size: 53px 53px, 79px 79px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 82%
+    );
+}
+
+.page--christmas::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 12, 9, .15),
+      transparent 25%,
+      transparent 75%,
+      rgba(2, 12, 9, .15)
+    ),
+    linear-gradient(
+      180deg,
+      transparent 60%,
+      rgba(2, 11, 8, .42)
+    );
+}
+
+/* ============================================================
+   02. ATMOSPHERIC CHRISTMAS BACKGROUND
+============================================================ */
+
+.page--christmas .shell--christmas {
+  position: relative;
+  z-index: 2;
+
+  width: min(100%, 1080px);
+  max-width: 1080px;
+
+  margin-inline: auto;
+
+  padding:
+    clamp(138px, 13vw, 178px)
+    24px
+    58px;
+}
+
+.christmas-decor {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.christmas-decor__aurora {
+  position: absolute;
+
+  width: min(58vw, 760px);
+  height: 330px;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+  opacity: .17;
+
+  transform: translateZ(0);
+
+  animation:
+    christmas-aurora-drift
+    19s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+.christmas-decor__aurora--left {
+  top: 4%;
+  left: -24%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(51, 167, 113, .9),
+      rgba(31, 107, 72, .15) 65%
+    );
+}
+
+.christmas-decor__aurora--right {
+  top: 27%;
+  right: -28%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(158, 66, 69, .8),
+      rgba(112, 43, 55, .12) 65%
+    );
+
+  animation-delay: -8s;
+}
+
+@keyframes christmas-aurora-drift {
+  from {
+    transform: translate3d(-12px, -10px, 0) scale(.92);
+  }
+
+  to {
+    transform: translate3d(38px, 25px, 0) scale(1.13);
+  }
+}
+
+/* Additional soft ambient lighting */
+
+.page--christmas .shell--christmas::before {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+
+  width: min(80%, 720px);
+  height: 420px;
+
+  content: "";
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(196, 168, 113, .055),
+      transparent 70%
+    );
+
+  filter: blur(25px);
+
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* ============================================================
+   03. CHRISTMAS STRING LIGHTS
+============================================================ */
+
+.christmas-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+
+  width: 100%;
+  height: clamp(100px, 12vw, 155px);
+
+  overflow: visible;
+
+  opacity: .96;
+}
+
+.christmas-lights__wire {
+  fill: none;
+
+  stroke: rgba(230, 220, 186, .42);
+  stroke-width: 1.5;
+
+  vector-effect: non-scaling-stroke;
+}
+
+.christmas-lights__stem {
+  stroke: rgba(232, 222, 193, .56);
+  stroke-width: 1.2;
+}
+
+.christmas-lights__bulb {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+
+  animation:
+    christmas-bulb-sway
+    4.2s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+.christmas-lights__glow {
+  fill: var(--bulb-color);
+
+  opacity: .38;
+  filter: blur(5px);
+
+  animation:
+    christmas-light-glow
+    3s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+.christmas-lights__glass {
+  fill: var(--bulb-color);
+
+  filter:
+    drop-shadow(0 0 5px var(--bulb-color))
+    drop-shadow(0 0 12px var(--bulb-color));
+}
+
+@keyframes christmas-bulb-sway {
+  from {
+    transform: rotate(-2deg);
+  }
+
+  to {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes christmas-light-glow {
+  from {
+    opacity: .22;
+  }
+
+  to {
+    opacity: .72;
+  }
+}
+
+/* ============================================================
+   04. PREMIUM FALLING SNOW
+============================================================ */
+
+.christmas-snow {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.christmas-snow__flake {
+  position: absolute;
+  top: -15px;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff 0%,
+      rgba(235, 247, 247, .85) 58%,
+      rgba(235, 247, 247, 0) 100%
+    );
+
+  box-shadow:
+    0 0 6px rgba(222, 243, 242, .38);
+
+  opacity: 0;
+
+  will-change: transform, opacity;
+
+  animation:
+    christmas-snowfall
+    var(--snow-duration, 18s)
+    linear
+    var(--snow-delay, 0s)
+    infinite;
+}
+
+@keyframes christmas-snowfall {
+  0% {
+    transform: translate3d(0, -5vh, 0) scale(.7);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: var(--snow-opacity, .5);
+  }
+
+  48% {
+    transform:
+      translate3d(
+        calc(var(--snow-drift, 24px) * .4),
+        48vh,
+        0
+      )
+      scale(.9);
+  }
+
+  85% {
+    opacity: .4;
+  }
+
+  100% {
+    transform:
+      translate3d(
+        var(--snow-drift, 24px),
+        108vh,
+        0
+      )
+      scale(1.1);
+
+    opacity: 0;
+  }
+}
+
+.christmas-decor__vignette {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 34%,
+      transparent 24%,
+      rgba(1, 10, 7, .13) 60%,
+      rgba(1, 9, 7, .48) 100%
+    );
+}
+
+/* ============================================================
+   05. HERO SECTION
+============================================================ */
+
+.page--christmas .hero--christmas {
+  position: relative;
+
+  width: 100%;
+  max-width: 850px;
+
+  margin: 0 auto 52px;
+
+  text-align: center;
+}
+
+/* Hero top badges */
+
+.page--christmas .hero__topline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 11px;
+  margin: 0 auto 27px;
+}
+
+.page--christmas .hero__season-badge,
+.page--christmas .hero__edition {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 34px;
+
+  padding: 8px 15px;
+
+  border: 1px solid rgba(220, 197, 143, .25);
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(27, 72, 53, .72),
+      rgba(8, 34, 27, .76)
+    );
+
+  color: rgba(249, 237, 207, .94);
+
+  font-size: .62rem;
+  font-weight: 700;
+
+  letter-spacing: .145em;
+  line-height: 1.4;
+
+  text-transform: uppercase;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    0 7px 25px rgba(0, 0, 0, .12);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.page--christmas .hero__season-badge {
+  border-color: rgba(223, 192, 129, .37);
+}
+
+.page--christmas .hero__edition {
+  border-color: rgba(231, 240, 228, .13);
+
+  background: rgba(255, 255, 255, .035);
+
+  color: rgba(233, 241, 230, .7);
+}
+
+.page--christmas .hero__season-star {
+  color: var(--gold-light);
+
+  font-size: .95rem;
+
+  text-shadow:
+    0 0 8px rgba(239, 207, 141, .65);
+
+  animation: christmas-star-turn 15s linear infinite;
+}
+
+@keyframes christmas-star-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   06. LOGO PRESENTATION
+============================================================ */
+
+.page--christmas .hero__logo-wrap {
+  position: relative;
+  isolation: isolate;
+
+  display: grid;
+  place-items: center;
+
+  width: fit-content;
+  max-width: 100%;
+
+  margin: 0 auto 12px;
+
+  padding: 7px 20px;
+}
+
+.page--christmas .hero__logo-halo {
+  position: absolute;
+  inset: 18% 10%;
+
+  z-index: -1;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(235, 193, 112, .31),
+      rgba(198, 159, 89, .08) 55%,
+      transparent 75%
+    );
+
+  filter: blur(28px);
+}
+
+.page--christmas .contest-logo {
+  display: block;
+
+  width: min(100%, 335px);
+  height: auto;
+
+  max-height: 225px;
+
+  margin: 0 auto;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 14px 25px rgba(0, 0, 0, .34))
+    drop-shadow(0 0 18px rgba(220, 189, 130, .1));
+
+  animation:
+    christmas-logo-float
+    7s
+    ease-in-out
+    infinite;
+
+  will-change: transform;
+}
+
+@keyframes christmas-logo-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* ============================================================
+   07. HERO TYPOGRAPHY
+============================================================ */
+
+.page--christmas .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 17px auto 18px;
+  padding: 0;
+
+  color: #e2c68d;
+
+  font-size: .65rem;
+  font-weight: 700;
+
+  letter-spacing: .23em;
+  line-height: 1.8;
+
+  text-transform: uppercase;
+}
+
+.page--christmas .title {
+  margin: 0;
+
+  color: #f6f5ed;
+
+  font-family:
+    var(--font-display, "Fraunces", Georgia, serif);
+
+  font-size: clamp(3.25rem, 7.7vw, 6.2rem);
+
+  font-weight: 300;
+
+  letter-spacing: -.057em;
+  line-height: .99;
+
+  text-shadow:
+    0 12px 45px rgba(0, 0, 0, .25);
+
+  animation:
+    christmas-title-breathe
+    6s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes christmas-title-breathe {
+  from {
+    text-shadow:
+      0 10px 28px rgba(0, 0, 0, .23);
+  }
+
+  to {
+    text-shadow:
+      0 10px 50px rgba(212, 181, 119, .18);
+  }
+}
+
+.page--christmas .title__accent {
+  display: block;
+
+  margin-top: 9px;
+
+  background:
+    linear-gradient(
+      105deg,
+      #fff0cf 0%,
+      #d7b978 27%,
+      #f9eac4 54%,
+      #c39b60 76%,
+      #f7e8c1 100%
+    );
+
+  background-size: 230% auto;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation:
+    christmas-title-shine
+    10s
+    linear
+    infinite;
+}
+
+@keyframes christmas-title-shine {
+  to {
+    background-position: 230% center;
+  }
+}
+
+.page--christmas .hero__tagline {
+  margin: 24px auto 0;
+
+  color: var(--gold-light);
+
+  font-size: .68rem;
+  font-weight: 700;
+
+  letter-spacing: .22em;
+  line-height: 1.8;
+}
+
+.page--christmas .lede {
+  max-width: 59ch;
+
+  margin: 18px auto 0;
+
+  color: rgba(235, 240, 230, .76);
+
+  font-size: .96rem;
+  font-weight: 400;
+
+  line-height: 1.95;
+
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   08. PREMIUM HERO CTA
+============================================================ */
+
+.page--christmas .hero__cta {
+  position: relative;
+  isolation: isolate;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 23px;
+
+  min-height: 56px;
+
+  margin: 30px auto 0;
+
+  padding: 14px 23px 14px 27px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 241, 207, .65);
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      115deg,
+      #f1e1ba,
+      #cdb178 43%,
+      #e9d6aa 75%,
+      #f4e5c1
+    );
+
+  color: #14271d;
+
+  font-size: .84rem;
+  font-weight: 700;
+
+  letter-spacing: .01em;
+  text-decoration: none;
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, .25),
+    0 0 30px rgba(216, 189, 131, .14),
+    inset 0 1px 0 rgba(255, 255, 255, .75);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    filter .3s ease;
+}
+
+.page--christmas .hero__cta::before {
+  position: absolute;
+  top: -80%;
+  left: -85%;
+
+  z-index: -1;
+
+  width: 45%;
+  height: 260%;
+
+  content: "";
+
+  background: rgba(255, 255, 255, .43);
+
+  transform: rotate(24deg);
+
+  transition: left .8s cubic-bezier(.2, .7, .2, 1);
+}
+
+.page--christmas .hero__cta::after {
+  position: absolute;
+  inset: 3px;
+
+  border: 1px solid rgba(255, 255, 255, .23);
+  border-radius: inherit;
+
+  content: "";
+
+  pointer-events: none;
+}
+
+.page--christmas .hero__cta:hover {
+  transform: translateY(-4px);
+
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, .33),
+    0 0 35px rgba(216, 189, 131, .2),
+    inset 0 1px 0 rgba(255, 255, 255, .78);
+}
+
+.page--christmas .hero__cta:hover::before {
+  left: 145%;
+}
+
+.page--christmas .hero__cta:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 5px;
+}
+
+.page--christmas .hero__cta-arrow {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  background: rgba(20, 44, 32, .12);
+
+  font-size: 1rem;
+
+  transition: transform .3s ease;
+}
+
+.page--christmas .hero__cta:hover .hero__cta-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* ============================================================
+   09. CONTEST STEPS
+============================================================ */
+
+.page--christmas .hero__steps {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px 17px;
+
+  margin: 29px auto 0;
+
+  color: rgba(239, 242, 231, .78);
+
+  font-size: .7rem;
+  font-weight: 500;
+}
+
+.page--christmas .hero__step {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.page--christmas .hero__step-number {
+  display: grid;
+  place-items: center;
+
+  width: 24px;
+  height: 24px;
+
+  border: 1px solid rgba(219, 190, 131, .24);
+  border-radius: 50%;
+
+  background: rgba(205, 177, 117, .08);
+
+  color: #e4c98f;
+
+  font-size: .59rem;
+  font-weight: 700;
+}
+
+.page--christmas .hero__separator {
+  color: var(--gold);
+
+  font-size: .7rem;
+
+  animation:
+    christmas-separator-glow
+    3.5s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes christmas-separator-glow {
+  from {
+    opacity: .35;
+  }
+
+  to {
+    opacity: 1;
+
+    text-shadow:
+      0 0 13px rgba(231, 204, 147, .7);
+  }
+}
+
+.page--christmas .hero__footnote {
+  margin: 21px 0 0;
+
+  color: rgba(223, 207, 169, .55);
+
+  font-size: .59rem;
+  font-weight: 700;
+
+  letter-spacing: .2em;
+  line-height: 1.9;
+}
+
+/* ============================================================
+   10. FORM STAGE
+============================================================ */
+
+.page--christmas .form-stage {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+}
+
+.page--christmas .form-stage__intro {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  margin: 0 auto 19px;
+
+  color: rgba(239, 216, 174, .88);
+
+  font-size: .65rem;
+  font-weight: 700;
+
+  letter-spacing: .2em;
+  text-align: center;
+}
+
+.page--christmas .form-stage__ornament {
+  color: #e1c58a;
+
+  font-size: 1rem;
+
+  text-shadow:
+    0 0 15px rgba(215, 185, 124, .58);
+
+  animation:
+    christmas-ornament-pulse
+    4s
+    ease-in-out
+    infinite;
+}
+
+@keyframes christmas-ornament-pulse {
+  0%, 100% {
+    opacity: .55;
+    transform: scale(.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.13);
+  }
+}
+
+/* ============================================================
+   11. PREMIUM GLASS FORM CARD
+============================================================ */
+
+.page--christmas .card--christmas {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  max-width: 700px;
+
+  padding: clamp(29px, 5vw, 46px);
+
+  overflow: hidden;
+
+  border: 1px solid rgba(231, 216, 179, .24);
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25, 67, 50, .89),
+      rgba(10, 40, 32, .95) 48%,
+      rgba(6, 28, 23, .97)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .11),
+    inset 0 -1px 0 rgba(0, 0, 0, .16),
+    0 32px 90px -35px rgba(0, 0, 0, .88),
+    0 0 70px -38px rgba(219, 184, 112, .32);
+
+  backdrop-filter: blur(23px) saturate(135%);
+  -webkit-backdrop-filter: blur(23px) saturate(135%);
+
+  scroll-margin-top: 28px;
+}
+
+.page--christmas .card--christmas::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  content: "";
+
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(209, 181, 123, .12),
+      transparent 36%
+    ),
+    radial-gradient(
+      ellipse at 0% 100%,
+      rgba(49, 126, 88, .13),
+      transparent 42%
+    );
+
+  pointer-events: none;
+}
+
+.page--christmas .card--christmas::after {
+  position: absolute;
+  top: 0;
+  left: 8%;
+
+  width: 84%;
+  height: 1px;
+
+  content: "";
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(246, 226, 179, .75),
+      transparent
+    );
+
+  opacity: .7;
+}
+
+@supports (background: color-mix(in srgb, white, black)) {
+  .page--christmas .card--christmas {
+    border-color: color-mix(
+      in srgb,
+      var(--gold) 25%,
+      transparent
+    );
+  }
+}
+
+/* Form card heading */
+
+.page--christmas .card__topline {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 11px;
+}
+
+.page--christmas .card__kicker {
+  color: rgba(231, 207, 155, .77);
+
+  font-size: .61rem;
+  font-weight: 700;
+
+  letter-spacing: .19em;
+}
+
+.page--christmas .card__sparkle {
+  color: #e4c78c;
+
+  font-size: 1.3rem;
+
+  text-shadow:
+    0 0 12px rgba(231, 198, 135, .38);
+
+  animation:
+    christmas-sparkle
+    4s
+    ease-in-out
+    infinite;
+}
+
+@keyframes christmas-sparkle {
+  0%, 100% {
+    opacity: .55;
+    transform: rotate(0) scale(.88);
+  }
+
+  50% {
+    opacity: 1;
+    transform: rotate(35deg) scale(1.15);
+  }
+}
+
+.page--christmas .card__title {
+  margin: 0;
+
+  color: #f4f4eb;
+
+  font-family:
+    var(--font-display, "Fraunces", Georgia, serif);
+
+  font-size: clamp(1.9rem, 4vw, 2.35rem);
+  font-weight: 400;
+
+  letter-spacing: -.035em;
+  line-height: 1.2;
+}
+
+.page--christmas .card__sub {
+  max-width: 54ch;
+
+  margin: 9px 0 30px;
+
+  color: rgba(231, 239, 228, .67);
+
+  font-size: .84rem;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   12. FORM GRID & INPUTS
+============================================================ */
+
+.page--christmas .form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 19px;
+
+  width: 100%;
+}
+
+.page--christmas .grid {
+  display: grid;
+
+  width: 100%;
+
+  gap: 17px;
+}
+
+.page--christmas .grid--1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.page--christmas .grid--2 {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+}
+
+.page--christmas .grid--3 {
+  grid-template-columns:
+    1.15fr 1fr .82fr;
+}
+
+.page--christmas .field {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.page--christmas .field__label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-bottom: 9px;
+
+  color: rgba(241, 243, 231, .83);
+
+  font-size: .68rem;
+  font-weight: 700;
+
+  letter-spacing: .08em;
+  line-height: 1.5;
+}
+
+.page--christmas .field__required {
+  color: #e0bf7f;
+}
+
+/* Input and textarea */
+
+.page--christmas .field__input {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+
+  padding: 13px 15px;
+
+  border: 1px solid rgba(224, 235, 217, .16);
+  border-radius: 12px;
+
+  outline: none;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(2, 17, 13, .42),
+      rgba(3, 22, 17, .58)
+    );
+
+  color: #f4f4eb;
+
+  font-family:
+    var(--font-body, "Inter", sans-serif);
+
+  font-size: .88rem;
+  font-weight: 400;
+
+  line-height: 1.6;
+
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, .12);
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.page--christmas .field__input::placeholder {
+  color: rgba(225, 234, 223, .38);
+  transition: color .2s ease;
+}
+
+.page--christmas .field__input:hover {
+  border-color: rgba(222, 203, 157, .32);
+}
+
+.page--christmas .field__input:focus {
+  border-color: rgba(226, 199, 143, .77);
+
+  background: rgba(4, 25, 18, .77);
+
+  box-shadow:
+    0 0 0 3px rgba(204, 176, 116, .12),
+    0 5px 18px rgba(0, 0, 0, .09),
+    inset 0 2px 5px rgba(0, 0, 0, .12);
+
+  transform: translateY(-1px);
+}
+
+.page--christmas .field__input:focus::placeholder {
+  color: rgba(225, 234, 223, .52);
+}
+
+.page--christmas .field__input--area {
+  min-height: 120px;
+
+  resize: vertical;
+
+  line-height: 1.8;
+}
+
+/* Browser autocomplete */
+
+.page--christmas .field__input:-webkit-autofill,
+.page--christmas .field__input:-webkit-autofill:hover,
+.page--christmas .field__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f4f4eb;
+  caret-color: #f4f4eb;
+
+  -webkit-box-shadow:
+    0 0 0 700px #0b2d22 inset;
+
+  border-color: rgba(224, 198, 145, .47);
+
+  transition:
+    background-color 9999s ease-in-out 0s;
+}
+
+/* Character counter */
+
+.page--christmas .field__counter {
+  display: block;
+
+  margin-top: 7px;
+
+  color: rgba(226, 234, 224, .47);
+
+  font-size: .68rem;
+
+  text-align: right;
+}
+
+/* Errors */
+
+.page--christmas .field__error {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #ffaaa5;
+
+  font-size: .73rem;
+  line-height: 1.5;
+}
+
+.page--christmas .form__error {
+  padding: 12px 14px;
+
+  border: 1px solid rgba(230, 120, 110, .27);
+  border-radius: 10px;
+
+  background: rgba(135, 42, 44, .13);
+
+  color: #ffb4ab;
+
+  font-size: .79rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   13. PREMIUM PHOTO UPLOAD
+============================================================ */
+
+.page--christmas .drop {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr);
+
+  align-items: center;
+  justify-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+  min-height: 162px;
+
+  padding: 25px 20px;
+
+  overflow: hidden;
+
+  border: 1px dashed rgba(221, 202, 158, .43);
+  border-radius: 15px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(206, 173, 109, .08),
+      transparent 74%
+    ),
+    rgba(2, 18, 13, .29);
+
+  text-align: center;
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.page--christmas .drop:hover,
+.page--christmas .drop--over {
+  border-color: rgba(232, 206, 154, .84);
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(216, 184, 123, .14),
+      transparent 75%
+    ),
+    rgba(4, 25, 17, .52);
+
+  box-shadow:
+    inset 0 0 28px rgba(210, 175, 108, .045),
+    0 0 23px rgba(210, 175, 108, .06);
+}
+
+.page--christmas .drop--over {
+  transform: scale(1.008);
+}
+
+.page--christmas .drop--filled {
+  display: grid;
+
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+
+  justify-items: stretch;
+  align-items: center;
+
+  min-height: 86px;
+
+  padding: 12px 15px;
+
+  border-style: solid;
+  border-color: rgba(218, 192, 136, .46);
+
+  background: rgba(205, 171, 105, .07);
+
+  text-align: left;
+}
+
+.page--christmas .drop__icon {
+  width: 26px;
+  height: 26px;
+
+  color: #e5c78b;
+
+  filter:
+    drop-shadow(0 0 9px rgba(224, 190, 121, .22));
+}
+
+.page--christmas .drop__text {
+  margin: 0;
+
+  color: rgba(234, 240, 229, .83);
+
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.page--christmas .drop__hint {
+  margin: 0;
+
+  color: rgba(221, 232, 217, .47);
+
+  font-size: .68rem;
+  line-height: 1.6;
+}
+
+.page--christmas .drop__thumb {
+  display: block;
+
+  width: 60px;
+  height: 60px;
+
+  border: 1px solid rgba(224, 201, 150, .36);
+  border-radius: 10px;
+
+  object-fit: cover;
+
+  box-shadow:
+    0 5px 17px rgba(0, 0, 0, .25);
+}
+
+.page--christmas .drop__meta {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 5px;
+}
+
+.page--christmas .drop__name {
+  display: block;
+
+  overflow: hidden;
+
+  color: #eff2e8;
+
+  font-size: .77rem;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page--christmas .drop__size {
+  color: rgba(223, 234, 220, .48);
+
+  font-size: .69rem;
+}
+
+.page--christmas .drop__input {
+  display: none;
+}
+
+/* Shared links */
+
+.page--christmas .link {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color: #e7c98f;
+
+  font: inherit;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    color .2s ease,
+    opacity .2s ease;
+}
+
+.page--christmas .link:hover {
+  color: #fff0c9;
+}
+
+.page--christmas .link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.page--christmas .drop__remove {
+  font-size: .72rem;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   14. GOLD SUBMIT BUTTON
+============================================================ */
+
+.page--christmas .submit--christmas {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 56px;
+
+  margin-top: 5px;
+  padding: 15px 25px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 242, 210, .66);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      110deg,
+      #f1e0b7,
+      #cfb477 42%,
+      #e8d4a6 70%,
+      #f3e4c3
+    );
+
+  color: #17291e;
+
+  font-family:
+    var(--font-body, "Inter", sans-serif);
+
+  font-size: .88rem;
+  font-weight: 700;
+
+  letter-spacing: .02em;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 13px 32px rgba(0, 0, 0, .24),
+    0 0 24px rgba(215, 183, 118, .16),
+    inset 0 1px 0 rgba(255, 255, 255, .75);
+
+  transition:
+    transform .27s ease,
+    filter .27s ease,
+    box-shadow .27s ease,
+    opacity .27s ease;
+}
+
+.page--christmas .submit--christmas::before {
+  position: absolute;
+  top: -80%;
+  left: -100%;
+
+  z-index: -1;
+
+  width: 38%;
+  height: 260%;
+
+  content: "";
+
+  background: rgba(255, 255, 255, .4);
+
+  transform: rotate(24deg);
+
+  transition: left .75s ease;
+}
+
+.page--christmas .submit--christmas:hover:not(:disabled) {
+  transform: translateY(-3px);
+
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 20px 38px rgba(0, 0, 0, .29),
+    0 0 33px rgba(215, 183, 118, .23),
+    inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+.page--christmas .submit--christmas:hover:not(:disabled)::before {
+  left: 145%;
+}
+
+.page--christmas .submit--christmas:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.page--christmas .submit--christmas:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
+.page--christmas .submit--christmas:focus-visible {
+  outline: 2px solid #f5e8c6;
+  outline-offset: 5px;
+}
+
+.page--christmas .submit__spark {
+  position: absolute;
+
+  top: 50%;
+  right: 19px;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fffdf5;
+
+  box-shadow:
+    0 0 9px 3px rgba(255, 255, 255, .48);
+
+  transform: translateY(-50%);
+
+  animation:
+    christmas-spark
+    2.5s
+    ease-in-out
+    infinite;
+}
+
+@keyframes christmas-spark {
+  0%, 100% {
+    opacity: .35;
+    transform: translateY(-50%) scale(.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.3);
+  }
+}
+
+/* Privacy */
+
+.page--christmas .form__privacy {
+  margin: -5px 0 0;
+
+  color: rgba(224, 234, 220, .47);
+
+  font-size: .67rem;
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+.page--christmas .form-stage__note {
+  margin: 19px 0 0;
+
+  color: rgba(227, 211, 176, .54);
+
+  font-family:
+    var(--font-display, "Fraunces", Georgia, serif);
+
+  font-size: 1.08rem;
+  font-style: italic;
+
+  text-align: center;
+}
+
+/* ============================================================
+   15. SUCCESS SCREEN
+============================================================ */
+
+.page--christmas .card--done {
+  text-align: center;
+}
+
+.page--christmas .done__mark {
+  display: grid;
+
+  place-items: center;
+
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 20px;
+
+  border: 1px solid rgba(221, 195, 139, .39);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(218, 187, 126, .21),
+      rgba(218, 187, 126, .035) 72%
+    );
+
+  box-shadow:
+    0 0 35px rgba(217, 189, 131, .13),
+    inset 0 0 18px rgba(255, 255, 255, .035);
+}
+
+.page--christmas .done__snowflake {
+  color: #efd9a7;
+
+  font-size: 1.8rem;
+
+  text-shadow:
+    0 0 19px rgba(229, 202, 145, .55);
+
+  animation:
+    christmas-sparkle
+    4s
+    ease-in-out
+    infinite;
+}
+
+.page--christmas .done__title {
+  margin: 0;
+
+  color: #f4f2e8;
+
+  font-family:
+    var(--font-display, "Fraunces", Georgia, serif);
+
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  font-weight: 400;
+}
+
+.page--christmas .done__body {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+
+  gap: 18px;
+
+  margin: 15px 0;
+
+  color: rgba(232, 240, 229, .74);
+
+  font-size: .88rem;
+  line-height: 1.8;
+}
+
+.page--christmas .done__photo {
+  display: block;
+
+  width: min(100%, 270px);
+  max-height: 250px;
+
+  border: 1px solid rgba(222, 201, 153, .39);
+  border-radius: 15px;
+
+  object-fit: cover;
+
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, .29);
+}
+
+.page--christmas .done__ref {
+  margin: 16px 0;
+
+  color: rgba(232, 207, 158, .71);
+
+  font-size: .68rem;
+  font-weight: 700;
+
+  letter-spacing: .12em;
+}
+
+.page--christmas .done__again {
+  min-height: 38px;
+  font-size: .83rem;
+}
+
+/* ============================================================
+   16. PREMIUM FOOTER
+============================================================ */
+
+.page--christmas .foot--christmas {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 44px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid rgba(228, 213, 175, .1);
+
+  color: rgba(226, 237, 224, .51);
+
+  font-size: .69rem;
+}
+
+.page--christmas .foot__partner {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: rgba(247, 244, 231, .9);
+
+  text-decoration: none;
+
+  transition:
+    color .2s ease,
+    transform .2s ease;
+}
+
+.page--christmas .foot__partner:hover {
+  color: #e8cc92;
+  transform: translateY(-2px);
+}
+
+.page--christmas .foot__favicon {
+  display: block;
+
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 50%;
+
+  background: rgba(247, 244, 229, .95);
+
+  object-fit: contain;
+}
+
+.page--christmas .foot__and {
+  color: #d6b97d;
+}
+
+.page--christmas .foot__year {
+  margin-left: 8px;
+
+  color: rgba(225, 235, 223, .39);
+}
+
+/* ============================================================
+   17. SCROLL REVEAL
+============================================================ */
+
+.page--christmas .holiday-reveal {
+  opacity: 0;
+
+  filter: blur(5px);
+
+  transform: translate3d(0, 26px, 0);
+
+  transition:
+    opacity .8s cubic-bezier(.2, .75, .25, 1),
+    transform .8s cubic-bezier(.2, .75, .25, 1),
+    filter .8s cubic-bezier(.2, .75, .25, 1);
+
+  transition-delay:
+    var(--holiday-delay, 0ms);
+}
+
+.page--christmas .holiday-reveal.is-holiday-visible {
+  opacity: 1;
+
+  filter: blur(0);
+
+  transform: translate3d(0, 0, 0);
+}
+
+/* ============================================================
+   18. TABLET RESPONSIVENESS
+============================================================ */
+
+@media (max-width: 900px) {
+  .page--christmas .shell--christmas {
+    padding-top: 140px;
+  }
+
+  .page--christmas .hero--christmas {
+    max-width: 760px;
+  }
+
+  .page--christmas .title {
+    font-size: clamp(3.2rem, 8vw, 5rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .page--christmas .shell--christmas {
+    padding: 132px 18px 44px;
+  }
+
+  .page--christmas .hero--christmas {
+    margin-bottom: 39px;
+  }
+
+  .page--christmas .hero__topline {
+    gap: 8px;
+    margin-bottom: 19px;
+  }
+
+  .page--christmas .hero__season-badge,
+  .page--christmas .hero__edition {
+    min-height: 30px;
+    padding: 7px 11px;
+    font-size: .55rem;
+    letter-spacing: .105em;
+  }
+
+  .page--christmas .contest-logo {
+    width: min(76vw, 280px);
+    max-height: 185px;
+  }
+
+  .page--christmas .eyebrow {
+    max-width: 38ch;
+    margin-top: 12px;
+    font-size: .57rem;
+    letter-spacing: .15em;
+  }
+
+  .page--christmas .title {
+    font-size: clamp(2.9rem, 10.5vw, 4.55rem);
+    line-height: 1.02;
+  }
+
+  .page--christmas .hero__tagline {
+    margin-top: 19px;
+    font-size: .6rem;
+    letter-spacing: .15em;
+  }
+
+  .page--christmas .lede {
+    max-width: 48ch;
+    font-size: .88rem;
+    line-height: 1.85;
+  }
+
+  .page--christmas .hero__cta {
+    min-height: 52px;
+    margin-top: 24px;
+    padding: 12px 19px 12px 21px;
+    font-size: .79rem;
+  }
+
+  .page--christmas .hero__steps {
+    gap: 10px 12px;
+    margin-top: 25px;
+    font-size: .63rem;
+  }
+
+  .page--christmas .hero__footnote {
+    font-size: .53rem;
+    letter-spacing: .14em;
+  }
+
+  .page--christmas .card--christmas {
+    padding: 28px 22px;
+    border-radius: 23px;
+  }
+
+  .page--christmas .card__sub {
+    margin-bottom: 24px;
+    font-size: .81rem;
+  }
+
+  .page--christmas .foot--christmas {
+    margin-top: 35px;
+    font-size: .63rem;
+  }
+}
+
+/* ============================================================
+   19. MOBILE RESPONSIVENESS
+============================================================ */
+
+@media (max-width: 560px) {
+  .page--christmas .shell--christmas {
+    padding: 121px 16px 36px;
+  }
+
+  .page--christmas .hero--christmas {
+    margin-bottom: 35px;
+  }
+
+  .page--christmas .grid--2,
+  .page--christmas .grid--3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page--christmas .form {
+    gap: 16px;
+  }
+
+  .page--christmas .grid {
+    gap: 15px;
+  }
+
+  .page--christmas .drop {
+    min-height: 145px;
+  }
+
+  .page--christmas .drop--filled {
+    grid-template-columns: 53px minmax(0, 1fr) auto;
+    padding: 10px;
+  }
+
+  .page--christmas .drop__thumb {
+    width: 49px;
+    height: 49px;
+  }
+
+  .christmas-lights {
+    left: -20%;
+    width: 140%;
+    height: 96px;
+  }
+
+  .christmas-decor__aurora {
+    width: 90vw;
+    height: 210px;
+    filter: blur(67px);
+  }
+
+  .christmas-snow__flake:nth-child(n + 25) {
+    display: none;
+  }
+
+  .page--christmas .hero__topline {
+    max-width: 350px;
+  }
+
+  .page--christmas .hero__steps {
+    max-width: 355px;
+  }
+
+  .page--christmas .foot__year {
+    width: 100%;
+    margin: 3px 0 0;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   20. EXTRA SMALL MOBILE
+============================================================ */
+
+@media (max-width: 380px) {
+  .page--christmas .shell--christmas {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .page--christmas .title {
+    font-size: clamp(2.55rem, 10.8vw, 3.25rem);
+  }
+
+  .page--christmas .hero__season-badge,
+  .page--christmas .hero__edition {
+    font-size: .49rem;
+    letter-spacing: .08em;
+  }
+
+  .page--christmas .hero__steps {
+    gap: 8px;
+    font-size: .57rem;
+  }
+
+  .page--christmas .hero__step-number {
+    width: 21px;
+    height: 21px;
+  }
+
+  .page--christmas .card--christmas {
+    padding: 24px 16px 23px;
+    border-radius: 19px;
+  }
+
+  .page--christmas .card__title {
+    font-size: 1.8rem;
+  }
+
+  .page--christmas .field__input {
+    font-size: .84rem;
+  }
+
+  .page--christmas .form-stage__intro {
+    gap: 9px;
+    font-size: .57rem;
+  }
+}
+
+/* ============================================================
+   21. LARGE SCREEN REFINEMENTS
+============================================================ */
+
+@media (min-width: 1200px) {
+  .page--christmas .shell--christmas {
+    padding-top: 175px;
+  }
+
+  .page--christmas .hero--christmas {
+    max-width: 870px;
+  }
+
+  .page--christmas .contest-logo {
+    width: 350px;
+    max-height: 235px;
+  }
+
+  .page--christmas .lede {
+    max-width: 61ch;
+  }
+}
+
+/* ============================================================
+   22. HOVER ENHANCEMENTS
+============================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  .page--christmas .card--christmas {
+    transition:
+      border-color .35s ease,
+      box-shadow .35s ease;
+  }
+
+  .page--christmas .card--christmas:hover {
+    border-color: rgba(228, 205, 157, .35);
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .12),
+      0 36px 95px -35px rgba(0, 0, 0, .9),
+      0 0 85px -38px rgba(219, 184, 112, .38);
+  }
+}
+
+/* ============================================================
+   23. ACCESSIBILITY & REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .page--christmas *,
+  .page--christmas *::before,
+  .page--christmas *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .page--christmas .holiday-reveal,
+  .page--christmas .holiday-reveal.is-holiday-visible {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .page--christmas .contest-logo {
+    transform: none;
+  }
+
+  .page--christmas .hero__cta,
+  .page--christmas .submit--christmas,
+  .page--christmas .field__input {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   BIG DECORATIVE CHRISTMAS SNOWFLAKE
+========================================== */
+
+.christmas-icon-snow {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.christmas-icon-snow__flake {
+  position: absolute;
+  top: -85px;
+
+  display: block;
+
+  color: #eaf7ff;
+
+  opacity: 0;
+
+  filter:
+    drop-shadow(0 0 5px rgba(217, 241, 255, .75))
+    drop-shadow(0 0 13px rgba(166, 214, 244, .32));
+
+  will-change: transform, opacity;
+
+  animation:
+    christmas-icon-snowfall
+    var(--flake-duration, 7.5s)
+    cubic-bezier(.35, .05, .5, 1)
+    forwards;
+}
+
+@keyframes christmas-icon-snowfall {
+  0% {
+    transform:
+      translate3d(0, -5vh, 0)
+      rotate(0deg)
+      scale(.8);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: .8;
+  }
+
+  35% {
+    opacity: .85;
+  }
+
+  65% {
+    opacity: .7;
+  }
+
+  90% {
+    opacity: .45;
+  }
+
+  100% {
+    transform:
+      translate3d(
+        var(--flake-drift, 40px),
+        115vh,
+        0
+      )
+      rotate(var(--flake-rotation, 360deg))
+      scale(.9);
+
+    opacity: 0;
+  }
+}
+
+/* Mobile adjustment */
+
+@media (max-width: 560px) {
+  .christmas-icon-snow__flake {
+    filter:
+      drop-shadow(0 0 5px rgba(217, 241, 255, .65))
+      drop-shadow(0 0 10px rgba(166, 214, 244, .25));
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .christmas-icon-snow {
+    display: none;
+  }
+}

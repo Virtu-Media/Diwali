@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function ScrollReveal() {
   useEffect(() => {
     const targets = document.querySelectorAll(
-      ".hero, .celebration-section, .card, .foot"
+      ".hero--christmas, .form-stage, .foot--christmas"
     );
 
     const reduceMotion = window.matchMedia(
@@ -18,30 +18,34 @@ export default function ScrollReveal() {
       !("IntersectionObserver" in window) ||
       targets.length === 0
     ) {
-      return;
+      targets.forEach((element) =>
+        element.classList.add("is-holiday-visible")
+      );
+
+      return undefined;
     }
 
     const observer = new IntersectionObserver(
       (entries, currentObserver) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-revealed");
+            entry.target.classList.add("is-holiday-visible");
             currentObserver.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -35px 0px",
+        threshold: 0.08,
+        rootMargin: "0px 0px -28px 0px",
       }
     );
 
     targets.forEach((element, index) => {
-      element.classList.add("festive-reveal");
+      element.classList.add("holiday-reveal");
 
       element.style.setProperty(
-        "--reveal-delay",
-        `${Math.min(index * 100, 300)}ms`
+        "--holiday-delay",
+        `${Math.min(index * 110, 220)}ms`
       );
 
       observer.observe(element);
@@ -52,11 +56,11 @@ export default function ScrollReveal() {
 
       targets.forEach((element) => {
         element.classList.remove(
-          "festive-reveal",
-          "is-revealed"
+          "holiday-reveal",
+          "is-holiday-visible"
         );
 
-        element.style.removeProperty("--reveal-delay");
+        element.style.removeProperty("--holiday-delay");
       });
     };
   }, []);

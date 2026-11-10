@@ -1,377 +1,311 @@
+
+
+/* =========================================================
+   01. ROOT VARIABLES & RESET
+========================================================= */
+
 :root {
-
   --cream: #fff7ea;
-
   --gold: #f6c877;
-
   --gold-soft: rgba(255, 231, 186, 0.72);
-
   --muted: rgba(255, 247, 234, 0.66);
-
   --stroke: rgba(255, 247, 234, 0.14);
-
   --glass: rgba(255, 255, 255, 0.045);
 
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
+  --page-bg: #25104a;
+  --card-max-width: 660px;
+
+  --ease-premium: cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
-
-
-* {
-
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-
 }
-
-
 
 html,
-
 body {
-
+  width: 100%;
+  min-width: 0;
   min-height: 100%;
-
 }
 
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
 
 body {
-
   margin: 0;
+  overflow-x: hidden;
 
-  background: #25104a;
-
+  background: var(--page-bg);
   color: var(--cream);
 
   font-family: var(--font-body);
 
   -webkit-font-smoothing: antialiased;
-
   text-rendering: optimizeLegibility;
-
 }
 
-
-
-/* hidden scrollbar — page still scrolls */
-
-
-
-html {
-
-  scrollbar-width: none;
-
-  -ms-overflow-style: none;
-
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-
-
-html::-webkit-scrollbar,
-
-body::-webkit-scrollbar,
-
-*::-webkit-scrollbar {
-
-  width: 0;
-
-  height: 0;
-
-  display: none;
-
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
+img,
+svg {
+  max-width: 100%;
+}
 
+img {
+  height: auto;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
 
 .svg-defs {
-
   position: absolute;
-
   width: 0;
-
   height: 0;
-
   overflow: hidden;
-
 }
 
 
-
-/* ---------- page + festive gradient ---------- */
-
-
+/* =========================================================
+   02. MAIN PAGE & FESTIVE BACKGROUND
+========================================================= */
 
 .page {
-
   position: relative;
 
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
   min-height: 100dvh;
 
   overflow: clip;
-
   isolation: isolate;
-
 }
 
-
-
 .night {
-
   position: fixed;
-
   inset: 0;
 
   z-index: -1;
 
   background:
-
-    radial-gradient(64% 42% at 50% 106%, rgba(255, 183, 77, 0.52), transparent 68%),
-
-    radial-gradient(38% 26% at 16% 104%, rgba(255, 105, 125, 0.34), transparent 70%),
-
-    radial-gradient(40% 28% at 84% 104%, rgba(255, 143, 92, 0.3), transparent 70%),
-
-    radial-gradient(58% 34% at 10% -6%, rgba(137, 104, 255, 0.5), transparent 66%),
-
-    radial-gradient(58% 34% at 90% -8%, rgba(255, 125, 183, 0.38), transparent 66%),
-
-    linear-gradient(178deg, #25104a 0%, #3b1762 38%, #6b2059 68%, #8d3b3d 100%);
-
+    radial-gradient(
+      64% 42% at 50% 106%,
+      rgba(255, 183, 77, 0.52),
+      transparent 68%
+    ),
+    radial-gradient(
+      38% 26% at 16% 104%,
+      rgba(255, 105, 125, 0.34),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 28% at 84% 104%,
+      rgba(255, 143, 92, 0.3),
+      transparent 70%
+    ),
+    radial-gradient(
+      58% 34% at 10% -6%,
+      rgba(137, 104, 255, 0.5),
+      transparent 66%
+    ),
+    radial-gradient(
+      58% 34% at 90% -8%,
+      rgba(255, 125, 183, 0.38),
+      transparent 66%
+    ),
+    linear-gradient(
+      178deg,
+      #25104a 0%,
+      #3b1762 38%,
+      #6b2059 68%,
+      #8d3b3d 100%
+    );
 }
-
-
 
 .night::after {
-
-  content: '';
+  content: "";
 
   position: absolute;
-
   inset: 0;
 
-  background: radial-gradient(120% 90% at 50% 40%, transparent 58%, rgba(24, 8, 42, 0.28) 100%);
+  pointer-events: none;
 
+  background:
+    radial-gradient(
+      120% 90% at 50% 40%,
+      transparent 58%,
+      rgba(24, 8, 42, 0.28) 100%
+    );
 }
 
 
-
-/* ---------- draped string lights (stay pinned while scrolling) ---------- */
-
-
+/* =========================================================
+   03. PREMIUM STRING LIGHTS
+========================================================= */
 
 .lights {
-
   position: fixed;
-
   top: 0;
-
   left: 0;
 
   z-index: 4;
 
   pointer-events: none;
-
 }
-
-
 
 .lights svg {
-
   display: block;
-
   max-width: none;
-
 }
-
-
 
 .strand--front path {
-
   stroke: rgba(255, 247, 234, 0.24);
-
   stroke-width: 1.7;
-
 }
-
-
 
 .strand--back {
-
   opacity: 0.6;
-
 }
-
-
 
 .strand--back path {
-
   stroke: rgba(255, 247, 234, 0.16);
-
   stroke-width: 1.2;
-
 }
-
-
 
 .stem {
-
   stroke: rgba(255, 247, 234, 0.3);
-
   stroke-width: 1.1;
-
 }
-
-
 
 .bulb {
-
   transform-box: fill-box;
-
   transform-origin: 50% 0;
 
-  animation: twinkle 3.2s ease-in-out infinite alternate;
-
+  animation:
+    twinkle 3.2s ease-in-out infinite alternate;
 }
-
-
 
 .bulb > circle:not(.bulb__halo) {
-
   filter: drop-shadow(0 0 9px var(--glow));
-
 }
 
-
-
 .bulb__halo {
-
   filter: blur(5px);
 
   transform-box: fill-box;
-
   transform-origin: 50% 50%;
 
-  animation: halo-pulse 3.2s ease-in-out infinite alternate;
-
+  animation:
+    halo-pulse 3.2s ease-in-out infinite alternate;
 }
-
-
 
 @keyframes twinkle {
-
   from {
-
     opacity: 0.55;
-
     transform: scale(0.94);
-
   }
 
   to {
-
     opacity: 1;
-
     transform: scale(1.04);
-
   }
-
 }
-
-
 
 @keyframes halo-pulse {
-
   from {
-
     opacity: calc(0.16 * var(--dim, 1));
-
     transform: scale(0.6);
-
   }
 
   to {
-
     opacity: calc(0.5 * var(--dim, 1));
-
     transform: scale(1.5);
-
   }
-
 }
 
-
-
 .lights__wash {
-
   position: absolute;
-
   top: 0;
-
   left: 0;
 
   width: 100%;
-
   height: 360px;
 
   background:
-
-    radial-gradient(46% 74% at 50% 4%, rgba(255, 190, 110, 0.16), transparent 74%),
-
-    radial-gradient(30% 50% at 18% 0%, rgba(255, 150, 90, 0.1), transparent 70%),
-
-    radial-gradient(30% 50% at 82% 0%, rgba(255, 130, 170, 0.1), transparent 70%);
+    radial-gradient(
+      46% 74% at 50% 4%,
+      rgba(255, 190, 110, 0.16),
+      transparent 74%
+    ),
+    radial-gradient(
+      30% 50% at 18% 0%,
+      rgba(255, 150, 90, 0.1),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 50% at 82% 0%,
+      rgba(255, 130, 170, 0.1),
+      transparent 70%
+    );
 
   animation: wash-pulse 4.6s ease-in-out infinite alternate;
-
 }
 
-
-
 @keyframes wash-pulse {
-
   from {
-
     opacity: 0.5;
-
   }
 
   to {
-
     opacity: 1;
-
   }
-
 }
 
 
-
-/* ---------- drifting embers ---------- */
-
-
+/* =========================================================
+   04. DRIFTING EMBERS
+========================================================= */
 
 .embers {
-
   position: fixed;
-
   inset: 0;
 
   z-index: 1;
 
   overflow: hidden;
-
   pointer-events: none;
-
 }
 
-
-
 .embers__i {
-
   position: absolute;
-
   bottom: -12px;
 
   border-radius: 50%;
@@ -381,625 +315,603 @@ body::-webkit-scrollbar,
   opacity: 0;
 
   animation-name: rise;
-
   animation-timing-function: linear;
-
   animation-iteration-count: infinite;
 
+  will-change: transform, opacity;
 }
-
-
 
 .embers__i--1 {
-
   background: #ffb37a;
-
 }
-
-
 
 .embers__i--2 {
-
   background: #ffeec2;
-
 }
 
-
-
 @keyframes rise {
-
   0% {
-
     transform: translate(0, 0) scale(0.5);
-
     opacity: 0;
-
   }
 
   14% {
-
     opacity: 0.8;
-
   }
 
   70% {
-
     opacity: 0.4;
-
   }
 
   100% {
-
-    transform: translate(var(--drift, 0px), -76vh) scale(1.15);
+    transform:
+      translate(var(--drift, 0px), -76vh)
+      scale(1.15);
 
     opacity: 0;
-
   }
-
 }
 
 
-
-/* ---------- content ---------- */
-
-
+/* =========================================================
+   05. MAIN CONTENT CONTAINER
+========================================================= */
 
 .shell {
-
   position: relative;
 
   z-index: 5;
 
-  max-width: 940px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1160px;
+  min-width: 0;
 
   margin: 0 auto;
 
-  padding: 190px 24px 58px;
+  padding:
+    clamp(88px, 11vh, 132px)
+    clamp(12px, 2.5vw, 28px)
+    48px;
 
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
+  box-sizing: border-box;
 }
 
 
-
-/* =========================================
-
-   PREMIUM FESTIVE HERO TYPOGRAPHY
-
-\========================================= */
-
-
+/* =========================================================
+   06. PREMIUM HERO SECTION
+========================================================= */
 
 .hero {
+  position: relative;
+  isolation: isolate;
 
-  width: min(100% - 32px, 1050px);
+  width: 100%;
+  max-width: 880px;
+  min-width: 0;
 
-  margin-inline: auto;
+  margin:
+    0 auto
+    clamp(26px, 4vh, 42px);
 
   text-align: center;
+}
 
+.hero::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  top: 2%;
+  left: 50%;
+
+  width: min(94vw, 780px);
+  height: 460px;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 34%,
+      rgba(255, 193, 105, 0.17),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse at 50% 78%,
+      rgba(255, 111, 76, 0.10),
+      transparent 72%
+    );
+
+  filter: blur(14px);
 }
 
 
-
-/* Logo size */
+/* =========================================================
+   07. HERO LOGO
+========================================================= */
 
 .hero__logo-wrap {
-
   display: flex;
-
+  align-items: center;
   justify-content: center;
 
-  align-items: center;
+  width: 100%;
 
-  margin: 0 auto 24px;
-
+  margin:
+    0 auto
+    clamp(10px, 1.8vh, 18px);
 }
 
-
-
 .contest-logo {
-
   display: block;
 
   width: min(100%, 540px);
+  height: clamp(185px, 29vh, 300px);
 
-  height: auto;
+  max-width: 100%;
 
-  max-height: 360px;
+  margin: 0 auto;
 
   object-fit: contain;
+  object-position: center;
 
-  filter: drop-shadow(0 12px 35px rgba(255, 185, 65, 0.2));
+  filter:
+    drop-shadow(0 12px 24px rgba(255, 185, 65, 0.20))
+    drop-shadow(0 0 34px rgba(255, 188, 95, 0.10));
 
+  animation:
+    festive-logo-float 6s ease-in-out infinite;
+
+  transform-origin: center;
 }
 
-
-
-/* Main heading */
-
-.title {
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  gap: 4px;
-
-  margin: 20px 0 22px;
-
-  font-size: clamp(48px, 7vw, 86px);
-
-  line-height: 1.08;
-
-  font-weight: 900;
-
-  letter-spacing: -2.5px;
-
-  color: #ffffff;
-
-  text-align: center;
-
-  text-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-
-}
-
-
-
-.title__main {
-
-  display: block;
-
-  color: #ffffff;
-
-}
-
-
-
-.title__accent {
-
-  display: block;
-
-  color: #ffd76a;
-
-  background: linear-gradient(
-
-    100deg,
-
-    #fff4bf 0%,
-
-    #ffc34d 35%,
-
-    #ffdf86 65%,
-
-    #ffffff 100%
-
-  );
-
-  -webkit-background-clip: text;
-
-  background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  filter: drop-shadow(0 5px 18px rgba(255, 183, 55, 0.25));
-
-}
-
-
-
-/* Typewriter text */
-
-.typewriter-text {
-
-  display: inline;
-
-}
-
-
-
-.typewriter-char {
-
-  display: inline;
-
-}
-
-
-
-.typewriter-cursor {
-
-  display: inline-block;
-
-  width: 3px;
-
-  height: 0.88em;
-
-  margin-left: 5px;
-
-  vertical-align: -0.06em;
-
-  background: #ffd76a;
-
-  border-radius: 3px;
-
-  animation: typewriterBlink 0.8s steps(2, start) infinite;
-
-}
-
-
-
-.title__accent .typewriter-cursor {
-
-  background: #ffd76a;
-
-}
-
-
-
-@keyframes typewriterBlink {
-
-  to {
-
-    visibility: hidden;
-
+@keyframes festive-logo-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 
+  50% {
+    transform: translate3d(0, -9px, 0);
+  }
 }
 
 
+/* =========================================================
+   08. HERO EYEBROW
+========================================================= */
 
-/* Tagline */
+.hero .eyebrow,
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
-.hero__tagline {
+  gap: 10px;
 
-  max-width: 900px;
+  max-width: 100%;
 
-  margin: 0 auto 24px;
+  margin: 0 auto;
 
-  color: #ffd978;
+  padding: 9px 16px;
 
-  font-size: clamp(15px, 2vw, 21px);
+  border: 1px solid rgba(255, 215, 150, 0.30);
+  border-radius: 999px;
 
-  font-weight: 800;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 214, 145, 0.14),
+      rgba(255, 255, 255, 0.045)
+    );
 
-  line-height: 1.6;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
-  letter-spacing: 2.5px;
+  color: #ffe8bd;
+
+  font-size: 0.64rem;
+  font-weight: 750;
+
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+
+  text-align: center;
+  text-wrap: balance;
+
+  animation:
+    contest-eyebrow-glow 4s ease-in-out infinite alternate;
+}
+
+.hero .eyebrow {
+  border-color: rgba(246, 200, 119, 0.24);
+
+  background: rgba(255, 200, 119, 0.055);
+
+  color: #ffe1a9;
+
+  font-size: 0.66rem;
+  letter-spacing: 0.19em;
+}
+
+.hero__eyebrow span:first-child,
+.hero__eyebrow span:last-child,
+.eyebrow__star {
+  flex: 0 0 auto;
+
+  color: #ffd16f;
+
+  text-shadow:
+    0 0 12px rgba(255, 205, 115, 0.75);
+}
+
+.eyebrow__star {
+  font-size: 0.85rem;
+
+  animation:
+    contest-star-spin 8s linear infinite;
+}
+
+@keyframes contest-eyebrow-glow {
+  from {
+    border-color: rgba(246, 200, 119, 0.18);
+
+    box-shadow:
+      0 0 12px rgba(246, 200, 119, 0.04);
+  }
+
+  to {
+    border-color: rgba(246, 200, 119, 0.42);
+
+    box-shadow:
+      0 0 25px rgba(246, 200, 119, 0.12);
+  }
+}
+
+@keyframes contest-star-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   09. HERO HEADING
+========================================================= */
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  gap: 2px;
+
+  margin:
+    clamp(14px, 2.1vh, 22px)
+    auto
+    0;
+
+  color: #fff;
+
+  font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+
+  font-size: clamp(2.75rem, 7vw, 5.6rem);
+  font-weight: 700;
+
+  letter-spacing: -0.045em;
+  line-height: 1.02;
 
   text-align: center;
 
-  text-shadow: 0 2px 15px rgba(255, 194, 76, 0.25);
+  text-wrap: balance;
 
+  overflow-wrap: normal;
+
+  animation:
+    festive-title-glow 5s ease-in-out infinite alternate;
+}
+
+.title__main,
+.title__accent {
+  position: relative;
+
+  display: block;
+
+  width: fit-content;
+  max-width: 100%;
+
+  margin-inline: auto;
+
+  line-height: 1.06;
+}
+
+.title__main {
+  color: #fffaf0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fff5df 58%,
+      #f9dca8 100%
+    );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter:
+    drop-shadow(0 4px 15px rgba(255, 230, 190, 0.16));
+}
+
+.title__accent {
+  margin-top: 5px;
+  padding: 0 0.07em 0.10em;
+
+  color: #ffd76a;
+  font-style: italic;
+
+  background:
+    linear-gradient(
+      105deg,
+      #fff4cf 0%,
+      #ffd36f 28%,
+      #f4a83e 52%,
+      #ffe8a6 76%,
+      #fff8df 100%
+    );
+
+  background-size: 200% auto;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter:
+    drop-shadow(0 5px 18px rgba(255, 183, 55, 0.30));
+
+  animation:
+    contest-title-shine 7s linear infinite;
+}
+
+.title__accent::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  bottom: -0.02em;
+
+  width: clamp(112px, 22vw, 210px);
+  height: 2px;
+
+  transform: translateX(-50%);
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 221, 145, 0.95),
+      rgba(255, 164, 65, 0.9),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px rgba(255, 196, 96, 0.48);
+}
+
+@keyframes festive-title-glow {
+  from {
+    text-shadow:
+      0 0 24px rgba(255, 186, 104, 0.24),
+      0 0 65px rgba(255, 140, 70, 0.12);
+  }
+
+  to {
+    text-shadow:
+      0 0 38px rgba(255, 210, 135, 0.48),
+      0 0 95px rgba(255, 140, 70, 0.28);
+  }
+}
+
+@keyframes contest-title-shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 
+/* =========================================================
+   10. TYPEWRITER TEXT
+========================================================= */
 
-/* Main paragraph */
+.typewriter-text {
+  display: inline-block;
 
-.lede {
-
-  max-width: 850px;
-
-  margin: 0 auto 30px;
-
-  color: rgba(255, 255, 255, 0.93);
-
-  font-size: clamp(17px, 2vw, 22px);
-
-  font-weight: 450;
-
-  line-height: 1.9;
-
-  letter-spacing: 0.25px;
+  max-width: 100%;
 
   text-align: center;
 
   white-space: pre-line;
+  vertical-align: top;
+}
 
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+.title__main .typewriter-text,
+.title__accent .typewriter-text {
+  white-space: nowrap;
+}
 
+.typewriter-char {
+  display: inline;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+
+  width: 0.045em;
+  min-width: 2px;
+  max-width: 3px;
+
+  height: 0.82em;
+
+  margin-left: 4px;
+
+  vertical-align: -0.06em;
+
+  border-radius: 3px;
+
+  background: #ffd76a;
+
+  box-shadow:
+    0 0 10px rgba(255, 214, 106, 0.65);
+
+  animation:
+    typewriterBlink 0.8s steps(2, start) infinite;
+}
+
+.title__accent .typewriter-cursor {
+  background: #ffe2a0;
+}
+
+@keyframes typewriterBlink {
+  to {
+    visibility: hidden;
+  }
 }
 
 
+/* =========================================================
+   11. HERO TAGLINE
+========================================================= */
 
-/* Steps */
+.hero__tagline {
+  width: 100%;
+  max-width: 68ch;
 
-.hero__steps {
+  margin:
+    clamp(12px, 1.8vh, 18px)
+    auto
+    0;
 
-  display: flex;
+  padding: 0 6px;
 
-  justify-content: center;
+  color: #ffdc91;
 
-  align-items: center;
-
-  flex-wrap: wrap;
-
-  gap: 13px;
-
-  margin: 32px auto 25px;
-
-  color: #ffffff;
-
-  font-size: clamp(14px, 1.5vw, 17px);
-
-  font-weight: 700;
-
-}
-
-
-
-.hero__separator {
-
-  color: #ffd76a;
-
-  font-size: 19px;
-
-}
-
-
-
-/* Footnote */
-
-.hero__footnote {
-
-  margin: 25px auto 35px;
-
-  color: #ffd978;
-
-  font-size: 12px;
-
+  font-size: clamp(0.76rem, 1.12vw, 0.92rem);
   font-weight: 800;
 
-  letter-spacing: 3px;
+  letter-spacing: clamp(0.09em, 0.17vw, 0.18em);
+  line-height: 1.55;
+
+  text-align: center;
+  text-wrap: balance;
+
+  text-shadow:
+    0 2px 16px rgba(255, 194, 76, 0.32);
+}
+
+.hero__tagline .typewriter-text {
+  text-align: center;
+}
+
+
+/* =========================================================
+   12. HERO INTRODUCTION
+========================================================= */
+
+.hero .lede {
+  width: min(100%, 780px);
+  max-width: 780px;
+
+  margin:
+    clamp(12px, 1.8vh, 18px)
+    auto
+    0;
+
+  color: rgba(255, 250, 240, 0.97);
+
+  font-size: clamp(1rem, 1.48vw, 1.12rem);
+  font-weight: 500;
+
+  letter-spacing: 0.005em;
+  line-height: 1.65;
 
   text-align: center;
 
+  white-space: pre-line;
+  text-wrap: balance;
+
+  text-shadow:
+    0 2px 13px rgba(0, 0, 0, 0.32);
+}
+
+.hero .lede .typewriter-text {
+  display: inline-block;
+
+  max-width: 100%;
+
+  white-space: pre-line;
+
+  text-align: center;
+  line-height: inherit;
 }
 
 
-
-/* =========================================
-
-   RESPONSIVE DESIGN
-
-\========================================= */
-
-
-
-@media (max-width: 768px) {
-
-  .hero {
-
-    width: min(100% - 28px, 650px);
-
-  }
-
-
-
-  .contest-logo {
-
-    width: min(100%, 430px);
-
-    max-height: 290px;
-
-  }
-
-
-
-  .title {
-
-    font-size: clamp(43px, 10vw, 65px);
-
-    letter-spacing: -1.5px;
-
-    margin: 16px 0 18px;
-
-  }
-
-
-
-  .hero__tagline {
-
-    font-size: 14px;
-
-    letter-spacing: 1.5px;
-
-    padding-inline: 8px;
-
-  }
-
-
-
-  .lede {
-
-    font-size: 17px;
-
-    line-height: 1.8;
-
-  }
-
-
-
-  .hero__steps {
-
-    gap: 9px;
-
-    font-size: 13px;
-
-  }
-
-}
-
-
-
-@media (max-width: 480px) {
-
-  .contest-logo {
-
-    width: 100%;
-
-    max-height: 240px;
-
-  }
-
-
-
-  .title {
-
-    font-size: clamp(38px, 11vw, 50px);
-
-    line-height: 1.15;
-
-  }
-
-
-
-  .hero__tagline {
-
-    font-size: 12px;
-
-    line-height: 1.8;
-
-    letter-spacing: 1px;
-
-  }
-
-
-
-  .lede {
-
-    font-size: 15px;
-
-    line-height: 1.85;
-
-  }
-
-
-
-  .hero__steps {
-
-    gap: 7px;
-
-    font-size: 11px;
-
-  }
-
-
-
-  .hero__separator {
-
-    font-size: 13px;
-
-  }
-
-
-
-  .hero__footnote {
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-  }
-
-}
-
-
-
-/* Accessibility: disable blinking and animation */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .typewriter-cursor {
-
-    animation: none;
-
-    visibility: hidden;
-
-  }
-
-}
-
-
-
-
-
-
-
-/* =========================================
-
-   PREMIUM CENTERED PARAGRAPH SECTION
-
-\========================================= */
-
-
+/* =========================================================
+   13. OPTIONAL PREMIUM PARAGRAPH WRAPPER
+========================================================= */
 
 .lede-wrap {
+  position: relative;
+  isolation: isolate;
 
   width: min(100% - 30px, 920px);
 
   margin: 28px auto 34px;
-
   padding: 22px 30px 25px;
 
-  position: relative;
-
   text-align: center;
-
-  isolation: isolate;
-
 }
 
-
-
-/* Soft festive glow */
-
 .lede-wrap::before {
-
   content: "";
 
   position: absolute;
-
   inset: 0;
 
   z-index: -1;
 
+  border: 1px solid rgba(255, 215, 140, 0.16);
   border-radius: 24px;
 
-  background: linear-gradient(
-
-    120deg,
-
-    rgba(255, 205, 100, 0.07),
-
-    rgba(255, 255, 255, 0.025),
-
-    rgba(255, 180, 70, 0.07)
-
-  );
-
-  border: 1px solid rgba(255, 215, 140, 0.16);
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 205, 100, 0.07),
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 180, 70, 0.07)
+    );
 
   box-shadow:
-
     0 15px 45px rgba(0, 0, 0, 0.12),
-
     inset 0 0 30px rgba(255, 211, 130, 0.035);
-
 }
 
-
-
-/* Small eyebrow */
-
 .lede__eyebrow {
-
   display: block;
 
   margin-bottom: 15px;
@@ -1007,23 +919,14 @@ body::-webkit-scrollbar,
   color: #ffd77c;
 
   font-size: 11px;
-
   font-weight: 800;
 
   letter-spacing: 3px;
-
   text-align: center;
-
 }
 
-
-
-/* Paragraph */
-
-.lede {
-
+.lede-wrap .lede {
   width: 100%;
-
   max-width: 790px;
 
   margin: 0 auto;
@@ -1031,27 +934,19 @@ body::-webkit-scrollbar,
   color: #fffaf0;
 
   font-size: clamp(17px, 1.65vw, 21px);
-
   font-weight: 500;
 
   line-height: 1.85;
-
   letter-spacing: 0.2px;
 
   text-align: center;
-
   text-wrap: balance;
 
-  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-
+  text-shadow:
+    0 2px 15px rgba(0, 0, 0, 0.3);
 }
 
-
-
-/* Second paragraph */
-
-.lede--second {
-
+.lede-wrap .lede--second {
   max-width: 750px;
 
   margin-top: 12px;
@@ -1059,407 +954,540 @@ body::-webkit-scrollbar,
   color: #ffda91;
 
   font-size: clamp(16px, 1.5vw, 19px);
-
   font-weight: 650;
 
   line-height: 1.7;
-
 }
 
-
-
-/* Cursor alignment */
-
-.lede .typewriter-cursor {
-
+.lede-wrap .lede .typewriter-cursor {
   height: 0.95em;
-
   width: 2px;
 
   margin-left: 3px;
 
   background: #ffd77c;
-
 }
 
 
+/* =========================================================
+   14. HERO STEPS
+========================================================= */
 
-/* =========================================
+.hero__steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
-   TABLET
+  gap: 8px 12px;
 
-\========================================= */
+  margin:
+    clamp(15px, 2.2vh, 22px)
+    auto
+    0;
+
+  color: rgba(255, 247, 234, 0.90);
+
+  font-size: clamp(0.70rem, 0.92vw, 0.82rem);
+  font-weight: 650;
+
+  letter-spacing: 0.025em;
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+.hero__separator {
+  color: #ffd36f;
+
+  font-size: 0.85rem;
+
+  text-shadow:
+    0 0 12px rgba(255, 211, 111, 0.70);
+
+  animation:
+    contest-separator-glow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes contest-separator-glow {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 1;
+
+    text-shadow:
+      0 0 10px #f6c877;
+  }
+}
 
 
+/* =========================================================
+   15. HERO CTA BUTTON
+========================================================= */
+
+.hero__cta {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  min-width: 205px;
+
+  margin-top: 28px;
+  padding: 15px 24px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      120deg,
+      #ffe6b0 0%,
+      #f6c877 45%,
+      #e89b48 100%
+    );
+
+  color: #371b22;
+
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 12px 35px rgba(234, 155, 72, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    filter 300ms ease;
+}
+
+.hero__cta::before {
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+  left: -75%;
+
+  width: 45%;
+  height: 200%;
+
+  background: rgba(255, 255, 255, 0.32);
+
+  transform: rotate(25deg);
+
+  animation:
+    contest-cta-shine 5s ease-in-out infinite;
+}
+
+@keyframes contest-cta-shine {
+  0%,
+  55% {
+    left: -75%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+.hero__cta:hover {
+  transform: translateY(-4px);
+
+  filter: brightness(1.07);
+
+  box-shadow:
+    0 18px 42px rgba(234, 155, 72, 0.38),
+    0 0 25px rgba(246, 200, 119, 0.2);
+}
+
+.hero__cta:active {
+  transform: translateY(-1px);
+}
+
+.hero__cta:focus-visible {
+  outline: 2px solid #fff0cb;
+  outline-offset: 5px;
+}
+
+.hero__cta-arrow {
+  position: relative;
+
+  font-size: 1.05rem;
+
+  transition: transform 250ms ease;
+}
+
+.hero__cta:hover .hero__cta-arrow {
+  transform: translate(3px, -3px);
+}
+
+.hero__footnote {
+  margin: 13px auto 0;
+
+  color: rgba(255, 224, 166, 0.68);
+
+  font-size: 0.60rem;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   16. HERO RESPONSIVE LAYOUT
+========================================================= */
 
 @media (max-width: 768px) {
+  .hero .eyebrow {
+    max-width: 100%;
+
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    font-size: 0.57rem;
+    letter-spacing: 0.12em;
+  }
 
   .lede-wrap {
-
     width: calc(100% - 24px);
 
     padding: 20px 18px;
 
     margin: 22px auto 28px;
-
   }
 
-
-
-  .lede {
-
+  .lede-wrap .lede {
     font-size: 17px;
-
     line-height: 1.8;
-
   }
 
-
-
-  .lede--second {
-
+  .lede-wrap .lede--second {
     font-size: 16px;
-
   }
-
 }
 
-
-
-/* =========================================
-
-   MOBILE
-
-\========================================= */
-
-
-
 @media (max-width: 480px) {
+  .hero .eyebrow {
+    font-size: 0.51rem;
+    letter-spacing: 0.09em;
+  }
 
   .lede-wrap {
-
     width: calc(100% - 20px);
 
     padding: 17px 13px;
 
     margin: 18px auto 25px;
-
   }
 
-
-
   .lede__eyebrow {
-
     font-size: 9px;
-
     letter-spacing: 2px;
 
     margin-bottom: 12px;
-
   }
 
-
-
-  .lede {
-
+  .lede-wrap .lede {
     font-size: 15px;
-
     line-height: 1.8;
-
     letter-spacing: 0;
-
   }
 
-
-
-  .lede--second {
-
+  .lede-wrap .lede--second {
     font-size: 14px;
-
     line-height: 1.75;
 
     margin-top: 10px;
-
   }
-
 }
 
 
+/* =========================================================
+   17. WISH CARD — MAIN RESPONSIVE CONTAINER
+========================================================= */
 
-/* Accessibility */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .lede-wrap,
-
-  .lede,
-
-  .lede .typewriter-cursor {
-
-    animation: none !important;
-
-    transition: none !important;
-
-  }
-
-}
-
-
-
-/* ---------- wish card ---------- */
-
-
+/*
+  IMPORTANT:
+  Do not set height: 70%, 100vh or fixed height here.
+  The card grows naturally according to form content.
+*/
 
 .card {
-
   position: relative;
-
-  width: 100%;
-
-  max-width: 660px;
-
-  padding: 40px 40px 36px;
-
-  border: 1px solid rgba(255, 247, 234, 0.12);
-
-  border-radius: 26px;
-
-  background: linear-gradient(180deg, rgba(58, 28, 78, 0.62), rgba(38, 17, 54, 0.55));
-
-  box-shadow:
-
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-
-    0 44px 90px -40px rgba(0, 0, 0, 0.85),
-
-    0 0 70px -30px rgba(255, 160, 70, 0.28);
-
-  backdrop-filter: blur(18px) saturate(125%);
-
-  -webkit-backdrop-filter: blur(18px) saturate(125%);
-
-}
-
-
-
-.card__title {
-
-  margin: 0;
-
-  font-family: var(--font-display);
-
-  font-weight: 400;
-
-  font-size: 1.75rem;
-
-  letter-spacing: -0.01em;
-
-  color: var(--cream);
-
-}
-
-
-
-.card__sub {
-
-  margin: 8px 0 30px;
-
-  font-size: 0.86rem;
-
-  line-height: 1.6;
-
-  color: rgba(255, 247, 234, 0.52);
-
-}
-
-
-
-/* ---------- form ---------- */
-
-
-
-.form {
-
-  display: grid;
-
-  gap: 18px;
-
-}
-
-
-
-.field {
 
   display: block;
 
-  min-width: 0;
+  width: 100%;
+  max-width: var(--card-max-width);
 
+  min-width: 0;
+  min-height: 0;
+
+  height: 70%;
+
+  flex: none;
+
+  align-self: center;
+
+  margin: 0 auto;
+
+  padding: clamp(24px, 3vw, 40px);
+
+  border: 1px solid rgba(255, 247, 234, 0.12);
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(58, 28, 78, 0.62),
+      rgba(38, 17, 54, 0.55)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 44px 90px -40px rgba(0, 0, 0, 0.85),
+    0 0 70px -30px rgba(255, 160, 70, 0.28);
+
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+
+  overflow: visible;
+
+  transition:
+    border-color 400ms ease,
+    background 400ms ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 214, 145, 0.28);
+}
+
+.card__title {
+  margin: 0;
+
+  color: var(--cream);
+
+  font-family: var(--font-display);
+
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.card__sub {
+  margin: 8px 0 26px;
+
+  color: rgba(255, 247, 234, 0.52);
+
+  font-size: 0.86rem;
+  line-height: 1.6;
 }
 
 
+/* =========================================================
+   18. WISH FORM
+========================================================= */
+
+.form {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr);
+
+  width: 100%;
+  min-width: 0;
+
+  gap: 18px;
+}
+
+.field {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
 
 .field__label {
-
   display: flex;
-
   align-items: baseline;
 
   gap: 6px;
 
   margin-bottom: 8px;
 
-  font-size: 0.72rem;
+  color: rgba(255, 247, 234, 0.74);
 
+  font-size: 0.72rem;
   font-weight: 500;
 
   letter-spacing: 0.14em;
-
   text-transform: uppercase;
-
-  color: rgba(255, 247, 234, 0.74);
-
 }
-
-
 
 .field__required {
-
   color: var(--gold);
-
 }
 
-
-
 .field__input {
-
   display: block;
 
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 
   padding: 13px 15px;
 
   border: 1px solid rgba(255, 247, 234, 0.15);
-
   border-radius: 13px;
 
   background: rgba(255, 255, 255, 0.045);
 
   color: var(--cream);
 
-  font: inherit;
-
+  font-family: inherit;
   font-size: 0.96rem;
 
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
-
-
 
 .field__input::placeholder {
-
   color: rgba(255, 247, 234, 0.3);
-
 }
 
-
-
 .field__input:focus {
-
   outline: none;
 
   border-color: rgba(246, 200, 119, 0.6);
 
   background: rgba(255, 255, 255, 0.075);
 
-  box-shadow: 0 0 0 3px rgba(246, 200, 119, 0.12);
-
+  box-shadow:
+    0 0 0 3px rgba(246, 200, 119, 0.12);
 }
 
-
-
 .field__input--area {
-
   min-height: 96px;
 
   resize: vertical;
 
   line-height: 1.65;
+}
 
+.field__input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 
-
-/* keep Chrome's white autofill block off the dark glass */
+/* =========================================================
+   19. CHROME AUTOFILL
+========================================================= */
 
 .field__input:-webkit-autofill,
-
 .field__input:-webkit-autofill:hover,
-
 .field__input:-webkit-autofill:focus {
-
   -webkit-text-fill-color: var(--cream);
-
   caret-color: var(--cream);
 
   -webkit-box-shadow:
-
     0 0 0 600px #2c1538 inset,
-
     0 0 0 3px rgba(246, 200, 119, 0.12);
 
   border-color: rgba(246, 200, 119, 0.4);
 
   transition: background-color 9999s ease-in-out 0s;
-
 }
 
 
+/* =========================================================
+   20. FORM GRID
+========================================================= */
 
-/* dropzone */
+.grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr);
+
+  width: 100%;
+  min-width: 0;
+
+  gap: 18px;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--3 {
+  grid-template-columns: 1.15fr 1fr 0.75fr;
+}
+
+.grid > * {
+  min-width: 0;
+}
 
 
+/* =========================================================
+   21. IMAGE DROPZONE
+========================================================= */
 
 .drop {
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
 
   gap: 6px;
 
+  width: 100%;
+  min-width: 0;
+
   padding: 22px 18px;
 
   border: 1px dashed rgba(255, 247, 234, 0.22);
-
   border-radius: 13px;
 
   background: rgba(255, 255, 255, 0.045);
 
   text-align: center;
 
-  transition: border-color 0.2s, background 0.2s;
-
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
-
-
 
 .drop--over {
-
   border-color: rgba(246, 200, 119, 0.7);
 
-  background: rgba(255, 200, 120, 0.09);
-
+  background:
+    rgba(255, 200, 120, 0.09);
 }
 
-
-
 .drop--filled {
-
   flex-direction: row;
-
   align-items: center;
 
   gap: 14px;
@@ -1467,65 +1495,45 @@ body::-webkit-scrollbar,
   padding: 12px 14px;
 
   border-style: solid;
-
   border-color: rgba(246, 200, 119, 0.4);
 
-  background: rgba(255, 200, 120, 0.07);
+  background:
+    rgba(255, 200, 120, 0.07);
 
   text-align: left;
-
 }
-
-
 
 .drop__input {
-
   display: none;
-
 }
-
-
 
 .drop__icon {
-
   width: 20px;
-
   height: 20px;
 
-  color: rgba(255, 231, 186, 0.7);
+  flex: none;
 
+  color: rgba(255, 231, 186, 0.7);
 }
 
-
-
 .drop__text {
-
   margin: 0;
-
-  font-size: 0.88rem;
 
   color: var(--muted);
 
+  font-size: 0.88rem;
 }
 
-
-
 .drop__hint {
-
   margin: 0;
-
-  font-size: 0.7rem;
 
   color: rgba(255, 247, 234, 0.34);
 
+  font-size: 0.7rem;
 }
 
-
-
 .drop__thumb {
-
   width: 54px;
-
   height: 54px;
 
   flex: none;
@@ -1535,61 +1543,45 @@ body::-webkit-scrollbar,
   object-fit: cover;
 
   border: 1px solid rgba(255, 247, 234, 0.2);
-
 }
 
-
-
 .drop__meta {
-
   display: grid;
 
   gap: 2px;
 
   min-width: 0;
-
 }
 
-
-
 .drop__remove {
-
   margin-left: auto;
 
   flex: none;
 
   font-size: 0.78rem;
-
 }
 
-
-
 .drop__name {
-
   overflow: hidden;
 
   font-size: 0.86rem;
 
   white-space: nowrap;
-
   text-overflow: ellipsis;
-
 }
-
-
 
 .drop__size {
-
-  font-size: 0.72rem;
-
   color: rgba(255, 247, 234, 0.45);
 
+  font-size: 0.72rem;
 }
 
 
+/* =========================================================
+   22. FORM LINKS & VALIDATION
+========================================================= */
 
 .link {
-
   padding: 0;
 
   border: 0;
@@ -1599,63 +1591,72 @@ body::-webkit-scrollbar,
   color: var(--gold);
 
   font: inherit;
-
   font-size: inherit;
 
   text-decoration: underline;
-
   text-underline-offset: 3px;
 
   cursor: pointer;
 
-  transition: opacity 0.2s;
-
+  transition: opacity 0.2s ease;
 }
-
-
 
 .link:hover {
-
   opacity: 0.78;
-
 }
 
+.form__error,
+.field__error {
+  display: block;
 
-
-.form__error {
-
-  margin: -6px 0 0;
-
-  font-size: 0.8rem;
+  margin: 0;
 
   color: #ffb1a1;
 
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.field__error {
+  margin-top: 6px;
+  font-size: 0.74rem;
 }
 
 
+/* =========================================================
+   23. PREMIUM SUBMIT BUTTON
+========================================================= */
 
 .submit {
-
   position: relative;
 
+  display: block;
+
   width: 100%;
+  max-width: 100%;
+  min-height: 52px;
 
-  margin-top: 8px;
+  margin-top: 6px;
 
-  padding: 16px 30px;
+  padding: 15px 25px;
+
+  overflow: hidden;
 
   border: 0;
-
   border-radius: 14px;
 
-  background: linear-gradient(180deg, #ffdb9c 0%, #f0a848 100%);
+  background:
+    linear-gradient(
+      180deg,
+      #ffdb9c 0%,
+      #f0a848 100%
+    );
 
   color: #3a1a06;
 
   font: inherit;
 
   font-size: 0.95rem;
-
   font-weight: 600;
 
   letter-spacing: 0.01em;
@@ -1663,153 +1664,146 @@ body::-webkit-scrollbar,
   cursor: pointer;
 
   box-shadow:
-
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
-
     0 20px 44px -18px rgba(255, 168, 72, 0.65);
 
-  transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
-
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
 }
 
-
-
 .submit:hover {
-
   transform: translateY(-1px);
 
   filter: brightness(1.05);
 
-  box-shadow: 0 22px 46px -14px rgba(255, 168, 72, 0.7);
-
+  box-shadow:
+    0 22px 46px -14px rgba(255, 168, 72, 0.7);
 }
-
-
 
 .submit:active {
-
   transform: translateY(0);
-
 }
 
+.submit:disabled {
+  opacity: 0.65;
 
+  cursor: not-allowed;
+
+  transform: none;
+  filter: none;
+}
 
 .submit__spark {
-
   position: absolute;
 
   top: 8px;
-
   right: 16px;
 
   width: 5px;
-
   height: 5px;
 
   border-radius: 50%;
 
   background: rgba(255, 255, 255, 0.9);
 
-  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 8px 2px rgba(255, 255, 255, 0.6);
 
-  animation: twinkle 2.2s ease-in-out infinite alternate;
-
+  animation:
+    twinkle 2.2s ease-in-out infinite alternate;
 }
 
 
-
-/* sent state */
-
-
+/* =========================================================
+   24. WISH SUBMISSION SUCCESS STATE
+========================================================= */
 
 .card--done {
-
   text-align: center;
-
 }
 
-
-
 .done__mark {
+  display: grid;
+  place-items: center;
 
   width: 54px;
-
   height: 54px;
 
   margin: 0 auto 18px;
 
   border-radius: 50%;
 
-  display: grid;
-
-  place-items: center;
-
-  background: radial-gradient(circle, rgba(255, 196, 106, 0.35), transparent 70%);
-
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 196, 106, 0.35),
+      transparent 70%
+    );
 }
 
-
-
 .done__flame {
-
   width: 14px;
-
   height: 22px;
 
   border-radius: 50% 50% 46% 46% / 66% 66% 34% 34%;
 
-  background: linear-gradient(180deg, #fff6d8, #ffb04a);
+  background:
+    linear-gradient(
+      180deg,
+      #fff6d8,
+      #ffb04a
+    );
 
-  box-shadow: 0 0 20px 4px rgba(255, 176, 74, 0.6);
+  box-shadow:
+    0 0 20px 4px rgba(255, 176, 74, 0.6);
 
   transform-origin: 50% 100%;
 
-  animation: flicker 2.2s ease-in-out infinite alternate;
-
+  animation:
+    flicker 2.2s ease-in-out infinite alternate;
 }
 
+@keyframes flicker {
+  0% {
+    transform: rotate(-4deg) scale(0.94);
+    opacity: 0.84;
+  }
 
+  100% {
+    transform: rotate(4deg) scale(1.06);
+    opacity: 1;
+  }
+}
 
 .done__title {
-
   margin: 0 0 10px;
-
-  font-family: var(--font-display);
-
-  font-weight: 400;
-
-  font-size: 1.5rem;
 
   color: var(--cream);
 
+  font-family: var(--font-display);
+
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
-
-
 .done__body {
-
   display: grid;
 
-  gap: 14px;
-
   justify-items: center;
+  gap: 14px;
 
   margin: 0 0 20px;
 
-  font-size: 0.92rem;
-
-  line-height: 1.7;
-
   color: var(--muted);
 
+  font-size: 0.92rem;
+  line-height: 1.7;
 }
 
-
-
 .done__photo {
-
   width: 108px;
-
   height: 108px;
 
   border-radius: 14px;
@@ -1817,47 +1811,46 @@ body::-webkit-scrollbar,
   object-fit: cover;
 
   border: 1px solid rgba(255, 247, 234, 0.2);
+}
 
+.done__ref {
+  margin: 0 0 16px;
+
+  color: rgba(255, 247, 234, 0.4);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 
-
-/* footer line */
-
-
+/* =========================================================
+   25. FOOTER
+========================================================= */
 
 .foot {
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
+  flex-wrap: wrap;
 
   gap: 10px;
 
   margin-top: 44px;
 
-  font-size: 0.68rem;
-
   color: rgba(255, 247, 234, 0.42);
 
+  font-size: 0.68rem;
+  line-height: 1.5;
 }
-
-
 
 .foot__copy {
-
   letter-spacing: 0.08em;
-
 }
 
-
-
 .foot__partner {
-
   display: inline-flex;
-
   align-items: center;
 
   gap: 6px;
@@ -1868,24 +1861,15 @@ body::-webkit-scrollbar,
 
   text-decoration: none;
 
-  transition: opacity 0.2s;
-
+  transition: opacity 0.2s ease;
 }
-
-
 
 .foot__partner:hover {
-
   opacity: 0.78;
-
 }
 
-
-
 .foot__favicon {
-
   width: 20px;
-
   height: 20px;
 
   border-radius: 4px;
@@ -1893,127 +1877,73 @@ body::-webkit-scrollbar,
   object-fit: contain;
 
   background: rgba(255, 247, 234, 0.9);
-
 }
-
-
 
 .foot__and {
-
   color: rgba(255, 247, 234, 0.42);
-
 }
 
 
-
-/* ---------- form grid ---------- */
-
-
-
-.grid {
-
-  display: grid;
-
-  gap: 18px;
-
-}
-
-
-
-.grid--2 {
-
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-}
-
-
-
-.grid--3 {
-
-  grid-template-columns: 1.15fr 1fr 0.75fr;
-
-}
-
-
-
-/* ---------- firework loader ---------- */
-
-
+/* =========================================================
+   26. FIREWORK LOADER
+========================================================= */
 
 html.is-booting {
-
   overflow: hidden;
-
 }
 
-
-
 .loader {
-
   position: fixed;
-
   inset: 0;
 
   z-index: 50;
 
   display: grid;
-
   place-items: center;
 
   background:
+    radial-gradient(
+      78% 56% at 50% 102%,
+      rgba(255, 140, 60, 0.18),
+      transparent 66%
+    ),
+    linear-gradient(
+      180deg,
+      #11051d 0%,
+      #260d2b 100%
+    );
 
-    radial-gradient(78% 56% at 50% 102%, rgba(255, 140, 60, 0.18), transparent 66%),
-
-    linear-gradient(180deg, #11051d 0%, #260d2b 100%);
-
-  transition: opacity 0.6s ease, visibility 0.6s ease;
-
+  transition:
+    opacity 0.6s ease,
+    visibility 0.6s ease;
 }
-
-
 
 .loader--out {
-
   opacity: 0;
-
   visibility: hidden;
-
 }
 
-
-
 .loader__stage {
-
   position: relative;
 
   width: 340px;
-
   height: 340px;
-
 }
 
-
-
 .rocket {
-
   position: absolute;
 
   left: 50%;
-
   top: 50%;
 
-  animation: shoot 1s cubic-bezier(0.15, 0.7, 0.25, 1) forwards;
-
+  animation:
+    shoot 1s cubic-bezier(0.15, 0.7, 0.25, 1) forwards;
 }
 
-
-
 .rocket__head {
-
   display: block;
 
   width: 10px;
-
   height: 10px;
 
   border-radius: 50%;
@@ -2021,531 +1951,405 @@ html.is-booting {
   background: #fff6dd;
 
   box-shadow:
-
     0 0 12px 3px rgba(255, 214, 140, 0.95),
-
     0 0 34px 12px rgba(255, 150, 60, 0.45);
-
 }
 
-
-
 .rocket__trail {
-
   position: absolute;
 
   top: 8px;
-
   left: 4px;
 
   width: 2px;
-
   height: 78px;
 
   border-radius: 2px;
 
-  background: linear-gradient(180deg, rgba(255, 200, 118, 0.9), rgba(255, 150, 60, 0));
-
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 200, 118, 0.9),
+      rgba(255, 150, 60, 0)
+    );
 }
 
-
-
 @keyframes shoot {
-
   0% {
-
     transform: translate(-50%, 158px) scale(0.5);
-
     opacity: 0;
-
   }
 
   18% {
-
     opacity: 1;
-
   }
 
   84% {
-
     transform: translate(-50%, -10px) scale(1);
-
     opacity: 1;
-
   }
 
   100% {
-
     transform: translate(-50%, 0) scale(1);
-
     opacity: 0;
-
   }
-
 }
 
-
-
 .flash {
-
   position: absolute;
 
   top: 50%;
-
   left: 50%;
 
   width: 320px;
-
   height: 320px;
 
   margin: -160px 0 0 -160px;
 
   border-radius: 50%;
 
-  background: radial-gradient(
-
-    circle,
-
-    rgba(255, 238, 194, 0.55),
-
-    rgba(255, 170, 80, 0.16) 42%,
-
-    transparent 70%
-
-  );
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 238, 194, 0.55),
+      rgba(255, 170, 80, 0.16) 42%,
+      transparent 70%
+    );
 
   opacity: 0;
 
-  animation: pop 0.8s ease-out 0.96s forwards;
-
+  animation:
+    pop 0.8s ease-out 0.96s forwards;
 }
 
-
-
 @keyframes pop {
-
   0% {
-
     transform: scale(0.05);
-
     opacity: 0;
-
   }
 
   14% {
-
     opacity: 0.95;
-
   }
 
   100% {
-
     transform: scale(1.18);
-
     opacity: 0;
-
   }
-
 }
 
-
-
 .boom {
-
   position: absolute;
 
   top: 50%;
-
   left: 50%;
 
   width: 0;
-
   height: 0;
-
 }
 
-
-
 .shard {
-
   position: absolute;
 
   border-radius: 50%;
 
   background: var(--c);
 
-  box-shadow: 0 0 10px 2px var(--c);
+  box-shadow:
+    0 0 10px 2px var(--c);
 
   opacity: 0;
 
-  animation: burst 1.2s cubic-bezier(0.12, 0.7, 0.3, 1) forwards;
-
+  animation:
+    burst 1.2s cubic-bezier(0.12, 0.7, 0.3, 1) forwards;
 }
 
-
-
 @keyframes burst {
-
   0% {
-
     transform: translate(0, 0) scale(0.2);
-
     opacity: 0;
-
   }
 
   10% {
-
     opacity: 1;
-
   }
 
   55% {
-
-    transform: translate(calc(var(--tx) * 0.74), calc(var(--ty) * 0.74)) scale(1);
+    transform:
+      translate(
+        calc(var(--tx) * 0.74),
+        calc(var(--ty) * 0.74)
+      )
+      scale(1);
 
     opacity: 1;
-
   }
 
   100% {
-
-    transform: translate(var(--tx), calc(var(--ty) + 30px)) scale(0.3);
+    transform:
+      translate(
+        var(--tx),
+        calc(var(--ty) + 30px)
+      )
+      scale(0.3);
 
     opacity: 0;
-
   }
-
 }
 
-
-
 .loader__word {
-
   position: absolute;
 
   top: 50%;
-
   left: 50%;
 
   margin: 0;
 
   transform: translate(-50%, 66px);
 
-  font-family: var(--font-display);
+  color: var(--gold-soft);
 
+  font-family: var(--font-display);
   font-size: 0.8rem;
 
   letter-spacing: 0.24em;
-
   text-transform: uppercase;
 
   white-space: nowrap;
 
-  color: var(--gold-soft);
-
   opacity: 0;
 
-  animation: surface 0.9s ease-out 1.4s forwards;
-
+  animation:
+    surface 0.9s ease-out 1.4s forwards;
 }
 
-
-
 @keyframes surface {
-
   from {
-
     opacity: 0;
-
     letter-spacing: 0.44em;
-
   }
 
   to {
-
     opacity: 1;
-
     letter-spacing: 0.24em;
-
   }
-
 }
 
 
+/* =========================================================
+   27. FESTIVE FALLING PETALS
+========================================================= */
 
-/* ---------- responsive ---------- */
+.festive-petals {
+  position: fixed;
+  inset: 0;
 
+  z-index: 2;
 
-
-@media (max-width: 560px) {
-
-  .grid--2,
-
-  .grid--3 {
-
-    grid-template-columns: minmax(0, 1fr);
-
-  }
-
+  overflow: hidden;
+  pointer-events: none;
 }
 
-
-
-@media (max-width: 720px) {
-
-  .shell {
-
-    padding: 168px 18px 46px;
-
-  }
-
-
-
-  .foot {
-
-    flex-wrap: wrap;
-
-  }
-
-
-
-  .card {
-
-    padding: 28px 22px 26px;
-
-    border-radius: 22px;
-
-  }
-
-
-
-  .form {
-
-    gap: 16px;
-
-  }
-
-
-
-  .diya__svg {
-
-    width: 32px;
-
-    height: 32px;
-
-  }
-
-}
-
-
-
-@media (prefers-reduced-motion: reduce) {
-
-  .bulb,
-
-  .diya__flame,
-
-  .diya__halo,
-
-  .embers__i,
-
-  .done__flame,
-
-  .submit__spark,
-
-  .lights__wash {
-
-    animation: none;
-
-  }
-
-
-
-  .rocket,
-
-  .flash,
-
-  .boom {
-
-    display: none;
-
-  }
-
-
-
-  .loader__word {
-
-    transform: translate(-50%, 0);
-
-    animation: none;
-
-    opacity: 1;
-
-  }
-
-}
-
-
-
-/* ---------- form extras ---------- */
-
-
-
-.field__error {
+.festive-petal {
+  position: absolute;
+  top: -35px;
 
   display: block;
 
-  margin-top: 6px;
+  border-radius: 2px 100% 2px 100%;
 
-  font-size: 0.74rem;
+  background:
+    linear-gradient(
+      145deg,
+      #ffe6a9 0%,
+      #ffb34f 45%,
+      #ed7548 100%
+    );
 
-  color: #ffb1a1;
+  box-shadow:
+    0 0 8px rgba(255, 183, 90, 0.28),
+    0 0 16px rgba(255, 130, 55, 0.12);
 
+  opacity: 0;
+
+  animation:
+    festive-petal-fall linear infinite;
+
+  will-change: transform, opacity;
+}
+
+@keyframes festive-petal-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.72;
+  }
+
+  80% {
+    opacity: 0.48;
+  }
+
+  100% {
+    transform:
+      translate3d(
+        var(--petal-drift),
+        110vh,
+        0
+      )
+      rotate(760deg);
+
+    opacity: 0;
+  }
 }
 
 
+/* =========================================================
+   28. PREMIUM FESTIVE CARD ANIMATION
+========================================================= */
 
-.submit:disabled {
+.card {
+  animation:
+    festive-card-glow 7s ease-in-out infinite;
+}
 
-  opacity: 0.65;
+@keyframes festive-card-glow {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 44px 90px -40px rgba(0, 0, 0, 0.85),
+      0 0 70px -30px rgba(255, 160, 70, 0.28);
+  }
 
-  cursor: default;
-
-  transform: none;
-
-  filter: none;
-
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 44px 90px -40px rgba(0, 0, 0, 0.85),
+      0 0 92px -25px rgba(255, 174, 83, 0.40);
+  }
 }
 
 
+/* =========================================================
+   29. SCROLL REVEAL ANIMATION
+========================================================= */
 
-.done__ref {
+.festive-reveal {
+  opacity: 0;
 
-  margin: 0 0 16px;
+  transform:
+    translate3d(0, 26px, 0)
+    scale(0.985);
 
-  font-size: 0.68rem;
+  filter: blur(4px);
 
-  letter-spacing: 0.16em;
+  transition:
+    opacity 800ms var(--ease-premium),
+    transform 800ms var(--ease-premium),
+    filter 800ms var(--ease-premium);
 
-  text-transform: uppercase;
+  transition-delay: var(--reveal-delay, 0ms);
+}
 
-  color: rgba(255, 247, 234, 0.4);
+.festive-reveal.is-revealed {
+  opacity: 1;
 
+  transform:
+    translate3d(0, 0, 0)
+    scale(1);
+
+  filter: blur(0);
 }
 
 
-
-/* ---------- admin panel ---------- */
-
-
+/* =========================================================
+   30. ADMIN PAGE
+========================================================= */
 
 .page--admin {
-
   min-height: 100dvh;
 
-  background: linear-gradient(180deg, #180a2a 0%, #210f31 100%);
-
+  background:
+    linear-gradient(
+      180deg,
+      #180a2a 0%,
+      #210f31 100%
+    );
 }
 
-
-
 .admin {
-
   position: relative;
 
   z-index: 5;
 
   width: 100%;
-
   max-width: 1200px;
+  min-width: 0;
 
   margin: 0 auto;
 
   padding: 42px 24px 90px;
-
 }
 
-
-
 .admin__boot {
-
   padding: 80px 24px;
-
-  text-align: center;
 
   color: rgba(255, 247, 234, 0.55);
 
   font-size: 0.9rem;
 
+  text-align: center;
 }
 
-
-
 .admin__head {
-
   display: flex;
-
   align-items: flex-end;
-
   justify-content: space-between;
+  flex-wrap: wrap;
 
   gap: 20px;
 
-  flex-wrap: wrap;
-
   margin-bottom: 24px;
-
 }
 
-
-
 .admin__title {
-
   margin: 0;
-
-  font-family: var(--font-display);
-
-  font-weight: 400;
-
-  font-size: 1.9rem;
 
   color: var(--cream);
 
+  font-family: var(--font-display);
+
+  font-size: 1.9rem;
+  font-weight: 400;
 }
 
-
-
 .admin__count {
-
   margin: 5px 0 0;
-
-  font-size: 0.76rem;
 
   color: rgba(255, 247, 234, 0.48);
 
+  font-size: 0.76rem;
 }
-
-
 
 .admin__headactions {
-
   display: flex;
-
-  gap: 8px;
-
   flex-wrap: wrap;
 
+  gap: 8px;
 }
 
 
+/* =========================================================
+   31. ADMIN BUTTONS
+========================================================= */
 
 .ghost {
-
   padding: 9px 14px;
 
   border: 1px solid rgba(255, 247, 234, 0.17);
-
   border-radius: 10px;
 
   background: rgba(255, 255, 255, 0.04);
@@ -2553,65 +2357,47 @@ html.is-booting {
   color: var(--cream);
 
   font: inherit;
-
   font-size: 0.78rem;
 
   text-decoration: none;
 
   cursor: pointer;
 
-  transition: background 0.2s, border-color 0.2s;
-
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
-
-
 
 .ghost:hover {
-
   background: rgba(255, 255, 255, 0.09);
-
 }
-
-
 
 .ghost:disabled {
-
   opacity: 0.45;
-
-  cursor: default;
-
+  cursor: not-allowed;
 }
-
-
 
 .ghost--warn {
-
   border-color: rgba(255, 120, 110, 0.5);
-
   color: #ffc0b6;
-
 }
 
 
+/* =========================================================
+   32. ADMIN STATISTICS
+========================================================= */
 
 .stats {
-
   display: flex;
-
   flex-wrap: wrap;
 
   gap: 10px;
 
   margin-bottom: 22px;
-
 }
 
-
-
 .stat {
-
   display: grid;
-
   gap: 2px;
 
   min-width: 96px;
@@ -2619,85 +2405,57 @@ html.is-booting {
   padding: 12px 16px;
 
   border: 1px solid rgba(255, 247, 234, 0.1);
-
   border-radius: 12px;
 
   background: rgba(255, 255, 255, 0.045);
-
 }
 
-
-
 .stat b {
+  color: var(--cream);
 
   font-family: var(--font-display);
 
-  font-weight: 400;
-
   font-size: 1.3rem;
-
-  color: var(--cream);
-
+  font-weight: 400;
 }
 
-
-
 .stat span {
+  color: rgba(255, 247, 234, 0.46);
 
   font-size: 0.62rem;
 
   letter-spacing: 0.16em;
-
   text-transform: uppercase;
-
-  color: rgba(255, 247, 234, 0.46);
-
 }
-
-
 
 .stat--pending b {
-
   color: #ffcf7d;
-
 }
-
-
 
 .stat--approved b {
-
   color: #aee4b4;
-
 }
-
-
 
 .stat--hidden b {
-
   color: #ff9d9d;
-
 }
 
 
+/* =========================================================
+   33. ADMIN TOOLBAR
+========================================================= */
 
 .toolbar {
-
   display: flex;
-
+  align-items: center;
   flex-wrap: wrap;
 
   gap: 12px;
 
-  align-items: center;
-
   margin-bottom: 16px;
-
 }
 
-
-
 .toolbar__search {
-
   flex: 1 1 280px;
 
   max-width: 440px;
@@ -2705,29 +2463,19 @@ html.is-booting {
   padding: 11px 14px;
 
   font-size: 0.88rem;
-
 }
 
-
-
 .segmented {
-
   display: flex;
-
   gap: 6px;
 
   margin-left: auto;
-
 }
 
-
-
 .seg {
-
   padding: 9px 14px;
 
   border: 1px solid rgba(255, 247, 234, 0.16);
-
   border-radius: 10px;
 
   background: transparent;
@@ -2735,64 +2483,61 @@ html.is-booting {
   color: rgba(255, 247, 234, 0.68);
 
   font: inherit;
-
   font-size: 0.76rem;
 
   text-transform: capitalize;
 
   cursor: pointer;
 
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
-
-
 .seg--on {
+  border-color: rgba(246, 200, 119, 0.48);
 
   background: rgba(246, 200, 119, 0.15);
 
-  border-color: rgba(246, 200, 119, 0.48);
-
   color: #ffe3ad;
-
 }
 
 
+/* =========================================================
+   34. ADMIN TABLE
+========================================================= */
 
 .atable {
+  overflow: hidden;
 
   border: 1px solid rgba(255, 247, 234, 0.1);
-
   border-radius: 16px;
 
   background: rgba(255, 255, 255, 0.03);
-
-  overflow: hidden;
-
 }
 
-
-
 .atable__empty {
-
   padding: 34px 20px;
-
-  text-align: center;
-
-  font-size: 0.86rem;
 
   color: rgba(255, 247, 234, 0.45);
 
+  font-size: 0.86rem;
+
+  text-align: center;
 }
 
-
-
 .arow {
-
   display: grid;
 
-  grid-template-columns: 168px minmax(150px, 1.05fr) minmax(110px, 0.8fr) minmax(170px, 1.5fr) 62px 132px 128px;
+  grid-template-columns:
+    168px
+    minmax(150px, 1.05fr)
+    minmax(110px, 0.8fr)
+    minmax(170px, 1.5fr)
+    62px
+    132px
+    128px;
 
   gap: 12px;
 
@@ -2801,75 +2546,45 @@ html.is-booting {
   padding: 14px 16px;
 
   border-bottom: 1px solid rgba(255, 247, 234, 0.07);
-
 }
-
-
 
 .arow:last-child {
-
   border-bottom: 0;
-
 }
 
-
-
 .arow--head {
+  background: rgba(255, 255, 255, 0.035);
+
+  color: rgba(255, 247, 234, 0.42);
 
   font-size: 0.6rem;
 
   letter-spacing: 0.18em;
-
   text-transform: uppercase;
-
-  color: rgba(255, 247, 234, 0.42);
-
-  background: rgba(255, 255, 255, 0.035);
-
 }
-
-
 
 .arow--open {
-
   background: rgba(255, 200, 120, 0.05);
-
 }
 
-
-
 .acell {
-
   min-width: 0;
 
   font-size: 0.85rem;
-
 }
-
-
 
 .acell--when {
-
-  font-size: 0.75rem;
-
   color: rgba(255, 247, 234, 0.6);
 
+  font-size: 0.75rem;
 }
-
-
 
 .acell--who {
-
   display: grid;
-
   gap: 2px;
-
 }
 
-
-
 .aname {
-
   padding: 0;
 
   border: 0;
@@ -2879,51 +2594,35 @@ html.is-booting {
   color: var(--cream);
 
   font: inherit;
-
   font-weight: 600;
 
   text-align: left;
 
   cursor: pointer;
-
 }
-
-
 
 .aname:hover {
-
   text-decoration: underline;
-
   text-underline-offset: 3px;
-
 }
 
-
-
 .asub {
-
   overflow: hidden;
-
-  font-size: 0.73rem;
 
   color: rgba(255, 247, 234, 0.48);
 
+  font-size: 0.73rem;
+
   white-space: nowrap;
-
   text-overflow: ellipsis;
-
 }
 
-
-
 .acell--wish {
-
   display: -webkit-box;
 
   overflow: hidden;
 
   -webkit-box-orient: vertical;
-
   -webkit-line-clamp: 2;
 
   line-clamp: 2;
@@ -2931,33 +2630,20 @@ html.is-booting {
   color: rgba(255, 247, 234, 0.82);
 
   cursor: pointer;
-
 }
-
-
 
 .muted {
-
   color: rgba(255, 247, 234, 0.32);
-
 }
-
-
 
 .acell--photo {
-
   line-height: 0;
-
 }
 
-
-
 .thumb {
-
   padding: 0;
 
   border: 1px solid rgba(255, 247, 234, 0.2);
-
   border-radius: 8px;
 
   background: none;
@@ -2965,41 +2651,27 @@ html.is-booting {
   cursor: pointer;
 
   line-height: 0;
-
 }
 
-
-
 .thumb img {
-
   display: block;
 
   width: 42px;
-
   height: 42px;
 
   border-radius: 7px;
 
   object-fit: cover;
-
 }
-
-
 
 .acell--status {
-
   display: grid;
-
 }
 
-
-
 .pick {
-
   padding: 7px 9px;
 
   border: 1px solid rgba(255, 247, 234, 0.18);
-
   border-radius: 9px;
 
   background: #241033;
@@ -3007,123 +2679,93 @@ html.is-booting {
   color: var(--cream);
 
   font: inherit;
-
   font-size: 0.76rem;
 
   text-transform: capitalize;
 
   cursor: pointer;
-
 }
 
-
-
 .pick:focus {
-
   outline: none;
 
   border-color: rgba(246, 200, 119, 0.6);
-
 }
 
-
-
 .acell--act {
-
   display: flex;
-
   flex-wrap: wrap;
-
-  gap: 6px;
 
   justify-content: flex-end;
 
+  gap: 6px;
 }
 
-
-
 .adetail {
+  display: grid;
 
   grid-column: 1 / -1;
 
-  display: grid;
-
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns:
+    minmax(0, 1.4fr)
+    minmax(0, 1fr);
 
   gap: 18px;
 
   padding: 14px 0 4px;
 
-  font-size: 0.84rem;
-
   color: rgba(255, 247, 234, 0.72);
 
+  font-size: 0.84rem;
 }
 
-
-
 .adetail__wish {
-
   margin: 8px 0 0;
-
-  line-height: 1.7;
 
   color: var(--cream);
 
-  white-space: pre-wrap;
+  line-height: 1.7;
 
+  white-space: pre-wrap;
 }
 
-
-
 .adetail__url {
+  overflow-wrap: anywhere;
 
   margin: 6px 0 0;
 
   font-size: 0.74rem;
-
-  overflow-wrap: anywhere;
-
 }
-
-
 
 .adetail__note {
-
   display: block;
-
 }
 
-
-
 .pager {
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   gap: 16px;
 
   margin-top: 18px;
 
-  font-size: 0.76rem;
-
   color: rgba(255, 247, 234, 0.5);
 
+  font-size: 0.76rem;
 }
 
 
+/* =========================================================
+   35. ADMIN LOGIN
+========================================================= */
 
 .login {
-
   display: grid;
 
   gap: 14px;
 
   width: 100%;
-
   max-width: 400px;
 
   margin: 80px auto 0;
@@ -3131,99 +2773,78 @@ html.is-booting {
   padding: 32px 30px;
 
   border: 1px solid rgba(255, 247, 234, 0.12);
-
   border-radius: 22px;
 
-  background: linear-gradient(180deg, rgba(58, 28, 78, 0.62), rgba(38, 17, 54, 0.55));
+  background:
+    linear-gradient(
+      180deg,
+      rgba(58, 28, 78, 0.62),
+      rgba(38, 17, 54, 0.55)
+    );
 
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
-
+  box-shadow:
+    0 40px 80px -40px rgba(0, 0, 0, 0.8);
 }
 
-
-
 .login__title {
-
   margin: 0;
-
-  font-family: var(--font-display);
-
-  font-weight: 400;
-
-  font-size: 1.5rem;
 
   color: var(--cream);
 
+  font-family: var(--font-display);
+
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
-
-
 .login__sub {
-
   margin: -6px 0 6px;
-
-  font-size: 0.82rem;
 
   color: rgba(255, 247, 234, 0.52);
 
+  font-size: 0.82rem;
 }
 
 
+/* =========================================================
+   36. NOTICE PANEL & CODE
+========================================================= */
 
 .notice {
-
   max-width: 620px;
 
   margin: 70px auto 0;
-
   padding: 30px 32px;
 
   border: 1px solid rgba(255, 247, 234, 0.12);
-
   border-radius: 20px;
 
   background: rgba(255, 255, 255, 0.04);
 
-  font-size: 0.88rem;
-
-  line-height: 1.75;
-
   color: var(--muted);
 
+  font-size: 0.88rem;
+  line-height: 1.75;
 }
 
-
-
 .notice__title {
-
   margin: 0 0 10px;
-
-  font-family: var(--font-display);
-
-  font-weight: 400;
-
-  font-size: 1.4rem;
 
   color: var(--cream);
 
+  font-family: var(--font-display);
+
+  font-size: 1.4rem;
+  font-weight: 400;
 }
-
-
 
 .notice__list {
-
   margin: 12px 0;
-
   padding-left: 18px;
-
 }
 
-
-
 .notice code,
-
 .admin code {
-
   padding: 2px 6px;
 
   border-radius: 6px;
@@ -3233,21 +2854,20 @@ html.is-booting {
   color: #ffdc9e;
 
   font-size: 0.82em;
-
 }
 
 
+/* =========================================================
+   37. IMAGE PREVIEW MODAL
+========================================================= */
 
 .modal {
-
   position: fixed;
-
   inset: 0;
 
   z-index: 60;
 
   display: grid;
-
   place-items: center;
 
   padding: 24px;
@@ -3255,2401 +2875,108 @@ html.is-booting {
   background: rgba(10, 4, 20, 0.84);
 
   backdrop-filter: blur(6px);
-
   -webkit-backdrop-filter: blur(6px);
-
 }
 
-
-
 .modal__img {
-
   max-width: min(92vw, 920px);
-
   max-height: 86vh;
 
   border: 1px solid rgba(255, 247, 234, 0.2);
-
   border-radius: 14px;
 
+  object-fit: contain;
 }
 
 
+/* =========================================================
+   38. ADMIN RESPONSIVENESS
+========================================================= */
 
 @media (max-width: 1100px) {
-
   .arow {
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
 
     gap: 10px 16px;
 
     padding: 16px;
-
   }
-
-
 
   .arow--head {
-
     display: none;
-
   }
-
-
 
   .acell--when,
-
   .acell--who,
-
   .acell--wish,
-
   .adetail {
-
     grid-column: 1 / -1;
-
   }
-
-
 
   .acell--act {
-
     justify-content: flex-start;
-
   }
-
-
 
   .adetail {
-
     grid-template-columns: minmax(0, 1fr);
-
   }
-
-
 
   .segmented {
-
     margin-left: 0;
-
   }
-
-}
-
-
-
-
-
-/* =====================================================
-
-   PREMIUM FESTIVE ANIMATIONS
-
-   Added without changing existing layout or form styles
-
-\===================================================== */
-
-
-
-/* ---------- 1. Falling marigold petals ---------- */
-
-
-
-.festive-petals {
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 2;
-
-  overflow: hidden;
-
-  pointer-events: none;
-
-}
-
-
-
-.festive-petal {
-
-  position: absolute;
-
-  top: -35px;
-
-  display: block;
-
-  border-radius: 2px 100% 2px 100%;
-
-
-
-  background: linear-gradient(
-
-    145deg,
-
-    #ffe6a9 0%,
-
-    #ffb34f 45%,
-
-    #ed7548 100%
-
-  );
-
-
-
-  box-shadow:
-
-    0 0 8px rgba(255, 183, 90, 0.28),
-
-    0 0 16px rgba(255, 130, 55, 0.12);
-
-
-
-  opacity: 0;
-
-
-
-  animation: festive-petal-fall linear infinite;
-
-
-
-  will-change: transform, opacity;
-
-}
-
-
-
-@keyframes festive-petal-fall {
-
-  0% {
-
-    transform: translate3d(0, -10vh, 0) rotate(0deg);
-
-    opacity: 0;
-
-  }
-
-
-
-  12% {
-
-    opacity: 0.72;
-
-  }
-
-
-
-  80% {
-
-    opacity: 0.48;
-
-  }
-
-
-
-  100% {
-
-    transform:
-
-      translate3d(var(--petal-drift), 110vh, 0)
-
-      rotate(760deg);
-
-    opacity: 0;
-
-  }
-
-}
-
-
-
-
-
-/* ---------- 2. Floating hero logo ---------- */
-
-
-
-.contest-logo {
-
-  animation: festive-logo-float 6s ease-in-out infinite;
-
-  transform-origin: center;
-
-}
-
-
-
-@keyframes festive-logo-float {
-
-  0%,
-
-  100% {
-
-    transform: translate3d(0, 0, 0);
-
-  }
-
-
-
-  50% {
-
-    transform: translate3d(0, -9px, 0);
-
-  }
-
-}
-
-
-
-
-
-/* ---------- 3. Golden heading glow ---------- */
-
-
-
-.title {
-
-  animation: festive-title-glow 5s ease-in-out infinite alternate;
-
-}
-
-
-
-@keyframes festive-title-glow {
-
-  from {
-
-    text-shadow:
-
-      0 0 24px rgba(255, 186, 104, 0.24),
-
-      0 0 65px rgba(255, 140, 70, 0.12);
-
-  }
-
-
-
-  to {
-
-    text-shadow:
-
-      0 0 38px rgba(255, 210, 135, 0.48),
-
-      0 0 95px rgba(255, 140, 70, 0.28);
-
-  }
-
-}
-
-
-
-
-
-/* ---------- 4. Breathing glass form card ---------- */
-
-
-
-.card {
-
-  animation: festive-card-glow 7s ease-in-out infinite;
-
-}
-
-
-
-@keyframes festive-card-glow {
-
-  0%,
-
-  100% {
-
-    box-shadow:
-
-      inset 0 1px 0 rgba(255, 255, 255, 0.1),
-
-      0 44px 90px -40px rgba(0, 0, 0, 0.85),
-
-      0 0 70px -30px rgba(255, 160, 70, 0.28);
-
-  }
-
-
-
-  50% {
-
-    box-shadow:
-
-      inset 0 1px 0 rgba(255, 255, 255, 0.13),
-
-      0 44px 90px -40px rgba(0, 0, 0, 0.85),
-
-      0 0 92px -25px rgba(255, 174, 83, 0.40);
-
-  }
-
-}
-
-
-
-
-
-/* ---------- 5. Scroll reveal animation ---------- */
-
-
-
-.festive-reveal {
-
-  opacity: 0;
-
-
-
-  transform: translate3d(0, 26px, 0) scale(0.985);
-
-
-
-  filter: blur(4px);
-
-
-
-  transition:
-
-    opacity 800ms cubic-bezier(0.2, 0.75, 0.25, 1),
-
-    transform 800ms cubic-bezier(0.2, 0.75, 0.25, 1),
-
-    filter 800ms cubic-bezier(0.2, 0.75, 0.25, 1);
-
-
-
-  transition-delay: var(--reveal-delay, 0ms);
-
-}
-
-
-
-.festive-reveal.is-revealed {
-
-  opacity: 1;
-
-
-
-  transform: translate3d(0, 0, 0) scale(1);
-
-
-
-  filter: blur(0);
-
-}
-
-
-
-
-
-/* ---------- 6. Better interaction on form card ---------- */
-
-
-
-.card {
-
-  transition:
-
-    border-color 400ms ease,
-
-    background 400ms ease;
-
-}
-
-
-
-.card:hover {
-
-  border-color: rgba(255, 214, 145, 0.28);
-
-}
-
-
-
-
-
-/* ---------- 7. Mobile optimisation ---------- */
-
-
-
-@media (max-width: 720px) {
-
-  .contest-logo {
-
-    animation-duration: 7s;
-
-  }
-
-
-
-  .festive-petal:nth-child(n + 7) {
-
-    display: none;
-
-  }
-
-
-
-  .festive-reveal {
-
-    transform: translate3d(0, 18px, 0) scale(0.99);
-
-    filter: none;
-
-  }
-
-}
-
-
-
-
-
-/* ---------- 8. Accessibility: reduced motion ---------- */
-
-
-
-@media (prefers-reduced-motion: reduce) {
-
-  .festive-petals {
-
-    display: none;
-
-  }
-
-
-
-  .contest-logo,
-
-  .title,
-
-  .card,
-
-  .festive-petal {
-
-    animation: none !important;
-
-  }
-
-
-
-  .festive-reveal,
-
-  .festive-reveal.is-revealed {
-
-    opacity: 1;
-
-    transform: none;
-
-    filter: none;
-
-    transition: none;
-
-  }
-
-}
-
-
-
-
-
-
-
-/* =========================================================
-
-   SNOWCEM FESTIVE
-
-   PREMIUM ROTATING FLORAL RANGOLI
-
-   Multi-layer • Golden Glow • Smooth Animation
-
-\========================================================= */
-
-
-
-/* ---------- Main rangoli container ---------- */
-
-
-
-.rangoli-ornament {
-
-  position: fixed;
-
-
-
-  top: 52%;
-
-  left: 50%;
-
-
-
-  width: min(82vw, 790px);
-
-  aspect-ratio: 1 / 1;
-
-
-
-  z-index: 0;
-
-
-
-  pointer-events: none;
-
-  user-select: none;
-
-
-
-  isolation: isolate;
-
-
-
-  transform: translate(-50%, -50%);
-
-
-
-  filter:
-
-    drop-shadow(0 0 16px rgba(246, 200, 119, 0.13))
-
-    drop-shadow(0 0 42px rgba(238, 139, 69, 0.10));
-
-
-
-  -webkit-backface-visibility: hidden;
-
-  backface-visibility: hidden;
-
-}
-
-
-
-/* ---------- Outer ambient golden halo ---------- */
-
-
-
-.rangoli-ornament::before {
-
-  content: "";
-
-
-
-  position: absolute;
-
-  inset: 9%;
-
-
-
-  z-index: -1;
-
-
-
-  border-radius: 50%;
-
-
-
-  border: 1px solid rgba(255, 219, 157, 0.19);
-
-
-
-  background:
-
-    radial-gradient(
-
-      circle,
-
-      rgba(246, 200, 119, 0.07) 0%,
-
-      rgba(246, 200, 119, 0.025) 48%,
-
-      transparent 72%
-
-    );
-
-
-
-  box-shadow:
-
-    0 0 35px rgba(255, 190, 100, 0.10),
-
-    inset 0 0 35px rgba(255, 190, 100, 0.07);
-
-
-
-  animation: rangoli-halo-pulse 6s ease-in-out infinite alternate;
-
-}
-
-
-
-/* ---------- Outer dotted orbit ---------- */
-
-
-
-.rangoli-ornament::after {
-
-  content: "";
-
-
-
-  position: absolute;
-
-  inset: 3%;
-
-
-
-  z-index: 0;
-
-
-
-  border: 1px dashed rgba(255, 222, 166, 0.20);
-
-  border-radius: 50%;
-
-
-
-  box-shadow:
-
-    0 0 16px rgba(246, 200, 119, 0.08);
-
-
-
-  animation: rangoli-orbit 100s linear infinite;
-
-}
-
-
-
-/* ---------- SVG ---------- */
-
-
-
-.rangoli-ornament__svg {
-
-  position: relative;
-
-  z-index: 1;
-
-
-
-  display: block;
-
-
-
-  width: 100%;
-
-  height: 100%;
-
-
-
-  overflow: visible;
-
-
-
-  opacity: 0.27;
-
-
-
-  filter:
-
-    drop-shadow(0 0 5px rgba(246, 200, 119, 0.16))
-
-    drop-shadow(0 0 15px rgba(255, 160, 80, 0.11));
-
-}
-
-
-
-
-
-/* =========================================================
-
-   1. DECORATIVE RINGS
-
-\========================================================= */
-
-
-
-.rangoli-ornament__rings {
-
-  transform-box: view-box;
-
-  transform-origin: center;
-
-
-
-  animation:
-
-    rangoli-orbit 120s linear infinite,
-
-    rangoli-ring-glow 7s ease-in-out infinite alternate;
-
-}
-
-
-
-.rangoli-ornament__rings circle:nth-child(1) {
-
-  stroke: rgba(255, 225, 170, 0.85);
-
-  stroke-width: 1.4;
-
-}
-
-
-
-.rangoli-ornament__rings circle:nth-child(2) {
-
-  stroke-dasharray: 2 8;
-
-  animation: rangoli-dash-flow 25s linear infinite;
-
-}
-
-
-
-.rangoli-ornament__rings circle:nth-child(3) {
-
-  stroke-dasharray: 3 8;
-
-  animation: rangoli-dash-flow 35s linear infinite reverse;
-
-}
-
-
-
-.rangoli-ornament__rings circle:nth-child(4) {
-
-  opacity: 0.65;
-
-}
-
-
-
-.rangoli-ornament__rings circle:nth-child(5) {
-
-  opacity: 0.8;
-
-}
-
-
-
-
-
-/* =========================================================
-
-   2. OUTER LOTUS PETALS
-
-\========================================================= */
-
-
-
-.rangoli-ornament__outer {
-
-  transform-box: view-box;
-
-  transform-origin: 50% 50%;
-
-
-
-  animation:
-
-    rangoli-clockwise 90s linear infinite,
-
-    rangoli-petal-shimmer 8s ease-in-out infinite alternate;
-
-
-
-  will-change: transform;
-
-}
-
-
-
-/* Outer golden beads */
-
-
-
-.rangoli-ornament__outer-beads {
-
-  transform-box: view-box;
-
-  transform-origin: 50% 50%;
-
-
-
-  animation:
-
-    rangoli-anticlockwise 110s linear infinite,
-
-    rangoli-bead-glow 4s ease-in-out infinite alternate;
-
-}
-
-
-
-
-
-/* =========================================================
-
-   3. MIDDLE FLORAL PETALS
-
-\========================================================= */
-
-
-
-.rangoli-ornament__middle {
-
-  transform-box: view-box;
-
-  transform-origin: 50% 50%;
-
-
-
-  animation:
-
-    rangoli-anticlockwise 68s linear infinite,
-
-    rangoli-petal-shimmer 6s ease-in-out infinite alternate;
-
-
-
-  will-change: transform;
-
-}
-
-
-
-/* Middle decorative beads */
-
-
-
-.rangoli-ornament__beads {
-
-  transform-box: view-box;
-
-  transform-origin: 50% 50%;
-
-
-
-  animation:
-
-    rangoli-clockwise 48s linear infinite,
-
-    rangoli-bead-glow 5s ease-in-out infinite alternate;
-
-}
-
-
-
-
-
-/* =========================================================
-
-   4. INNER LOTUS
-
-\========================================================= */
-
-
-
-.rangoli-ornament__inner {
-
-  transform-box: view-box;
-
-  transform-origin: 50% 50%;
-
-
-
-  animation:
-
-    rangoli-clockwise 42s linear infinite,
-
-    rangoli-petal-shimmer 5s ease-in-out infinite alternate;
-
-
-
-  will-change: transform;
-
-}
-
-
-
-
-
-/* =========================================================
-
-   5. CENTRAL GOLDEN FLOWER
-
-\========================================================= */
-
-
-
-.rangoli-ornament__center {
-
-  transform-box: view-box;
-
-  transform-origin: 50% 50%;
-
-
-
-  animation:
-
-    rangoli-center-glow 4.5s ease-in-out infinite alternate;
-
-
-
-  filter:
-
-    drop-shadow(0 0 8px rgba(255, 213, 143, 0.24))
-
-    drop-shadow(0 0 20px rgba(246, 151, 73, 0.18));
-
-}
-
-
-
-
-
-/* =========================================================
-
-   ANIMATION KEYFRAMES
-
-\========================================================= */
-
-
-
-/* Clockwise rotation */
-
-
-
-@keyframes rangoli-clockwise {
-
-  from {
-
-    transform: rotate(0deg);
-
-  }
-
-
-
-  to {
-
-    transform: rotate(360deg);
-
-  }
-
-}
-
-
-
-/* Reverse rotation */
-
-
-
-@keyframes rangoli-anticlockwise {
-
-  from {
-
-    transform: rotate(0deg);
-
-  }
-
-
-
-  to {
-
-    transform: rotate(-360deg);
-
-  }
-
-}
-
-
-
-/* Outer orbital rotation */
-
-
-
-@keyframes rangoli-orbit {
-
-  from {
-
-    transform: rotate(0deg);
-
-  }
-
-
-
-  to {
-
-    transform: rotate(360deg);
-
-  }
-
-}
-
-
-
-/* Breathing golden glow */
-
-
-
-@keyframes rangoli-halo-pulse {
-
-  from {
-
-    opacity: 0.48;
-
-
-
-    transform: scale(0.97);
-
-
-
-    box-shadow:
-
-      0 0 20px rgba(255, 190, 100, 0.06),
-
-      inset 0 0 20px rgba(255, 190, 100, 0.04);
-
-  }
-
-
-
-  to {
-
-    opacity: 1;
-
-
-
-    transform: scale(1.025);
-
-
-
-    box-shadow:
-
-      0 0 42px rgba(255, 190, 100, 0.16),
-
-      inset 0 0 36px rgba(255, 190, 100, 0.11);
-
-  }
-
-}
-
-
-
-/* Petal shimmer */
-
-
-
-@keyframes rangoli-petal-shimmer {
-
-  from {
-
-    opacity: 0.76;
-
-    filter: brightness(0.9);
-
-  }
-
-
-
-  to {
-
-    opacity: 1;
-
-    filter: brightness(1.15);
-
-  }
-
-}
-
-
-
-/* Centre pulse */
-
-
-
-@keyframes rangoli-center-glow {
-
-  from {
-
-    transform: scale(0.94);
-
-    opacity: 0.76;
-
-  }
-
-
-
-  to {
-
-    transform: scale(1.055);
-
-    opacity: 1;
-
-  }
-
-}
-
-
-
-/* Tiny bead illumination */
-
-
-
-@keyframes rangoli-bead-glow {
-
-  from {
-
-    opacity: 0.55;
-
-    filter: brightness(0.85);
-
-  }
-
-
-
-  to {
-
-    opacity: 1;
-
-    filter: brightness(1.3);
-
-  }
-
-}
-
-
-
-/* Ring illumination */
-
-
-
-@keyframes rangoli-ring-glow {
-
-  from {
-
-    opacity: 0.5;
-
-  }
-
-
-
-  to {
-
-    opacity: 1;
-
-  }
-
-}
-
-
-
-/* Dotted line movement */
-
-
-
-@keyframes rangoli-dash-flow {
-
-  from {
-
-    stroke-dashoffset: 0;
-
-  }
-
-
-
-  to {
-
-    stroke-dashoffset: 100;
-
-  }
-
-}
-
-
-
-
-
-/* =========================================================
-
-   TABLET RESPONSIVENESS
-
-\========================================================= */
-
-
-
-@media (max-width: 900px) {
-
-  .rangoli-ornament {
-
-    width: min(94vw, 650px);
-
-    top: 53%;
-
-  }
-
-
-
-  .rangoli-ornament__svg {
-
-    opacity: 0.23;
-
-  }
-
-}
-
-
-
-
-
-/* =========================================================
-
-   MOBILE RESPONSIVENESS
-
-\========================================================= */
-
-
-
-@media (max-width: 720px) {
-
-  .rangoli-ornament {
-
-    top: 54%;
-
-
-
-    width: min(112vw, 480px);
-
-
-
-    filter:
-
-      drop-shadow(0 0 12px rgba(246, 200, 119, 0.11));
-
-  }
-
-
-
-  .rangoli-ornament__svg {
-
-    opacity: 0.21;
-
-  }
-
-
-
-  .rangoli-ornament::before {
-
-    inset: 12%;
-
-  }
-
-
-
-  .rangoli-ornament::after {
-
-    inset: 5%;
-
-  }
-
-}
-
-
-
-
-
-/* =========================================================
-
-   SMALL MOBILE
-
-\========================================================= */
-
-
-
-@media (max-width: 380px) {
-
-  .rangoli-ornament {
-
-    width: 116vw;
-
-    top: 53%;
-
-  }
-
-
-
-  .rangoli-ornament__svg {
-
-    opacity: 0.18;
-
-  }
-
-}
-
-
-
-
-
-/* =========================================================
-
-   REDUCED MOTION ACCESSIBILITY
-
-\========================================================= */
-
-
-
-@media (prefers-reduced-motion: reduce) {
-
-  .rangoli-ornament::before,
-
-  .rangoli-ornament::after,
-
-  .rangoli-ornament__rings,
-
-  .rangoli-ornament__outer,
-
-  .rangoli-ornament__outer-beads,
-
-  .rangoli-ornament__middle,
-
-  .rangoli-ornament__beads,
-
-  .rangoli-ornament__inner,
-
-  .rangoli-ornament__center {
-
-    animation: none !important;
-
-    transition: none !important;
-
-    will-change: auto;
-
-  }
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-
-   SNOWCEM DREAM WISH CONTEST
-
-   Premium Festive Hero Enhancements
-
-   Existing layout and theme preserved
-
-\===================================================== */
-
-
-
-/* Contest eyebrow */
-
-
-
-.hero .eyebrow {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-
-
-  margin: 0 auto 22px;
-
-  padding: 9px 17px;
-
-
-
-  border: 1px solid rgba(246, 200, 119, 0.24);
-
-  border-radius: 50px;
-
-
-
-  background: rgba(255, 200, 119, 0.055);
-
-
-
-  color: #ffe1a9;
-
-
-
-  font-size: 0.66rem;
-
-  letter-spacing: 0.19em;
-
-
-
-  box-shadow:
-
-    0 0 22px rgba(246, 200, 119, 0.07),
-
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-
-
-  animation: contest-eyebrow-glow 4s ease-in-out infinite alternate;
-
-}
-
-
-
-.eyebrow__star {
-
-  color: #f6c877;
-
-  font-size: 0.85rem;
-
-
-
-  animation: contest-star-spin 8s linear infinite;
-
-}
-
-
-
-@keyframes contest-eyebrow-glow {
-
-  from {
-
-    border-color: rgba(246, 200, 119, 0.18);
-
-    box-shadow: 0 0 12px rgba(246, 200, 119, 0.04);
-
-  }
-
-
-
-  to {
-
-    border-color: rgba(246, 200, 119, 0.42);
-
-    box-shadow: 0 0 25px rgba(246, 200, 119, 0.12);
-
-  }
-
-}
-
-
-
-@keyframes contest-star-spin {
-
-  to {
-
-    transform: rotate(360deg);
-
-  }
-
-}
-
-
-
-/* Main heading highlight */
-
-
-
-.title__accent {
-
-  display: block;
-
-  margin-top: 8px;
-
-
-
-  background: linear-gradient(
-
-    110deg,
-
-    #fff0cb 0%,
-
-    #f6c877 36%,
-
-    #ffe7b2 65%,
-
-    #eaa45d 100%
-
-  );
-
-
-
-  background-size: 200% auto;
-
-  background-clip: text;
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-
-
-  animation: contest-title-shine 7s linear infinite;
-
-}
-
-
-
-@keyframes contest-title-shine {
-
-  to {
-
-    background-position: 200% center;
-
-  }
-
-}
-
-
-
-/* Festive tagline */
-
-
-
-.hero__tagline {
-
-  margin: 23px auto 0;
-
-
-
-  color: #f6c877;
-
-
-
-  font-size: 0.7rem;
-
-  font-weight: 600;
-
-
-
-  letter-spacing: 0.2em;
-
-  line-height: 1.8;
-
-}
-
-
-
-/* Hero description */
-
-
-
-.hero .lede {
-
-  max-width: 49ch;
-
-
-
-  margin: 16px auto 0;
-
-
-
-  font-size: 0.96rem;
-
-  line-height: 1.85;
-
-  text-wrap: pretty;
-
-}
-
-
-
-/* Contest steps */
-
-
-
-.hero__steps {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex-wrap: wrap;
-
-
-
-  gap: 11px;
-
-
-
-  margin: 25px auto 0;
-
-
-
-  color: rgba(255, 247, 234, 0.78);
-
-
-
-  font-size: 0.69rem;
-
-  font-weight: 500;
-
-  letter-spacing: 0.06em;
-
-}
-
-
-
-.hero__separator {
-
-  color: #f6c877;
-
-  font-size: 0.7rem;
-
-
-
-  animation: contest-separator-glow 2.5s ease-in-out infinite alternate;
-
-}
-
-
-
-@keyframes contest-separator-glow {
-
-  from {
-
-    opacity: 0.4;
-
-  }
-
-
-
-  to {
-
-    opacity: 1;
-
-    text-shadow: 0 0 10px #f6c877;
-
-  }
-
-}
-
-
-
-/* Premium contest CTA */
-
-
-
-.hero__cta {
-
-  position: relative;
-
-
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 18px;
-
-
-
-  min-width: 205px;
-
-
-
-  margin-top: 28px;
-
-  padding: 15px 24px;
-
-
-
-  overflow: hidden;
-
-
-
-  border: 1px solid rgba(255, 255, 255, 0.32);
-
-  border-radius: 50px;
-
-
-
-  background: linear-gradient(
-
-    120deg,
-
-    #ffe6b0 0%,
-
-    #f6c877 45%,
-
-    #e89b48 100%
-
-  );
-
-
-
-  color: #371b22;
-
-  text-decoration: none;
-
-
-
-  font-family: var(--font-body);
-
-  font-size: 0.85rem;
-
-  font-weight: 700;
-
-  letter-spacing: 0.04em;
-
-
-
-  box-shadow:
-
-    0 12px 35px rgba(234, 155, 72, 0.22),
-
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-
-
-
-  transition:
-
-    transform 300ms ease,
-
-    box-shadow 300ms ease,
-
-    filter 300ms ease;
-
-}
-
-
-
-/* Moving highlight */
-
-
-
-.hero__cta::before {
-
-  content: "";
-
-
-
-  position: absolute;
-
-  top: -50%;
-
-  left: -75%;
-
-
-
-  width: 45%;
-
-  height: 200%;
-
-
-
-  background: rgba(255, 255, 255, 0.32);
-
-
-
-  transform: rotate(25deg);
-
-
-
-  animation: contest-cta-shine 5s ease-in-out infinite;
-
-}
-
-
-
-@keyframes contest-cta-shine {
-
-  0%,
-
-  55% {
-
-    left: -75%;
-
-  }
-
-
-
-  100% {
-
-    left: 150%;
-
-  }
-
-}
-
-
-
-.hero__cta:hover {
-
-  transform: translateY(-4px);
-
-
-
-  filter: brightness(1.07);
-
-
-
-  box-shadow:
-
-    0 18px 42px rgba(234, 155, 72, 0.38),
-
-    0 0 25px rgba(246, 200, 119, 0.2);
-
-}
-
-
-
-.hero__cta:active {
-
-  transform: translateY(-1px);
-
-}
-
-
-
-.hero__cta:focus-visible {
-
-  outline: 2px solid #fff0cb;
-
-  outline-offset: 5px;
-
-}
-
-
-
-.hero__cta-arrow {
-
-  position: relative;
-
-  font-size: 1.05rem;
-
-
-
-  transition: transform 250ms ease;
-
-}
-
-
-
-.hero__cta:hover .hero__cta-arrow {
-
-  transform: translate(3px, -3px);
-
-}
-
-
-
-/* Hero closing line */
-
-
-
-.hero__footnote {
-
-  margin: 15px 0 0;
-
-
-
-  color: rgba(255, 231, 186, 0.48);
-
-
-
-  font-size: 0.59rem;
-
-  font-weight: 500;
-
-
-
-  letter-spacing: 0.19em;
-
-}
-
-
-
-/* Better spacing between the hero and form */
-
-
-
-.hero {
-
-  width: 100%;
-
-  max-width: 760px;
-
-  margin-bottom: 48px;
-
-}
-
-
-
-/* Accessible mobile layout */
-
-
-
-@media (max-width: 720px) {
-
-  .hero .eyebrow {
-
-    max-width: 100%;
-
-    gap: 8px;
-
-    padding: 8px 12px;
-
-
-
-    font-size: 0.57rem;
-
-    letter-spacing: 0.12em;
-
-  }
-
-
-
-  .hero__tagline {
-
-    max-width: 32ch;
-
-    font-size: 0.62rem;
-
-    letter-spacing: 0.14em;
-
-  }
-
-
-
-  .hero .lede {
-
-    max-width: 42ch;
-
-    font-size: 0.88rem;
-
-    line-height: 1.75;
-
-  }
-
-
-
-  .hero__steps {
-
-    gap: 7px;
-
-    font-size: 0.61rem;
-
-    letter-spacing: 0;
-
-  }
-
-
-
-  .hero__cta {
-
-    min-width: 190px;
-
-    margin-top: 23px;
-
-  }
-
-
-
-  .hero__footnote {
-
-    font-size: 0.52rem;
-
-    letter-spacing: 0.12em;
-
-  }
-
-}
-
-
-
-@media (max-width: 380px) {
-
-  .hero .eyebrow {
-
-    font-size: 0.51rem;
-
-    letter-spacing: 0.09em;
-
-  }
-
-
-
-  .hero__steps {
-
-    gap: 5px;
-
-    font-size: 0.55rem;
-
-  }
-
-
-
-  .hero__cta {
-
-    width: min(100%, 240px);
-
-  }
-
-}
-
-
-
-/* Reduced motion accessibility */
-
-
-
-@media (prefers-reduced-motion: reduce) {
-
-  .hero .eyebrow,
-
-  .eyebrow__star,
-
-  .title__accent,
-
-  .hero__separator,
-
-  .hero__cta::before {
-
-    animation: none !important;
-
-  }
-
-
-
-  .hero__cta,
-
-  .hero__cta-arrow {
-
-    transition: none;
-
-  }
-
 }
 
 
 /* =========================================================
-   SNOWCEM DREAM WISH — PREMIUM RESPONSIVE HERO FINISH
-   Larger logo + elegant type + readable three-line intro
-   Kept after the original stylesheet to override old rules.
+   39. TABLET RESPONSIVENESS
 ========================================================= */
 
-.shell {
-  width: 100%;
-  max-width: 1160px;
-  min-width: 0;
-  margin-inline: auto;
-  padding: clamp(88px, 11vh, 132px) clamp(14px, 2.5vw, 28px) 48px;
-}
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  width: 100%;
-  max-width: 880px;
-  min-width: 0;
-  margin: 0 auto clamp(26px, 4vh, 42px);
-  text-align: center;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 2%;
-  left: 50%;
-  width: min(94vw, 780px);
-  height: 460px;
-  transform: translateX(-50%);
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 34%, rgba(255, 193, 105, 0.17), transparent 65%),
-    radial-gradient(ellipse at 50% 78%, rgba(255, 111, 76, 0.10), transparent 72%);
-  filter: blur(14px);
-}
-
-/* Larger logo, without stretching or cropping the source image. */
-.hero__logo-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 0 auto clamp(10px, 1.8vh, 18px);
-}
-
-.contest-logo {
-  display: block;
-  width: min(100%, 540px);
-  height: clamp(185px, 29vh, 300px);
-  max-width: 100%;
-  object-fit: contain;
-  object-position: center;
-  filter:
-    drop-shadow(0 12px 24px rgba(255, 185, 65, 0.20))
-    drop-shadow(0 0 34px rgba(255, 188, 95, 0.10));
-}
-
-/* Small festive label above the headline. */
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 9px 16px;
-  border: 1px solid rgba(255, 215, 150, 0.30);
-  border-radius: 999px;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 214, 145, 0.14),
-    rgba(255, 255, 255, 0.045)
-  );
-  box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  color: #ffe8bd;
-  font-size: 0.64rem;
-  font-weight: 750;
-  letter-spacing: 0.16em;
-  line-height: 1.35;
-  text-align: center;
-  text-wrap: balance;
-}
-
-.hero__eyebrow span:first-child,
-.hero__eyebrow span:last-child {
-  flex: 0 0 auto;
-  color: #ffd16f;
-  text-shadow: 0 0 12px rgba(255, 205, 115, 0.75);
-}
-
-/* Premium headline: serif display font, pearl first line, gold second line. */
-.title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  gap: 2px;
-  margin: clamp(14px, 2.1vh, 22px) auto 0;
-  color: #fff;
-  font-family: var(--font-display), Georgia, "Times New Roman", serif;
-  font-size: clamp(2.75rem, 7vw, 5.6rem);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
-  text-align: center;
-  text-wrap: balance;
-  overflow-wrap: normal;
-  animation: festive-title-glow 5s ease-in-out infinite alternate;
-}
-
-.title__main,
-.title__accent {
-  position: relative;
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  margin-inline: auto;
-  line-height: 1.06;
-}
-
-.title__main {
-  color: #fffaf0;
-  background: linear-gradient(180deg, #ffffff 0%, #fff5df 58%, #f9dca8 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 15px rgba(255, 230, 190, 0.16));
-}
-
-.title__accent {
-  margin-top: 5px;
-  padding: 0 0.07em 0.10em;
-  color: #ffd76a;
-  font-style: italic;
-  background: linear-gradient(
-    105deg,
-    #fff4cf 0%,
-    #ffd36f 28%,
-    #f4a83e 52%,
-    #ffe8a6 76%,
-    #fff8df 100%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 5px 18px rgba(255, 183, 55, 0.30));
-  animation: contest-title-shine 7s linear infinite;
-}
-
-.title__accent::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -0.02em;
-  width: clamp(112px, 22vw, 210px);
-  height: 2px;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 221, 145, 0.95),
-    rgba(255, 164, 65, 0.9),
-    transparent
-  );
-  box-shadow: 0 0 12px rgba(255, 196, 96, 0.48);
-}
-
-/* The changing typewriter span stays horizontally centred while typing. */
-.title__main .typewriter-text,
-.title__accent .typewriter-text {
-  display: inline-block;
-  max-width: 100%;
-  white-space: nowrap;
-  text-align: center;
-  vertical-align: top;
-}
-
-.typewriter-text {
-  display: inline-block;
-  max-width: 100%;
-  text-align: center;
-  white-space: pre-line;
-  vertical-align: top;
-}
-
-.typewriter-char {
-  display: inline;
-}
-
-.typewriter-cursor {
-  display: inline-block;
-  width: 0.045em;
-  min-width: 2px;
-  max-width: 3px;
-  height: 0.82em;
-  margin-left: 4px;
-  vertical-align: -0.06em;
-  border-radius: 3px;
-  background: #ffd76a;
-  box-shadow: 0 0 10px rgba(255, 214, 106, 0.65);
-  animation: typewriterBlink 0.8s steps(2, start) infinite;
-}
-
-.title__accent .typewriter-cursor {
-  background: #ffe2a0;
-}
-
-/* Festive tagline. */
-.hero__tagline {
-  width: 100%;
-  max-width: 68ch;
-  margin: clamp(12px, 1.8vh, 18px) auto 0;
-  padding: 0 6px;
-  color: #ffdc91;
-  font-size: clamp(0.76rem, 1.12vw, 0.92rem);
-  font-weight: 800;
-  letter-spacing: clamp(0.09em, 0.17vw, 0.18em);
-  line-height: 1.55;
-  text-align: center;
-  text-wrap: balance;
-  text-shadow: 0 2px 16px rgba(255, 194, 76, 0.32);
-}
-
-.hero__tagline .typewriter-text {
-  text-align: center;
-}
-
-/* Larger and clearer intro. JSX supplies three deliberate line breaks. */
-.hero .lede {
-  width: min(100%, 780px);
-  max-width: 780px;
-  margin: clamp(12px, 1.8vh, 18px) auto 0;
-  color: rgba(255, 250, 240, 0.97);
-  font-size: clamp(1rem, 1.48vw, 1.12rem);
-  font-weight: 500;
-  letter-spacing: 0.005em;
-  line-height: 1.65;
-  text-align: center;
-  white-space: pre-line;
-  text-wrap: balance;
-  text-shadow: 0 2px 13px rgba(0, 0, 0, 0.32);
-}
-
-.hero .lede .typewriter-text {
-  display: inline-block;
-  max-width: 100%;
-  white-space: pre-line;
-  text-align: center;
-  line-height: inherit;
-}
-
-/* Contest participation steps. */
-.hero__steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  margin: clamp(15px, 2.2vh, 22px) auto 0;
-  color: rgba(255, 247, 234, 0.90);
-  font-size: clamp(0.70rem, 0.92vw, 0.82rem);
-  font-weight: 650;
-  letter-spacing: 0.025em;
-  line-height: 1.5;
-  text-align: center;
-}
-
-.hero__separator {
-  color: #ffd36f;
-  font-size: 0.85rem;
-  text-shadow: 0 0 12px rgba(255, 211, 111, 0.70);
-}
-
-.hero__footnote {
-  margin: 13px auto 0;
-  color: rgba(255, 224, 166, 0.68);
-  font-size: 0.60rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  line-height: 1.6;
-  text-align: center;
-}
-
-/* Preserve form width and keep footer items from overflowing. */
-.card {
-  width: 100%;
-  max-width: 660px;
-}
-
-.foot {
-  flex-wrap: wrap;
-  line-height: 1.5;
-}
-
-/* Tablet and mobile. */
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .shell {
-    padding: clamp(82px, 11vh, 108px) 14px 40px;
+    padding-top: clamp(90px, 12vh, 118px);
   }
 
   .hero {
     max-width: 100%;
+  }
+
+  .contest-logo {
+    width: min(100%, 470px);
+  }
+
+  .rangoli-ornament {
+    width: min(94vw, 650px);
+    top: 53%;
+  }
+
+  .rangoli-ornament__svg {
+    opacity: 0.23;
+  }
+
+  .premium-falling-item {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================================
+   40. MOBILE RESPONSIVENESS
+========================================================= */
+
+@media (max-width: 720px) {
+  .shell {
+    width: 100%;
+
+    padding:
+      clamp(82px, 11vh, 108px)
+      14px
+      40px;
+  }
+
+  .hero {
+    max-width: 100%;
+
     margin-bottom: 27px;
   }
 
@@ -5659,20 +2986,28 @@ html.is-booting {
 
   .contest-logo {
     width: min(100%, 405px);
+
     height: clamp(165px, 27vh, 225px);
   }
 
-  .hero__eyebrow {
+  .hero__eyebrow,
+  .hero .eyebrow {
     gap: 8px;
+
     padding: 8px 12px;
+
     font-size: 0.58rem;
+
     letter-spacing: 0.12em;
   }
 
   .title {
     gap: 2px;
+
     margin-top: 13px;
+
     font-size: clamp(2.35rem, 10vw, 3.95rem);
+
     letter-spacing: -0.045em;
     line-height: 1.04;
   }
@@ -5688,8 +3023,11 @@ html.is-booting {
 
   .hero__tagline {
     max-width: 54ch;
+
     margin-top: 12px;
+
     font-size: clamp(0.69rem, 1.8vw, 0.82rem);
+
     letter-spacing: 0.12em;
     line-height: 1.55;
   }
@@ -5697,50 +3035,286 @@ html.is-booting {
   .hero .lede {
     width: 100%;
     max-width: 450px;
+
     margin-top: 12px;
+
     font-size: clamp(0.92rem, 2.35vw, 1.02rem);
+
     line-height: 1.62;
     letter-spacing: 0;
   }
 
+  .lede-wrap {
+    width: calc(100% - 24px);
+
+    padding: 20px 18px;
+
+    margin: 22px auto 28px;
+  }
+
+  .lede-wrap .lede {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .lede-wrap .lede--second {
+    font-size: 16px;
+  }
+
   .hero__steps {
     gap: 7px 10px;
+
     margin-top: 15px;
+
     font-size: 0.68rem;
   }
 
   .hero__footnote {
     margin-top: 11px;
+
     font-size: 0.54rem;
+
     letter-spacing: 0.12em;
   }
 
+  /* Wish card */
+
   .card {
-    padding: 28px 22px 26px;
+    width: 100%;
+    max-width: 620px;
+
+    height: auto;
+
+    padding: 26px 22px;
+
+    border-radius: 22px;
+  }
+
+  .card__sub {
+    margin-bottom: 21px;
+  }
+
+  .form {
+    gap: 16px;
+  }
+
+  .grid {
+    gap: 15px;
+  }
+
+  /* Layout */
+
+  .grid--2,
+  .grid--3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .foot {
+    flex-wrap: wrap;
+  }
+
+  /* Decorations */
+
+  .rangoli-ornament {
+    top: 54%;
+
+    width: min(112vw, 480px);
+
+    filter:
+      drop-shadow(
+        0 0 12px rgba(246, 200, 119, 0.11)
+      );
+  }
+
+  .rangoli-ornament__svg {
+    opacity: 0.21;
+  }
+
+  .rangoli-ornament::before {
+    inset: 12%;
+  }
+
+  .rangoli-ornament::after {
+    inset: 5%;
+  }
+
+  /* Festive animations */
+
+  .contest-logo {
+    animation-duration: 7s;
+  }
+
+  .festive-petal:nth-child(n + 7) {
+    display: none;
+  }
+
+  .festive-reveal {
+    transform:
+      translate3d(0, 18px, 0)
+      scale(0.99);
+
+    filter: none;
+  }
+
+  /* Footer */
+
+  .diya__svg {
+    width: 32px;
+    height: 32px;
   }
 }
 
-/* Narrow phones: protect the title and keep each intro line readable. */
+
+/* =========================================================
+   41. SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .contest-logo {
+    width: 100%;
+    max-width: 350px;
+
+    height: clamp(150px, 25vh, 200px);
+  }
+
+  .title {
+    font-size: clamp(2.25rem, 11vw, 2.8rem);
+
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+  }
+
+  .hero__tagline {
+    font-size: 0.66rem;
+
+    line-height: 1.8;
+    letter-spacing: 0.085em;
+  }
+
+  .hero .lede {
+    max-width: 100%;
+
+    font-size: 0.90rem;
+
+    line-height: 1.58;
+  }
+
+  .hero__steps {
+    gap: 6px 8px;
+
+    font-size: 0.62rem;
+  }
+
+  .hero__separator {
+    font-size: 13px;
+  }
+
+  .hero__footnote {
+    font-size: 0.49rem;
+    letter-spacing: 0.09em;
+  }
+
+  .card {
+    padding: 23px 17px 22px;
+
+    border-radius: 20px;
+  }
+
+  .card__title {
+    font-size: 1.45rem;
+  }
+
+  .card__sub {
+    margin: 7px 0 19px;
+
+    font-size: 0.82rem;
+  }
+
+  .form {
+    gap: 15px;
+  }
+
+  .field__input {
+    padding: 12px 13px;
+
+    font-size: 0.9rem;
+  }
+
+  .drop {
+    padding: 19px 13px;
+  }
+
+  .submit {
+    padding: 14px 18px;
+  }
+
+  .lede-wrap {
+    width: calc(100% - 20px);
+
+    padding: 17px 13px;
+
+    margin: 18px auto 25px;
+  }
+
+  .lede__eyebrow {
+    font-size: 9px;
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+  }
+
+  .lede-wrap .lede {
+    font-size: 15px;
+    line-height: 1.8;
+
+    letter-spacing: 0;
+  }
+
+  .lede-wrap .lede--second {
+    font-size: 14px;
+    line-height: 1.75;
+
+    margin-top: 10px;
+  }
+
+  .hero .eyebrow,
+  .hero__eyebrow {
+    font-size: 0.51rem;
+    letter-spacing: 0.09em;
+  }
+}
+
+
+/* =========================================================
+   42. EXTRA SMALL MOBILE
+========================================================= */
+
 @media (max-width: 380px) {
   .shell {
-    padding: 78px 12px 34px;
+    padding:
+      78px
+      12px
+      34px;
   }
 
   .contest-logo {
     width: min(100%, 335px);
-    height: clamp(150px, 25vh, 190px);
-  }
 
-  .hero__eyebrow {
-    gap: 6px;
-    padding: 7px 9px;
-    font-size: 0.52rem;
-    letter-spacing: 0.09em;
+    height: clamp(150px, 25vh, 190px);
   }
 
   .title {
     font-size: clamp(2.25rem, 11.4vw, 2.8rem);
     letter-spacing: -0.04em;
+  }
+
+  .hero__eyebrow {
+    gap: 6px;
+
+    padding: 7px 9px;
+
+    font-size: 0.52rem;
+    letter-spacing: 0.09em;
   }
 
   .hero__tagline {
@@ -5750,6 +3324,7 @@ html.is-booting {
 
   .hero .lede {
     max-width: 100%;
+
     font-size: 0.90rem;
     line-height: 1.58;
   }
@@ -5763,9 +3338,52 @@ html.is-booting {
     font-size: 0.49rem;
     letter-spacing: 0.09em;
   }
+
+  .card {
+    padding: 20px 14px;
+
+    border-radius: 18px;
+  }
+
+  .card__title {
+    font-size: 1.3rem;
+  }
+
+  .card__sub {
+    font-size: 0.78rem;
+  }
+
+  .field__label {
+    font-size: 0.66rem;
+  }
+
+  .field__input {
+    padding: 11px 12px;
+  }
+
+  .form {
+    gap: 13px;
+  }
+
+  .hero__cta {
+    width: min(100%, 240px);
+  }
+
+  .rangoli-ornament {
+    width: 116vw;
+    top: 53%;
+  }
+
+  .rangoli-ornament__svg {
+    opacity: 0.18;
+  }
 }
 
-/* Compact laptop heights: retain the larger look without pushing the hero off-screen. */
+
+/* =========================================================
+   43. COMPACT LAPTOP HEIGHT
+========================================================= */
+
 @media (min-width: 721px) and (max-height: 820px) {
   .shell {
     padding-top: clamp(76px, 10vh, 102px);
@@ -5781,6 +3399,7 @@ html.is-booting {
 
   .title {
     margin-top: 11px;
+
     font-size: clamp(2.8rem, 6.2vw, 4.9rem);
   }
 
@@ -5798,20 +3417,188 @@ html.is-booting {
   }
 }
 
-/* Accessibility: do not animate when the visitor requests reduced motion. */
+@media (min-width: 721px) and (max-height: 760px) {
+  .card {
+    padding: 24px 30px;
+  }
+
+  .card__sub {
+    margin-bottom: 18px;
+  }
+
+  .form {
+    gap: 14px;
+  }
+
+  .grid {
+    gap: 14px;
+  }
+
+  .field__input {
+    padding: 11px 14px;
+  }
+
+  .field__input--area {
+    min-height: 76px;
+  }
+}
+
+
+/* =========================================================
+   44. FINAL WISH CARD SCREEN-FIT SAFETY
+========================================================= */
+
+/*
+  These final rules protect the wish card from:
+  - Fixed percentage heights
+  - Grid overflow
+  - Input overflow
+  - Horizontal scrolling
+  - Unwanted card stretching
+*/
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+}
+
+.page,
+.shell,
+.hero,
+.card {
+  min-width: 0;
+}
+
+.card,
+.card *,
+.card *::before,
+.card *::after {
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  max-width: var(--card-max-width);
+
+  height: auto !important;
+  min-height: 0;
+
+  flex: none;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  align-self: center;
+}
+
+.form,
+.grid,
+.field {
+  width: 100%;
+  min-width: 0;
+}
+
+.field__input,
+.drop,
+.submit {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================================
+   45. ACCESSIBILITY — REDUCED MOTION
+========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .bulb,
+  .diya__flame,
+  .diya__halo,
+  .embers__i,
+  .done__flame,
+  .submit__spark,
+  .lights__wash,
+  .contest-logo,
+  .title,
+  .title__accent,
+  .hero .eyebrow,
+  .eyebrow__star,
+  .hero__separator,
+  .hero__cta::before,
+  .festive-petal,
+  .card {
+    animation: none !important;
+  }
+
+  .festive-petals {
+    display: none;
+  }
+
+  .festive-reveal,
+  .festive-reveal.is-revealed {
+    opacity: 1;
+
+    transform: none;
+
+    filter: none;
+
+    transition: none;
+  }
+
+  .rocket,
+  .flash,
+  .boom {
+    display: none;
+  }
+
+  .loader__word {
+    transform: translate(-50%, 0);
+
+    animation: none;
+
+    opacity: 1;
+  }
+
   .typewriter-cursor {
     animation: none !important;
     visibility: hidden;
   }
 
-  .title,
-  .title__accent,
-  .hero__separator {
+  .rangoli-ornament::before,
+  .rangoli-ornament::after,
+  .rangoli-ornament__rings,
+  .rangoli-ornament__outer,
+  .rangoli-ornament__outer-beads,
+  .rangoli-ornament__middle,
+  .rangoli-ornament__beads,
+  .rangoli-ornament__inner,
+  .rangoli-ornament__center {
     animation: none !important;
-  }
 
-  .hero::before {
-    filter: none;
+    transition: none !important;
+
+    will-change: auto;
   }
 }
